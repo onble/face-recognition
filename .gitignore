@@ -1,11 +1,51 @@
-target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
-# https://github.com/takari/maven-wrapper#usage-without-binary-jar
-.mvn/wrapper/maven-wrapper.jar
+# 这个文件用来控制忽略哪些文件
+
+#1. 文件版本控制的状态
+#- 未加入版本控制系统： 红色
+#- 忽略的文件： 土色
+#- 添加到暂存区: 绿色
+#- 提交到本地仓库或推送到远程仓库：白色
+#- 代码修改未提交：蓝色
+
+## 下面是我写的
+# 忽略.mvn文件，等maven自动生成
+/.mvn
+# 下面是不知道啥文件，反正先不要
+mvnw
+mvnw.cmd
+office-system.iml
+
+
+## 下面是系统自动生成的
+HELP.md
+# 忽略编译的文件
+/target/
+#!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+### STS ###
+#.apt_generated
+#.classpath
+#.factorypath
+#.project
+#.settings
+#.springBeans
+#.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+#*.iws
+#*.iml
+#*.ipr
+
+### NetBeans ###
+#/nbproject/private/
+#/nbbuild/
+#/dist/
+#/nbdist/
+#/.nb-gradle/
+#build/
+
+### VS Code ###
+.vscode/

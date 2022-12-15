@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>欢迎欢迎~</title>
+        <link rel="stylesheet" href="./css/login.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+    </head>
+    <body>
+        <div class="container">
+            <!-- Sign Up -->
+            <div class="container__form container--signup">
+                <form
+                    action="/register_inf"
+                    method="post"
+                    class="form"
+                    id="register"
+                >
+                    <h2 class="form__title">现在注册</h2>
+                    <div class="item">
+                        <div class="inf" id="wrong_username">
+                            <i
+                                class="fa fa-exclamation-triangle"
+                                aria-hidden="true"
+                            ></i
+                            >&nbsp;该用户名已存在
+                        </div>
+                        <div class="box">
+                            <span class="label_name">用户名:</span>
+                            <input
+                                type="text"
+                                name="username"
+                                placeholder="请输入用户名"
+                                class="input"
+                            />
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="box">
+                            <span class="label_name">密码:</span>
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="请输入密码"
+                                class="input"
+                            />
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="box">
+                            <div class="inf" id="wrong_repassword">
+                                <i
+                                    class="fa fa-exclamation-triangle"
+                                    aria-hidden="true"
+                                ></i
+                                >&nbsp;重复密码不一致
+                            </div>
+                            <span class="label_name">重复密码:</span>
+                            <input
+                                type="password"
+                                name="repassword"
+                                placeholder="请重复输入密码"
+                                class="input"
+                            />
+                        </div>
+                    </div>
+
+                    <button class="btn" type="submit" id="btn_register">
+                        注册
+                    </button>
+                </form>
+            </div>
+
+            <!-- Sign In -->
+            <div class="container__form container--signin">
+                <form action="#" class="form" id="login">
+                    <h2 class="form__title">马上登录</h2>
+                    <div class="item">
+                        <div class="box">
+                            <div class="inf" id="wrong_login">
+                                <i
+                                    class="fa fa-exclamation-triangle"
+                                    aria-hidden="true"
+                                ></i
+                                >&nbsp;用户名或密码有误
+                            </div>
+                            <span class="label_name">用户名</span>
+                            <input
+                                type="text"
+                                name="username"
+                                placeholder="请输入用户名"
+                                class="input"
+                            />
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="box">
+                            <span class="label_name">密码</span>
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="请输入密码"
+                                class="input"
+                            />
+                        </div>
+                    </div>
+                    <a href="#" class="link">忘记密码?</a>
+                    <button class="btn" id="btn_login">登录</button>
+                </form>
+            </div>
+
+            <!-- Overlay -->
+            <div class="container__overlay">
+                <div class="overlay">
+                    <div class="overlay__panel overlay--left">
+                        <button class="btn" id="signIn">马上登录</button>
+                    </div>
+                    <div class="overlay__panel overlay--right">
+                        <button class="btn" id="signUp">现在注册</button>
+                    </div>
+                </div>
+            </div>
+            <div id="success_register">
+                <p>注册成功，请登录</p>
+                <span>确定</span>
+            </div>
+        </div>
+        <script>
+            const signInBtn = document.getElementById("signIn");
+            const signUpBtn = document.getElementById("signUp");
+            const rigisterForm = document.getElementById("register");
+            const loginForm = document.getElementById("login");
+            const container = document.querySelector(".container");
+            const success_register_btn = document.querySelector(
+                "div#success_register span"
+            );
+            const success_register_box = document.querySelector(
+                "div#success_register"
+            );
+
+            signInBtn.addEventListener("click", () => {
+                container.classList.remove("right-panel-active");
+            });
+
+            signUpBtn.addEventListener("click", () => {
+                container.classList.add("right-panel-active");
+            });
+
+            success_register_btn.addEventListener("click", () => {
+                success_register_box.style.zIndex = -101;
+            });
+
+            rigisterForm.addEventListener("submit", (e) => {
+                // 这个是注册表单的提交
+                // 阻止默认的传递方式
+                e.preventDefault();
+                // 下面编写前端对注册信息的验证
+                // 当点击提交的时候检查两次密码是否一致
+                const password = document.forms.register.password.value;
+                const repassword = document.forms.register.repassword.value;
+                const wrong_repassword =
+                    document.getElementById("wrong_repassword");
+                const wrong_username =
+                    document.getElementById("wrong_username");
+                if (repassword != password) {
+                    // 此时两次密码不一致
+                    // 展示提示信息
+                    wrong_repassword.style.display = "block";
+                    return;
+                } else {
+                    wrong_repassword.style.display = "none";
+                }
+                // 创建ajax进行传递数据
+                // 1.创建对象
+                const xhr = new XMLHttpRequest();
+                // 2.初始化 设置类型与URL
+                xhr.open("POST", "/register_inf");
+                // 获取formDate
+                const rigisterFormData = new FormData(rigisterForm);
+                // 3.发送
+                xhr.send(rigisterFormData);
+                // 后台成功接收到传输的数据
+                // TODO 这里应该让按钮变成转圈状态，表示正在等待服务器的校验
+                // 先修改文字展示
+                const btn_register = document.getElementById("btn_register");
+                btn_register.innerHTML = "正在注册中...";
+                // 4.事件绑定
+                xhr.onreadystatechange = function () {
+                    // 判断
+                    if (xhr.readyState === 4) {
+                        if (xhr.status >= 200 && xhr.status < 300) {
+                            btn_register.innerHTML = "注册";
+                            // 处理服务器返回的结果
+                            // 成功接收服务器的返回数据
+                            const result = JSON.parse(xhr.responseText);
+                            // 根据返回结果进行反馈结果
+                            if (result["username_check"] === false) {
+                                wrong_username.style.display = "block";
+                                document.forms.register.username.addEventListener(
+                                    "input",
+                                    function () {
+                                        wrong_username.style.display = "none";
+                                    },
+                                    {
+                                        once: true,
+                                    }
+                                );
+                            }
+                            if (result["repassword_check"] === false) {
+                                wrong_repassword.style.display = "block";
+                            }
+
+                            if (result["creat_user"] == true) {
+                                // 进行提示注册成功请登录
+                                success_register_box.style.zIndex = 101;
+                                container.classList.remove(
+                                    "right-panel-active"
+                                );
+                            }
+                        }
+                    }
+                };
+            });
+            loginForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const wrong_login = document.getElementById("wrong_login");
+                wrong_login.style.display = "none";
+                // 创建ajax进行传递数据
+                // 1.创建对象
+                const xhr = new XMLHttpRequest();
+                // 2.初始化 设置类型与URL
+                xhr.open("POST", "/login_inf");
+                // 获取formDate
+                const loginFormData = new FormData(loginForm);
+                // 3.发送
+                xhr.send(loginFormData);
+                // 后台成功接收到传输的数据
+                // TODO 这里应该让按钮变成转圈状态，表示正在等待服务器的校验
+                // 先修改文字展示
+                const btn_login = document.getElementById("btn_login");
+                btn_login.innerHTML = "正在登录中...";
+                // 4.事件绑定
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status >= 200 && xhr.status < 300) {
+                            btn_login.innerHTML = "登录";
+                            const result = JSON.parse(xhr.responseText);
+                            if (result["check"] === false) {
+                                wrong_login.style.display = "block";
+                            }
+                            if (result["check"] === true) {
+                                location.replace("./myspace");
+                            }
+                        }
+                    }
+                };
+            });
+        </script>
+    </body>
+</html>

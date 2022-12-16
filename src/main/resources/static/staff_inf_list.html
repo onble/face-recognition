@@ -31,65 +31,59 @@
             >
         </div>
         <div class="x-body">
-			
-			<form class="layui-form x-center" action="" style="width: 800px">
-			    <div class="layui-form-pane" style="margin-top: 15px">
-			        <div class="layui-form-item">
-			            <div class="layui-input-inline">
-			                <input
-			                    type="text"
-			                    name="username"
-			                    placeholder="姓名"
-			                    autocomplete="off"
-			                    class="layui-input"
-			                />
-			            </div>
-			            <div class="layui-input-inline" style="width: 80px">
-			                <button
-			                    class="layui-btn"
-			                    lay-submit=""
-			                    lay-filter="sreach"
-			                >
-			                    <i class="layui-icon">&#xe615;</i>
-			                </button>
-			            </div>
-			        </div>
-			    </div>
-			</form>
-			
+            <form class="layui-form x-center" action="" style="width: 800px">
+                <div class="layui-form-pane" style="margin-top: 15px">
+                    <div class="layui-form-item">
+                        <div class="layui-input-inline">
+                            <input
+                                type="text"
+                                name="username"
+                                placeholder="姓名"
+                                autocomplete="off"
+                                class="layui-input"
+                            />
+                        </div>
+                        <div class="layui-input-inline" style="width: 80px">
+                            <button
+                                class="layui-btn"
+                                lay-submit=""
+                                lay-filter="sreach"
+                            >
+                                <i class="layui-icon">&#xe615;</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
             <xblock>
                 <button class="layui-btn layui-btn-danger" onclick="delAll()">
                     <i class="layui-icon">&#xe640;</i>批量删除
                 </button>
-                
+
                 <button
                     class="layui-btn"
                     onclick="todo_add('添加','staff_infadd.html','1000','600')"
                 >
                     <i class="layui-icon">&#xe608;</i>添加
                 </button>
-                <span class="x-right" style="line-height: 40px"
-                    >剩余空间：<span class="layui-badge">1289</span> M</span
-                >
             </xblock>
             <table class="layui-table">
                 <thead>
                     <tr>
-                        <th>
-                            <input type="checkbox" name="" value="" />
-                        </th>
+                        <th>选择</th>
                         <th>姓名</th>
                         <th>年龄</th>
                         <th>电话</th>
-						<th>性别</th>
-						<th>是否为部门领导</th>
-						<th>职务</th>
-						<th>月工资</th>
-						<th>所属部门</th>
-						<th>生日</th>
-						<th>文件大小设置</th>
-						<th>剩余文件大小</th>
-						<th>操作</th>
+                        <th>性别</th>
+                        <th>是否为部门领导</th>
+                        <th>职务</th>
+                        <th>月工资</th>
+                        <th>所属部门</th>
+                        <th>生日</th>
+                        <th>文件大小设置</th>
+                        <th>剩余文件大小</th>
+                        <th>操作</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -97,18 +91,18 @@
                         <td>
                             <input type="checkbox" value="1" name="" />
                         </td>
-                        <td>李四</td>                      
+                        <td>李四</td>
                         <td>23</td>
-						<td>18300001234</td>
-						<td>女</td>
-						<td>否</td>
-						<td>测试工程师</td>
-						<td>25000元</td>
-						<td>测试部</td>
-						<td>2000年1月1日</td>
-						<td>50M</td>
-						<td>1023M</td>
-						
+                        <td>18300001234</td>
+                        <td>女</td>
+                        <td>否</td>
+                        <td>测试工程师</td>
+                        <td>25000元</td>
+                        <td>测试部</td>
+                        <td>2000年1月1日</td>
+                        <td>50M</td>
+                        <td>1023M</td>
+
                         <td class="td-manage">
                             <a
                                 title="编辑"
@@ -144,7 +138,7 @@
                         <td>2000年1月1日</td>
                         <td>50M</td>
                         <td>1023M</td>
-                        
+
                         <td class="td-manage">
                             <a
                                 title="编辑"
@@ -180,7 +174,7 @@
                         <td>1993年1月1日</td>
                         <td>50M</td>
                         <td>1023M</td>
-                        
+
                         <td class="td-manage">
                             <a
                                 title="编辑"
@@ -216,7 +210,7 @@
                         <td>2001年1月1日</td>
                         <td>50M</td>
                         <td>1023M</td>
-                        
+
                         <td class="td-manage">
                             <a
                                 title="编辑"

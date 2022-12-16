@@ -60,41 +60,6 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label">
-                                    <span class="x-red">*</span>状态
-                                </label>
-                                <div class="layui-input-block">
-                                    <input
-                                        type="radio"
-                                        name="status"
-                                        value="1"
-                                        title="已完成"
-                                    />
-                                    <div
-                                        class="layui-unselect layui-form-radio layui-form-radioed"
-                                    >
-                                        <i
-                                            class="layui-anim layui-icon layui-anim-scaleSpring"
-                                            ></i
-                                        >
-                                        <div>已完成</div>
-                                    </div>
-                                    <input
-                                        type="radio"
-                                        name="status"
-                                        value="0"
-                                        title="未完成"
-                                        checked="checked"
-                                    />
-                                    <div
-                                        class="layui-unselect layui-form-radio"
-                                    >
-                                        <i class="layui-anim layui-icon"></i>
-                                        <div>未完成</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
                                 <button
                                     class="layui-btn"
                                     type="button"
@@ -134,7 +99,10 @@
                         return false;
                     }
                     if (households == "") {
-                        layer.msg("部门简介不能为空！", { icon: 5, time: 2000 });
+                        layer.msg("部门简介不能为空！", {
+                            icon: 5,
+                            time: 2000,
+                        });
                         return false;
                     }
                     var data = data.field;

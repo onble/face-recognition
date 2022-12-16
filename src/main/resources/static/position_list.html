@@ -31,53 +31,47 @@
             >
         </div>
         <div class="x-body">
-			
-			<form class="layui-form x-center" action="" style="width: 800px">
-			    <div class="layui-form-pane" style="margin-top: 15px">
-			        <div class="layui-form-item">
-			            <div class="layui-input-inline">
-			                <input
-			                    type="text"
-			                    name="username"
-			                    placeholder="职务"
-			                    autocomplete="off"
-			                    class="layui-input"
-			                />
-			            </div>
-			            <div class="layui-input-inline" style="width: 80px">
-			                <button
-			                    class="layui-btn"
-			                    lay-submit=""
-			                    lay-filter="sreach"
-			                >
-			                    <i class="layui-icon">&#xe615;</i>
-			                </button>
-			            </div>
-			        </div>
-			    </div>
-			</form>
-			
+            <form class="layui-form x-center" action="" style="width: 800px">
+                <div class="layui-form-pane" style="margin-top: 15px">
+                    <div class="layui-form-item">
+                        <div class="layui-input-inline">
+                            <input
+                                type="text"
+                                name="username"
+                                placeholder="职务名称"
+                                autocomplete="off"
+                                class="layui-input"
+                            />
+                        </div>
+                        <div class="layui-input-inline" style="width: 80px">
+                            <button
+                                class="layui-btn"
+                                lay-submit=""
+                                lay-filter="sreach"
+                            >
+                                <i class="layui-icon">&#xe615;</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
             <xblock>
                 <button class="layui-btn layui-btn-danger" onclick="delAll()">
                     <i class="layui-icon">&#xe640;</i>批量删除
                 </button>
-              
+
                 <button
                     class="layui-btn"
                     onclick="todo_add('添加','positionadd.html','1000','600')"
                 >
                     <i class="layui-icon">&#xe608;</i>添加
                 </button>
-                <span class="x-right" style="line-height: 40px"
-                    >剩余空间：<span class="layui-badge">1289</span> M</span
-                >
             </xblock>
             <table class="layui-table">
                 <thead>
                     <tr>
-                        <th>
-                            <input type="checkbox" name="" value="" />
-                        </th>
+                        <th>选择</th>
                         <th>职务名称</th>
                         <th>职务职责</th>
                         <th>操作</th>
@@ -88,7 +82,7 @@
                         <td>
                             <input type="checkbox" value="1" name="" />
                         </td>
-                        <td>前端工程师</td>                       
+                        <td>前端工程师</td>
                         <td>编写前端页面</td>
                         <td class="td-manage">
                             <a
@@ -116,7 +110,7 @@
                         </td>
                         <td>网络工程师</td>
                         <td>计算机系统的设计以及建设</td>
-                        
+
                         <td class="td-manage">
                             <a
                                 title="编辑"
@@ -143,7 +137,7 @@
                         </td>
                         <td>测试工程师</td>
                         <td>对产品进行测试</td>
-                        
+
                         <td class="td-manage">
                             <a
                                 title="编辑"
@@ -170,7 +164,7 @@
                         </td>
                         <td>运维工程师</td>
                         <td>对软件运行中各种性能进行维护</td>
-                        
+
                         <td class="td-manage">
                             <a
                                 title="编辑"

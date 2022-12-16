@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>欢迎界面</title>
+        <meta name="renderer" content="webkit" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1"
+        />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="format-detection" content="telephone=no" />
+        <link rel="stylesheet" href="css/main.css" media="all" />
+        <link
+            rel="stylesheet"
+            href="lib/bootstrap/css/bootstrap.css"
+            media="all"
+        />
+        <link
+            rel="stylesheet"
+            href="lib/bootstrap/js/bootstrap.min.js"
+            media="all"
+        />
+    </head>
+    <body>
+        <style type="text/css">
+            legend {
+                display: block;
+                width: 100px;
+                border-bottom: 0px;
+                font-family: "Microsoft YaHei", "Helvetica Neue";
+            }
+            legend a {
+                color: #666;
+            }
+            legend a:hover {
+                text-decoration: none;
+            }
+            .layui-table {
+                font-family: "Microsoft YaHei", "Helvetica Neue";
+            }
+        </style>
+        <div class="x-body">
+            <blockquote class="layui-elem-quote">
+                欢迎使用OA移动互联网办公系统！<span class="f-14">v0.1</span>
+            </blockquote>
+            <div class="row">
+                <div class="col-xs-6 col-sm-4 col-md-4">
+                    <section class="panel">
+                        <div class="symbol bgcolor-blue">
+                            <i class="layui-icon left-nav-li" lay-tips="首页"
+                                >&#xe649;</i
+                            >
+                        </div>
+                        <div class="value tab-menu" bind="1">
+                            <a
+                                href="javascript:;"
+                                data-url="user-info.html"
+                                data-parent="true"
+                                data-title="总栋数"
+                                ><i class="iconfont" data-icon=""></i>
+                                <h1>5</h1>
+                            </a>
+
+                            <a
+                                href="javascript:;"
+                                data-url="user-info.html"
+                                data-parent="true"
+                                data-title="总栋数"
+                            >
+                                <i class="iconfont" data-icon=""></i
+                                ><span>待办事项</span></a
+                            >
+                        </div>
+                    </section>
+                </div>
+                <div class="col-xs-6 col-sm-4 col-md-4">
+                    <section class="panel">
+                        <div class="symbol bgcolor-commred">
+                            <i class="layui-icon left-nav-li" lay-tips="首页"
+                                >&#xe637;</i
+                            >
+                        </div>
+                        <div class="value tab-menu" bind="1">
+                            <a
+                                href="javascript:;"
+                                data-url="user-info.html"
+                                data-parent="true"
+                                data-title="总户数"
+                            >
+                                <i class="iconfont" data-icon=""></i>
+                                <h1>3</h1>
+                            </a>
+
+                            <a
+                                href="javascript:;"
+                                data-url="user-info.html"
+                                data-parent="true"
+                                data-title="总户数"
+                            >
+                                <i class="iconfont" data-icon=""></i
+                                ><span>日程安排</span></a
+                            >
+                        </div>
+                    </section>
+                </div>
+                <div class="col-xs-6 col-sm-4 col-md-4">
+                    <section class="panel">
+                        <div class="symbol bgcolor-dark-green">
+                            <i class="layui-icon left-nav-li" lay-tips="首页"
+                                >&#x1005;</i
+                            >
+                        </div>
+                        <div class="value tab-menu" bind="1">
+                            <a
+                                href="javascript:;"
+                                data-url="user-info.html"
+                                data-parent="true"
+                                data-title="总人数"
+                            >
+                                <i class="iconfont" data-icon=""></i>
+                                <h1>4</h1>
+                            </a>
+                            <a
+                                href="javascript:;"
+                                data-url="user-info.html"
+                                data-parent="true"
+                                data-title="总人数"
+                            >
+                                <i class="iconfont" data-icon=""></i
+                                ><span>在线人数</span></a
+                            >
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <fieldset class="layui-elem-field layui-field-title site-title">
+                <legend><a name="default">任务概览</a></legend>
+            </fieldset>
+
+            <!--相关统计-->
+            <div class="row">
+                <div class="col-sm-6">
+                    <section class="panel">
+                        <div class="panel-heading">今日日程</div>
+                        <div class="panel-body">
+                            <ul class="list-group clear-list m-t">
+                                <li class="list-group-item fist-item">
+                                    <span class="float-right"> 08:00 </span>
+                                    <span class="label label-success">1</span>
+                                    开会
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="float-right"> 8:16 </span>
+                                    <span class="label label-info">2</span>
+                                    交报告
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="float-right"> 08:22 </span>
+                                    <span class="label label-primary">3</span>
+                                    编写api接口文档
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="float-right"> 9:06 </span>
+                                    <span class="label label-warning">4</span>
+                                    编写项目需求说明
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="float-right"> 10:00 </span>
+                                    <span class="label label-warning">5</span>
+                                    开会
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="float-right"> 13:22 </span>
+                                    <span class="label label-warning">6</span>
+                                    摸鱼
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="float-right"> 16:06 </span>
+                                    <span class="label label-warning">7</span>
+                                    编写数据库结构
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="float-right"> 17:00 </span>
+                                    <span class="label label-warning">8</span>
+                                    编写日志
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="float-right"> 19:06 </span>
+                                    <span class="label label-warning">9</span>
+                                    喝茶
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="float-right"> 20:00 </span>
+                                    <span class="label label-warning">10</span>
+                                    跳广场舞
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+                <div class="col-sm-6">
+                    <section class="panel">
+                        <div class="panel-heading">待办事项</div>
+                        <div class="panel-body">
+                            <ul class="list-group clear-list m-t">
+                                <li class="list-group-item">
+                                    <span class="float-right">
+                                        <b style="color: #2fb9d4"
+                                            >已完成</b
+                                        ></span
+                                    >
+                                    <span class="label label-danger">1</span>
+                                    录制区块链视频
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="float-right">
+                                        <b style="color: #2fb9d4"
+                                            >已完成</b
+                                        ></span
+                                    >
+                                    <span class="label label-info">2</span>
+                                    打印申请报告
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="float-right">
+                                        <b style="color: #2fb9d4"
+                                            >已完成</b
+                                        ></span
+                                    >
+                                    <span class="label label-warning">3</span>
+                                    修改页面布局
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="float-right">
+                                        <b style="color: #2fb9d4"
+                                            >已完成</b
+                                        ></span
+                                    >
+                                    <span class="label label-default">4</span>
+                                    测试代码效果
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="float-right">
+                                        <b style="color: #ff5722"
+                                            >未完成</b
+                                        ></span
+                                    >
+                                    <span class="label label-default">5</span>
+                                    买水果
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="float-right">
+                                        <b style="color: #ff5722"
+                                            >未完成</b
+                                        ></span
+                                    >
+                                    <span class="label label-default">6</span>
+                                    上王者
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="float-right">
+                                        <b style="color: #ff5722"
+                                            >未完成</b
+                                        ></span
+                                    >
+                                    <span class="label label-default">7</span>
+                                    沟通项目进度
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="float-right">
+                                        <b style="color: #2fb9d4"
+                                            >已完成</b
+                                        ></span
+                                    >
+                                    <span class="label label-default">8</span>
+                                    编写ppt
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <script src="lib/layui/layui.js" charset="utf-8"></script>
+            <script src="js/jquery.min.js"></script>
+            <script src="js/echarts.min.js"></script>
+        </div>
+        <div class="layui-footer footer footer-demo">
+            <div class="layui-main">
+                <p>
+                    <a href="/">
+                        Copyright ©2017 17sucai.com All Rights Reserved.
+                    </a>
+                </p>
+            </div>
+        </div>
+    </body>
+</html>

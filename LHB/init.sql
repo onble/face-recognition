@@ -5,6 +5,7 @@ create table staff
     account  varchar(50)  not null unique comment '账号',
     password varchar(200) not null comment '密码'
 ) comment '职工信息表';
+# TODO:插入职工状态字段
 
 
 -- 生成管理员信息表

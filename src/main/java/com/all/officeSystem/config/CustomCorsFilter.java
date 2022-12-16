@@ -1,4 +1,4 @@
-package com.example.school_hd_class.config;
+package com.all.officeSystem.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

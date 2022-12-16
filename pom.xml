@@ -50,6 +50,12 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.4.3</version>
         </dependency>
+        <!--druid-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.2.11</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -1,4 +1,4 @@
-package com.example.school_hd_class;
+package com.all.officeSystem;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

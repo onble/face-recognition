@@ -26,7 +26,7 @@ public class R extends HashMap<String, Object> {
     public static R error(){
         R r = new R();
         r.put("code", 500);
-        r.put("mag", "error");
+        r.put("msg", "error");
         return r;
     }
 

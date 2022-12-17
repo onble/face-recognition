@@ -3,9 +3,9 @@ create table staff
 (
     id       int primary key auto_increment comment '职工id',
     account  varchar(50)  not null unique comment '账号',
-    password varchar(200) not null comment '密码'
+    password varchar(200) not null comment '密码',
+    status tinyint not null default 0 comment '账号状态，0：正常使用 1:禁止使用 2:刚注册'
 ) comment '职工信息表';
-# TODO:插入职工状态字段
 
 
 -- 生成管理员信息表
@@ -42,7 +42,7 @@ create table department
 -- 生成个人信息表
 create table staff_inf
 (
-    staff_id         int comment '职工id',
+    staff_id         int not null comment '职工id',
     constraint fk_staffInf_staff foreign key (staff_id) references staff (id),
     name             varchar(50) comment '姓名',
     age              tinyint comment '年龄',

@@ -68,7 +68,7 @@
                         </li>
 
                         <li class="layui-nav-item">
-                            <a href="javascript:;">admin</a>
+                            <a href="javascript:;" class="account">admin</a>
                             <dl class="layui-nav-child">
                                 <!-- 二级菜单 -->
                                 <dd>
@@ -137,7 +137,7 @@
                             overflow: hidden;
                         "
                     >
-                        你好！<span class="userName">admin</span>, 欢迎回来
+                        你好！<span class="account">admin</span>, 欢迎回来
                     </p>
                 </div>
                 <div class="layui-side-scroll">
@@ -306,26 +306,26 @@
                 //以上模块根据需要引入
             });
 
-            function logout() {
-                $.ajax({
-                    type: "post",
-                    url: "xxxxx",
-                    data: { e: 1 },
-                    dataType: "json",
-                    success: function (data) {
-                        if (data.status == 1) {
-                            layer.msg(data.info, { icon: 1, time: 1000 });
-                            setTimeout("window.location.href='xxxx'", 2000);
-                            return false;
-                            return false;
-                        } else {
-                            layer.msg(data.info, { icon: 5, time: 2000 });
-                            return false;
-                        }
-                    },
-                });
-                return false;
-            }
+            // function logout() {
+            //     $.ajax({
+            //         type: "post",
+            //         url: "xxxxx",
+            //         data: { e: 1 },
+            //         dataType: "json",
+            //         success: function (data) {
+            //             if (data.status == 1) {
+            //                 layer.msg(data.info, { icon: 1, time: 1000 });
+            //                 setTimeout("window.location.href='xxxx'", 2000);
+            //                 return false;
+            //                 return false;
+            //             } else {
+            //                 layer.msg(data.info, { icon: 5, time: 2000 });
+            //                 return false;
+            //             }
+            //         },
+            //     });
+            //     return false;
+            // }
 
             function one_set(title, url, w, h) {
                 x_admin_show(title, url, w, h);
@@ -402,5 +402,6 @@
                 });
             };
         </script> -->
+        <script src="./js/index_user.js"></script>
     </body>
 </html>

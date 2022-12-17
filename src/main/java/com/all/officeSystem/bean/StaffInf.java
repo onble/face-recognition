@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 /**
- * 个人信息对象
+ * 个人信息实体类
  */
 @Data
 @AllArgsConstructor

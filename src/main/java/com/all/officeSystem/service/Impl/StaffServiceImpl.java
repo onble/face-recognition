@@ -1,12 +1,20 @@
 package com.all.officeSystem.service.Impl;
 
-import com.all.officeSystem.bean.Staff;
+import com.all.officeSystem.bean.*;
 import com.all.officeSystem.common.R;
+import com.all.officeSystem.mapper.DepartmentMapper;
+import com.all.officeSystem.mapper.PostMapper;
 import com.all.officeSystem.mapper.StaffInfMapper;
 import com.all.officeSystem.mapper.StaffMapper;
 import com.all.officeSystem.service.StaffService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class StaffServiceImpl implements StaffService {
@@ -15,6 +23,10 @@ public class StaffServiceImpl implements StaffService {
     private StaffMapper staffMapper;
     @Autowired
     private StaffInfMapper staffInfMapper;
+    @Autowired
+    private DepartmentMapper departmentMapper;
+    @Autowired
+    private PostMapper postMapper;
 
     /**
      * 职员登录
@@ -85,6 +97,48 @@ public class StaffServiceImpl implements StaffService {
         staffInfMapper.insertNewStaffInf(staffNew.getId());
         createStaffCheck = true;
         return R.ok().setData("account_check", accountCheck).setData("repassword_check", repasswordCheck).setData("create_account", createStaffCheck);
+    }
+
+    @Override
+    public PageInfo<StaffInf> getStaffInfListByPage(int page, int items) throws Exception {
+        // 初始化分页信息
+        PageHelper.startPage(page, items);
+        // 查询全部数据
+        List<StaffInf> staffInfs = staffInfMapper.selectAll();
+        // 借助分页助手获取分页信息
+        PageInfo<StaffInf> pageInfo = new PageInfo<>(staffInfs);
+
+        return pageInfo;
+    }
+
+    @Override
+    public R getAddressListByPage(int page, int items) throws Exception {
+        // 新建通讯录列表
+        List<AddressInf> addressInfs = new ArrayList<AddressInf>();
+        // 获取分页的职员信息
+        PageInfo<StaffInf> staffInfListByPage = getStaffInfListByPage(page, items);
+        List<StaffInf> staffs = staffInfListByPage.getList();
+        for (StaffInf staff : staffs) {
+            // 新建一个地址信息对象
+            AddressInf addressInf = new AddressInf();
+            addressInf.setId(staff.getStaffId());
+            addressInf.setName(staff.getName());
+            addressInf.setPhone(staff.getPhone());
+            addressInf.setGender(staff.isGender());
+            // 去查询部门名称
+            if (!String.valueOf(staff.getDepartmentId()).equals("") && staff.getDepartmentId() != 0) {
+                Department department = departmentMapper.selectById(staff.getDepartmentId());
+                addressInf.setDepartment(department.getName());
+            }
+            // 去查询职务名称
+            if (!String.valueOf(staff.getPositionId()).equals("") && staff.getPositionId() != 0) {
+                Post post = postMapper.selectById(staff.getPositionId());
+                addressInf.setPost(post.getName());
+            }
+            // 将职务信息添加到列表中
+            addressInfs.add(addressInf);
+        }
+        return R.ok().setData("phone_list", addressInfs).setData("pages", staffInfListByPage.getPages());
     }
 
 

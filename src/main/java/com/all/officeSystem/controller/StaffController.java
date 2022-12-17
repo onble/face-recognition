@@ -1,11 +1,15 @@
 package com.all.officeSystem.controller;
 
+import com.all.officeSystem.bean.AddressInf;
 import com.all.officeSystem.bean.Staff;
 import com.all.officeSystem.common.R;
 import com.all.officeSystem.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * 职员的控制器
@@ -17,7 +21,6 @@ public class StaffController {
     private StaffService staffService;
 
     /**
-     * \
      * 职员登录控制
      *
      * @param account
@@ -34,11 +37,28 @@ public class StaffController {
         }
     }
 
+    /**
+     * 职员账号注册
+     *
+     * @param account
+     * @param password
+     * @param repassword
+     * @return
+     */
     @PostMapping("/register_staff")
     public R registerNewStaff(String account, String password, String repassword) {
         try {
-            R r = staffService.register(account, password, repassword);
-            return r;
+            return staffService.register(account, password, repassword);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.error();
+        }
+    }
+
+    @PostMapping("/phone_list/getList")
+    public R getPoneList(int page, int items) {
+        try {
+            return staffService.getAddressListByPage(page, items);
         } catch (Exception e) {
             e.printStackTrace();
             return R.error();

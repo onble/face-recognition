@@ -34,7 +34,7 @@
                             <span class="label_name">用户名:</span>
                             <input
                                 type="text"
-                                name="username"
+                                name="account"
                                 placeholder="请输入用户名"
                                 class="input"
                             />
@@ -92,7 +92,7 @@
                             <span class="label_name">用户名</span>
                             <input
                                 type="text"
-                                name="username"
+                                name="account"
                                 placeholder="请输入用户名"
                                 class="input"
                             />
@@ -131,11 +131,18 @@
             </div>
         </div>
         <script>
+            const domain = "http://localhost:8080/OA"; // 声明主机地址
             const signInBtn = document.getElementById("signIn");
             const signUpBtn = document.getElementById("signUp");
             const rigisterForm = document.getElementById("register");
             const loginForm = document.getElementById("login");
             const container = document.querySelector(".container");
+            const signInAccount = document.querySelector(
+                '#login input[name="account"]'
+            );
+            const signInPassword = document.querySelector(
+                '#login input[name="password"]'
+            );
             const success_register_btn = document.querySelector(
                 "div#success_register span"
             );
@@ -179,7 +186,7 @@
                 // 1.创建对象
                 const xhr = new XMLHttpRequest();
                 // 2.初始化 设置类型与URL
-                xhr.open("POST", "/register_inf");
+                xhr.open("POST", domain + "/register_staff");
                 // 获取formDate
                 const rigisterFormData = new FormData(rigisterForm);
                 // 3.发送
@@ -199,7 +206,7 @@
                             // 成功接收服务器的返回数据
                             const result = JSON.parse(xhr.responseText);
                             // 根据返回结果进行反馈结果
-                            if (result["username_check"] === false) {
+                            if (result["account_check"] === false) {
                                 wrong_username.style.display = "block";
                                 document.forms.register.username.addEventListener(
                                     "input",
@@ -215,7 +222,7 @@
                                 wrong_repassword.style.display = "block";
                             }
 
-                            if (result["creat_user"] == true) {
+                            if (result["create_account"] == true) {
                                 // 进行提示注册成功请登录
                                 success_register_box.style.zIndex = 101;
                                 container.classList.remove(
@@ -227,6 +234,7 @@
                 };
             });
             loginForm.addEventListener("submit", (e) => {
+                // 这个是登录表单的提交
                 e.preventDefault();
                 const wrong_login = document.getElementById("wrong_login");
                 wrong_login.style.display = "none";
@@ -234,7 +242,7 @@
                 // 1.创建对象
                 const xhr = new XMLHttpRequest();
                 // 2.初始化 设置类型与URL
-                xhr.open("POST", "/login_inf");
+                xhr.open("POST", domain + "/login_staff");
                 // 获取formDate
                 const loginFormData = new FormData(loginForm);
                 // 3.发送
@@ -250,15 +258,37 @@
                         if (xhr.status >= 200 && xhr.status < 300) {
                             btn_login.innerHTML = "登录";
                             const result = JSON.parse(xhr.responseText);
-                            if (result["check"] === false) {
+                            if (result["code"] != 200) {
                                 wrong_login.style.display = "block";
                             }
-                            if (result["check"] === true) {
-                                location.replace("./myspace");
+                            if (result["code"] === 200) {
+                                // 将账号保存
+                                sessionStorage.setItem(
+                                    "staff_id",
+                                    result["staff"]["id"]
+                                );
+                                sessionStorage.setItem(
+                                    "staff_account",
+                                    result["staff"]["account"]
+                                );
+                                location.replace("./index_user.html");
                             }
                         }
                     }
                 };
+            });
+            // 给登录的输入框绑定监听事件
+            signInAccount.addEventListener("input", function () {
+                wrong_login.style.display = "none";
+            });
+            signInAccount.addEventListener("propertychange", function () {
+                wrong_login.style.display = "none";
+            });
+            signInPassword.addEventListener("input", function () {
+                wrong_login.style.display = "none";
+            });
+            signInPassword.addEventListener("propertychange", function () {
+                wrong_login.style.display = "none";
             });
         </script>
     </body>

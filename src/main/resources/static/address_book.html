@@ -9,6 +9,7 @@
         <script src="lib/layui/layui.js" charset="utf-8"></script>
         <script src="js/x-layui.js" charset="utf-8"></script>
         <script src="./js/address_book.js"></script>
+        <script src="./js/jquery.min.js"></script>
 
         <script>
             layui.use(
@@ -34,13 +35,17 @@
         </div>
 
         <div class="x-body">
-            <form class="layui-form x-center" action="" style="width: 800px">
+            <form
+                class="layui-form x-center"
+                id="searchName"
+                style="width: 800px"
+            >
                 <div class="layui-form-pane" style="margin-top: 15px">
                     <div class="layui-form-item">
                         <div class="layui-input-inline">
                             <input
                                 type="text"
-                                name="username"
+                                name="name"
                                 placeholder="姓名"
                                 autocomplete="off"
                                 class="layui-input"
@@ -68,71 +73,7 @@
                         <th>电话</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>李昊波</td>
-                        <td>男</td>
-                        <td>前端工程师</td>
-                        <td>研发部</td>
-                        <td>18525332903</td>
-                    </tr>
-                    <tr>
-                        <td>宋华军</td>
-                        <td>男</td>
-                        <td>数据分析师</td>
-                        <td>回收部</td>
-                        <td>18525332903</td>
-                    </tr>
-                    <tr>
-                        <td>李昊波</td>
-                        <td>男</td>
-                        <td>前端工程师</td>
-                        <td>研发部</td>
-                        <td>18525332903</td>
-                    </tr>
-                    <tr>
-                        <td>李昊波</td>
-                        <td>男</td>
-                        <td>前端工程师</td>
-                        <td>研发部</td>
-                        <td>18525332903</td>
-                    </tr>
-                    <tr>
-                        <td>李昊波</td>
-                        <td>男</td>
-                        <td>前端工程师</td>
-                        <td>研发部</td>
-                        <td>18525332903</td>
-                    </tr>
-                    <tr>
-                        <td>李昊波</td>
-                        <td>男</td>
-                        <td>前端工程师</td>
-                        <td>研发部</td>
-                        <td>18525332903</td>
-                    </tr>
-                    <tr>
-                        <td>李昊波</td>
-                        <td>男</td>
-                        <td>前端工程师</td>
-                        <td>研发部</td>
-                        <td>18525332903</td>
-                    </tr>
-                    <tr>
-                        <td>李昊波</td>
-                        <td>男</td>
-                        <td>前端工程师</td>
-                        <td>研发部</td>
-                        <td>18525332903</td>
-                    </tr>
-                    <tr>
-                        <td>李昊波</td>
-                        <td>男</td>
-                        <td>前端工程师</td>
-                        <td>研发部</td>
-                        <td>18525332903</td>
-                    </tr>
-                </tbody>
+                <tbody></tbody>
             </table>
             <nav><ul></ul></nav>
         </div>

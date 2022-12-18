@@ -23,6 +23,13 @@ public interface StaffService {
     // 根据职员id获取职员信息
     // 按页数获取职员信息
     PageInfo<StaffInf> getStaffInfListByPage(int page, int items) throws Exception;
+
+    // 按页数和名字获取职员信息
+    PageInfo<StaffInf> getStaffInfListByPageByName(int page, int items, String name) throws Exception;
+
     // 获取通讯录信息
     R getAddressListByPage(int page, int items) throws Exception;
+
+    // 根据名字获取通讯录信息
+    R getAddressListByPageByName(int page, int items, String name) throws Exception;
 }

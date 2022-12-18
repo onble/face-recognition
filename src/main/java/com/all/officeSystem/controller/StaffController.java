@@ -55,10 +55,32 @@ public class StaffController {
         }
     }
 
+    /**
+     * 根据页码获取获取通讯录
+     * @param page
+     * @param items
+     * @return
+     */
     @PostMapping("/phone_list/getList")
     public R getPoneList(int page, int items) {
         try {
             return staffService.getAddressListByPage(page, items);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.error();
+        }
+    }
+
+    /**
+     * 根据页码和名字模糊查询获取获取通讯录
+     * @param page
+     * @param items
+     * @return
+     */
+    @PostMapping("/phone_list/getListWithName")
+    public R getPoneListWithName(int page, int items,String name) {
+        try {
+            return staffService.getAddressListByPageByName(page, items,name);
         } catch (Exception e) {
             e.printStackTrace();
             return R.error();

@@ -16,4 +16,8 @@ public interface StaffInfMapper {
     // 查询全部数据
     @Select("select * from staff_inf")
     List<StaffInf> selectAll() throws Exception;
+
+    // 根据名字模糊查询全部数据
+    @Select("select * from staff_inf where name like '%${name}%'")
+    List<StaffInf> selectByName(String name) throws Exception;
 }

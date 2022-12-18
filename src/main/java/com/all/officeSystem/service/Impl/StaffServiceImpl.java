@@ -112,6 +112,19 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
+    public PageInfo<StaffInf> getStaffInfListByPageByName(int page, int items, String name) throws Exception {
+        // 初始化分页信息
+        PageHelper.startPage(page, items);
+        // 查询全部数据
+        List<StaffInf> staffInfs = staffInfMapper.selectByName(name);
+        // 借助分页助手获取分页信息
+        PageInfo<StaffInf> pageInfo = new PageInfo<>(staffInfs);
+
+        return pageInfo;
+    }
+
+
+    @Override
     public R getAddressListByPage(int page, int items) throws Exception {
         // 新建通讯录列表
         List<AddressInf> addressInfs = new ArrayList<AddressInf>();
@@ -139,6 +152,36 @@ public class StaffServiceImpl implements StaffService {
             addressInfs.add(addressInf);
         }
         return R.ok().setData("phone_list", addressInfs).setData("pages", staffInfListByPage.getPages());
+    }
+
+    @Override
+    public R getAddressListByPageByName(int page, int items, String name) throws Exception {
+        // 新建通讯录列表
+        List<AddressInf> addressInfs = new ArrayList<AddressInf>();
+        // 获取分页的职员信息
+        PageInfo<StaffInf> staffInfListByPageByName = getStaffInfListByPageByName(page, items, name);
+        List<StaffInf> staffs = staffInfListByPageByName.getList();
+        for (StaffInf staff : staffs) {
+            // 新建一个地址信息对象
+            AddressInf addressInf = new AddressInf();
+            addressInf.setId(staff.getStaffId());
+            addressInf.setName(staff.getName());
+            addressInf.setPhone(staff.getPhone());
+            addressInf.setGender(staff.isGender());
+            // 去查询部门名称
+            if (!String.valueOf(staff.getDepartmentId()).equals("") && staff.getDepartmentId() != 0) {
+                Department department = departmentMapper.selectById(staff.getDepartmentId());
+                addressInf.setDepartment(department.getName());
+            }
+            // 去查询职务名称
+            if (!String.valueOf(staff.getPositionId()).equals("") && staff.getPositionId() != 0) {
+                Post post = postMapper.selectById(staff.getPositionId());
+                addressInf.setPost(post.getName());
+            }
+            // 将职务信息添加到列表中
+            addressInfs.add(addressInf);
+        }
+        return R.ok().setData("phone_list", addressInfs).setData("pages", staffInfListByPageByName.getPages());
     }
 
 

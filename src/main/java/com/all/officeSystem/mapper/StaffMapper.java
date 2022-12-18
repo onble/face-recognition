@@ -17,5 +17,4 @@ public interface StaffMapper {
     @Insert("insert into staff values (default,#{account},#{password},0)")
     void insertNewStaff(String account, String password) throws Exception;
 
-
 }

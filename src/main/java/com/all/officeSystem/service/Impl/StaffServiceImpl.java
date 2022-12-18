@@ -2,10 +2,7 @@ package com.all.officeSystem.service.Impl;
 
 import com.all.officeSystem.bean.*;
 import com.all.officeSystem.common.R;
-import com.all.officeSystem.mapper.DepartmentMapper;
-import com.all.officeSystem.mapper.PostMapper;
-import com.all.officeSystem.mapper.StaffInfMapper;
-import com.all.officeSystem.mapper.StaffMapper;
+import com.all.officeSystem.mapper.*;
 import com.all.officeSystem.service.StaffService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -27,6 +24,8 @@ public class StaffServiceImpl implements StaffService {
     private DepartmentMapper departmentMapper;
     @Autowired
     private PostMapper postMapper;
+    @Autowired
+    private OnlineResultMapper onlineResultMapper;
 
     /**
      * 职员登录
@@ -182,6 +181,28 @@ public class StaffServiceImpl implements StaffService {
             addressInfs.add(addressInf);
         }
         return R.ok().setData("phone_list", addressInfs).setData("pages", staffInfListByPageByName.getPages());
+    }
+
+    @Override
+    public R getOnlineResultByPage(int page, int items) throws Exception {
+        // 初始化分页信息
+        PageHelper.startPage(page, items);
+        // 查询全部数据
+        List<OnlineResult> onlineResults = onlineResultMapper.selectAll();
+        // 借助分页助手获取分页信息
+        PageInfo<OnlineResult> pageInfo = new PageInfo<>(onlineResults);
+        return R.ok().setData("online_inf", pageInfo.getList());
+    }
+
+    @Override
+    public R getOnlineResultByPageByName(int page, int items, String name) throws Exception {
+        // 初始化分页信息
+        PageHelper.startPage(page, items);
+        // 查询全部数据
+        List<OnlineResult> onlineResults = onlineResultMapper.selectByName(name);
+        // 借助分页助手获取分页信息
+        PageInfo<OnlineResult> pageInfo = new PageInfo<>(onlineResults);
+        return R.ok().setData("online_inf", pageInfo.getList());
     }
 
 

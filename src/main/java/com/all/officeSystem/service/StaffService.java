@@ -1,6 +1,7 @@
 package com.all.officeSystem.service;
 
 import com.all.officeSystem.bean.AddressInf;
+import com.all.officeSystem.bean.OnlineResult;
 import com.all.officeSystem.bean.Staff;
 import com.all.officeSystem.bean.StaffInf;
 import com.all.officeSystem.common.R;
@@ -32,4 +33,10 @@ public interface StaffService {
 
     // 根据名字获取通讯录信息
     R getAddressListByPageByName(int page, int items, String name) throws Exception;
+
+    // 按页数获取在线信息
+    R getOnlineResultByPage(int page, int items) throws Exception;
+
+    // 根据名字获取在线信息
+    R getOnlineResultByPageByName(int page, int items, String name) throws Exception;
 }

@@ -2,11 +2,13 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>通讯录</title>
+        <title>在线信息</title>
 
         <link rel="stylesheet" href="css/main.css" media="all" />
         <script src="lib/layui/layui.js" charset="utf-8"></script>
         <script src="js/x-layui.js" charset="utf-8"></script>
+        <script src="./js/online.js"></script>
+        <link rel="stylesheet" href="./css/online.css" />
 
         <script>
             layui.use(
@@ -19,7 +21,7 @@
         <div class="x-nav">
             <span class="layui-breadcrumb">
                 <a><cite>首页</cite></a>
-                <a><cite>通讯录</cite></a>
+                <a><cite>在线信息</cite></a>
             </span>
 
             <button
@@ -32,13 +34,17 @@
         </div>
 
         <div class="x-body">
-            <form class="layui-form x-center" action="" style="width: 800px">
+            <form
+                class="layui-form x-center"
+                id="searchName"
+                style="width: 800px"
+            >
                 <div class="layui-form-pane" style="margin-top: 15px">
                     <div class="layui-form-item">
                         <div class="layui-input-inline">
                             <input
                                 type="text"
-                                name="username"
+                                name="name"
                                 placeholder="姓名"
                                 autocomplete="off"
                                 class="layui-input"
@@ -65,49 +71,9 @@
                         <th>在线状态</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>李昊波</td>
-                        <td>前端工程师</td>
-                        <td>研发部</td>
-                        <td class="td-status">
-                            <span class="layui-btn layui-btn-normal">
-                                在线
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>宋华军</td>
-                        <td>数据分析师</td>
-                        <td>回收部</td>
-                        <td class="td-status">
-                            <span class="layui-btn layui-btn-normal">
-                                在线
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>李昊波</td>
-                        <td>前端工程师</td>
-                        <td>研发部</td>
-                        <td class="td-status">
-                            <span class="layui-btn layui-btn-danger">
-                                离线
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>李昊波</td>
-                        <td>前端工程师</td>
-                        <td>研发部</td>
-                        <td class="td-status">
-                            <span class="layui-btn layui-btn-danger">
-                                离线
-                            </span>
-                        </td>
-                    </tr>
-                </tbody>
+                <tbody></tbody>
             </table>
+            <nav><ul></ul></nav>
         </div>
 
         <script>

@@ -1,9 +1,11 @@
 package com.all.officeSystem.controller;
 
 import com.all.officeSystem.bean.AddressInf;
+import com.all.officeSystem.bean.OnlineResult;
 import com.all.officeSystem.bean.Staff;
 import com.all.officeSystem.common.R;
 import com.all.officeSystem.service.StaffService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -81,6 +83,39 @@ public class StaffController {
     public R getPoneListWithName(int page, int items,String name) {
         try {
             return staffService.getAddressListByPageByName(page, items,name);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.error();
+        }
+    }
+
+    /**
+     * 根据页码获取在线信息
+     * @param page
+     * @param items
+     * @return
+     */
+    @PostMapping("/online/getList")
+    public R getOnlineInfByPage(int page, int items){
+        try {
+            return staffService.getOnlineResultByPage(page, items);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.error();
+        }
+    }
+
+    /**
+     * 根据页码和模糊查询名字获取在线信息
+     * @param page
+     * @param items
+     * @param name
+     * @return
+     */
+    @PostMapping("/online/getListWithName")
+    public R getOnlineInfByPageWithName(int page, int items, String name){
+        try {
+            return staffService.getOnlineResultByPageByName(page, items,name);
         } catch (Exception e) {
             e.printStackTrace();
             return R.error();

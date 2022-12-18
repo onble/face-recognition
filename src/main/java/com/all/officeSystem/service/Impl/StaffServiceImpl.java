@@ -191,7 +191,7 @@ public class StaffServiceImpl implements StaffService {
         List<OnlineResult> onlineResults = onlineResultMapper.selectAll();
         // 借助分页助手获取分页信息
         PageInfo<OnlineResult> pageInfo = new PageInfo<>(onlineResults);
-        return R.ok().setData("online_inf", pageInfo.getList());
+        return R.ok().setData("online_inf", pageInfo.getList()).setData("pages", pageInfo.getPages());
     }
 
     @Override
@@ -202,7 +202,7 @@ public class StaffServiceImpl implements StaffService {
         List<OnlineResult> onlineResults = onlineResultMapper.selectByName(name);
         // 借助分页助手获取分页信息
         PageInfo<OnlineResult> pageInfo = new PageInfo<>(onlineResults);
-        return R.ok().setData("online_inf", pageInfo.getList());
+        return R.ok().setData("online_inf", pageInfo.getList()).setData("pages", pageInfo.getPages());
     }
 
 

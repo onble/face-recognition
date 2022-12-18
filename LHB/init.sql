@@ -120,7 +120,8 @@ create table meeting
     staff_id   int          not null comment '创建职工id',
     constraint fk_meeting_staff foreign key (staff_id) references staff (id),
     start_time datetime     not null comment '会议开始时间',
-    stop_time  datetime comment '会议结束时间'
+    stop_time  datetime comment '会议结束时间',
+    status tinyint not null default 0 comment '会议状态,0:未开始,1:正在进行,2:已结束'
 ) comment '会议信息管理表';
 
 

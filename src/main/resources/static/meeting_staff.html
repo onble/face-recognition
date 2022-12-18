@@ -15,6 +15,8 @@
         <link rel="stylesheet" href="css/main.css" media="all" />
         <link rel="stylesheet" href="css/bootstrap.css" />
         <script type="text/javascript" src="lib/loading/okLoading.js"></script>
+        <script src="./js/meeting_staff.js"></script>
+        <link rel="stylesheet" href="./css/meeting_staff.css" />
     </head>
     <body>
         <div class="x-nav">
@@ -103,8 +105,9 @@
                     </tr>
                 </tbody>
             </table>
-
-            <div id="page"></div>
+            <nav>
+                <ul></ul>
+            </nav>
         </div>
         <script src="lib/layui/layui.js" charset="utf-8"></script>
         <script src="js/x-layui.js" charset="utf-8"></script>
@@ -137,16 +140,16 @@
                     },
                 };
 
-                document.getElementById("LAY_demorange_s").onclick =
-                    function () {
-                        start.elem = this;
-                        laydate(start);
-                    };
-                document.getElementById("LAY_demorange_e").onclick =
-                    function () {
-                        end.elem = this;
-                        laydate(end);
-                    };
+                // document.getElementById("LAY_demorange_s").onclick =
+                //     function () {
+                //         start.elem = this;
+                //         laydate(start);
+                //     };
+                // document.getElementById("LAY_demorange_e").onclick =
+                //     function () {
+                //         end.elem = this;
+                //         laydate(end);
+                //     };
             });
 
             //批量删除提交

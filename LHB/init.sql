@@ -4,7 +4,7 @@ create table staff
     id       int primary key auto_increment comment '职工id',
     account  varchar(50)  not null unique comment '账号',
     password varchar(200) not null comment '密码',
-    status tinyint not null default 0 comment '账号状态，0：正常使用 1:禁止使用 2:刚注册'
+    status   tinyint      not null default 0 comment '账号状态，0：正常使用 1:禁止使用 2:刚注册'
 ) comment '职工信息表';
 
 
@@ -50,7 +50,7 @@ create table staff_inf
     gender           boolean comment '性别，男1女0',
     is_leader        boolean default false comment '是否为部门领导',
     position_id      int comment '职务id',
-    constraint fk_staffInf_position foreign key (position_id) references post(id),
+    constraint fk_staffInf_position foreign key (position_id) references post (id),
     monthly_salary   double comment '月工资',
     department_id    int comment '所属部门id',
     constraint fk_staffInf_department foreign key (department_id) references department (id),
@@ -105,7 +105,8 @@ create table folder
     staff_id    int         not null comment '所属职工id',
     constraint fk_folder_staff foreign key (staff_id) references staff (id),
     upload_time datetime comment '上传时间',
-    name        varchar(50) not null comment '文件名'
+    name        varchar(50) not null comment '文件名',
+    size        double      not null default 0 comment '文件大小'
 ) comment '文件夹信息表';
 # TODO:应该有文件大小字段
 
@@ -121,7 +122,7 @@ create table meeting
     constraint fk_meeting_staff foreign key (staff_id) references staff (id),
     start_time datetime     not null comment '会议开始时间',
     stop_time  datetime comment '会议结束时间',
-    status tinyint not null default 0 comment '会议状态,0:未开始,1:正在进行,2:已结束'
+    status     tinyint      not null default 0 comment '会议状态,0:未开始,1:正在进行,2:已结束'
 ) comment '会议信息管理表';
 
 
@@ -169,7 +170,6 @@ values (default, '前端工程师', '编写前端页面'),
        (5, '项目经理', '组织开发项目');
 
 
-
 -- 增加部门信息
 insert into department(id, name, home_page)
 values (1, '研发部', '研发部主页'),
@@ -208,10 +208,30 @@ values (1, '统计分数', '2022-12-1', '做excel', 1),
 
 
 -- 增加文件夹信息
-insert into folder(id, path, staff_id, upload_time, name)
-values (1, 'folder/1.txt', 1, '2022-12-1', '1.txt'),
-       (2, 'folder/note.md', 2, '2022-12-1', 'note.md'),
-       (3, 'test.py', 3, '2022-12-2', 'test.py');
+insert into folder(id, path, staff_id, upload_time, name, size)
+values (1, 'folder/1.txt', 1, '2022-12-1', '1.txt',1),
+       (2, 'folder/note.md', 2, '2022-12-1', 'note.md',1),
+       (3, 'test.py', 3, '2022-12-2', 'test.py',1),
+       (4, 'folder/2.txt', 1, '2022-12-1', '2.txt',1),
+       (5, 'folder/3.txt', 1, '2022-12-1', '3.txt',1),
+       (6, 'folder/4.txt', 1, '2022-12-1', '4.txt',1),
+       (7, 'folder/5.txt', 1, '2022-12-1', '5.txt',1),
+       (8, 'folder/6.txt', 1, '2022-12-1', '6.txt',1),
+       (9, 'folder/7.txt', 1, '2022-12-1', '7.txt',1),
+       (10, 'folder/8.txt', 1, '2022-12-1', '8.txt',1),
+       (11, 'folder/9.txt', 1, '2022-12-1', '9.txt',1),
+       (12, 'folder/10.txt', 1, '2022-12-1', '10.txt',1),
+       (13, 'folder/11.txt', 1, '2022-12-1', '11.txt',1),
+       (14, 'folder/12.txt', 1, '2022-12-1', '12.txt',1),
+       (15, 'folder/13.txt', 1, '2022-12-1', '13.txt',1),
+       (16, 'folder/14.txt', 1, '2022-12-1', '14.txt',1),
+       (17, 'folder/15.txt', 1, '2022-12-1', '15.txt',1),
+       (18, 'folder/16.txt', 1, '2022-12-1', '16.txt',1),
+       (19, 'folder/17.txt', 1, '2022-12-1', '17.txt',1),
+       (20, 'folder/18.txt', 1, '2022-12-1', '18.txt',1),
+       (21, 'folder/19.txt', 1, '2022-12-1', '19.txt',1),
+       (22, 'folder/20.txt', 1, '2022-12-1', '20.txt',1),
+       (23, 'folder/21.txt', 1, '2022-12-1', '21.txt',1);
 
 -- 增加会议信息
 insert into meeting(meeting_id, title, address, content, staff_id, start_time, stop_time)

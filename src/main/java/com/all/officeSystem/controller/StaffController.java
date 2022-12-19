@@ -25,9 +25,9 @@ public class StaffController {
     /**
      * 职员登录控制
      *
-     * @param account
-     * @param password
-     * @return
+     * @param account 账号
+     * @param password 密码
+     * @return R
      */
     @PostMapping("/login_staff")
     public R loginStaff(String account, String password) {
@@ -42,10 +42,10 @@ public class StaffController {
     /**
      * 职员账号注册
      *
-     * @param account
-     * @param password
-     * @param repassword
-     * @return
+     * @param account 账号
+     * @param password 密码
+     * @param repassword 重复密码
+     * @return R
      */
     @PostMapping("/register_staff")
     public R registerNewStaff(String account, String password, String repassword) {
@@ -59,9 +59,9 @@ public class StaffController {
 
     /**
      * 根据页码获取获取通讯录
-     * @param page
-     * @param items
-     * @return
+     * @param page 页码
+     * @param items 数量
+     * @return R
      */
     @PostMapping("/phone_list/getList")
     public R getPoneList(int page, int items) {
@@ -75,9 +75,10 @@ public class StaffController {
 
     /**
      * 根据页码和名字模糊查询获取获取通讯录
-     * @param page
-     * @param items
-     * @return
+     * @param page 页码
+     * @param items 数量
+     * @param name 名字
+     * @return R
      */
     @PostMapping("/phone_list/getListWithName")
     public R getPoneListWithName(int page, int items,String name) {
@@ -91,9 +92,9 @@ public class StaffController {
 
     /**
      * 根据页码获取在线信息
-     * @param page
-     * @param items
-     * @return
+     * @param page 页码
+     * @param items 数量
+     * @return R
      */
     @PostMapping("/online/getList")
     public R getOnlineInfByPage(int page, int items){
@@ -107,10 +108,10 @@ public class StaffController {
 
     /**
      * 根据页码和模糊查询名字获取在线信息
-     * @param page
-     * @param items
-     * @param name
-     * @return
+     * @param page 页码
+     * @param items 数量
+     * @param name 名字
+     * @return R
      */
     @PostMapping("/online/getListWithName")
     public R getOnlineInfByPageWithName(int page, int items, String name){

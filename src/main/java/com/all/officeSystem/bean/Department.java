@@ -14,4 +14,6 @@ public class Department {
     private int id; // 部门id
     private String name; // 部门名称
     private String homePage; // 部门主页
+
+
 }

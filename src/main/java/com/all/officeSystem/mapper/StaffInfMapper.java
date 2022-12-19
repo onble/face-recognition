@@ -1,10 +1,7 @@
 package com.all.officeSystem.mapper;
 
 import com.all.officeSystem.bean.StaffInf;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -25,4 +22,15 @@ public interface StaffInfMapper {
     // 根据职员id来减少已使用文件大小
     @Update("UPDATE staff_inf set staff_inf.occupy_file_size = staff_inf.occupy_file_size - #{size} where staff_id=#{staffId}")
     void updateOccupyFileSizeBySizeByStaffId(int staffId, double size) throws Exception;
+
+    //插入信息
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
+    @Insert("insert into staffInf values (default, #{name}, #{age}, #{phone}, #{gender}, #{isLeader}, #{positionId}, #{monthlySalary}, #{departmentId}, #{birthday}, #{folderSize}, #{occupyFileSize} )")
+    void insert(StaffInf th) throws Exception;
+
+    // 根据id删除数据
+    @Delete("delete from staffinf where id = #{id}")
+    void deleteById(int id) throws Exception;
+
+
 }

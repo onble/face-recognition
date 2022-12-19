@@ -23,6 +23,7 @@
     <body>
         <div class="x-body">
             <form class="layui-form layui-form-pane" action="" id="add">
+                <input type="text" name="todo_id" style="display: none" />
                 <div
                     class="layui-tab layui-tab-brief"
                     lay-filter="docDemoTabBrief"
@@ -59,7 +60,7 @@
                                     ></textarea>
                                 </div>
                             </div>
-                            <div class="layui-form-item">
+                            <div class="layui-form-item" id="status_box">
                                 <label class="layui-form-label">
                                     <span class="x-red">*</span>状态
                                 </label>
@@ -101,7 +102,7 @@
                                     lay-filter="add"
                                     lay-submit=""
                                 >
-                                    保存
+                                    保存更改
                                 </button>
                             </div>
                             <div style="height: 100px"></div>
@@ -112,7 +113,6 @@
         </div>
         <script src="lib/layui/layui.js" charset="utf-8"></script>
         <script src="js/x-layui.js" charset="utf-8"></script>
-        <script src="./js/todo_edit.js"></script>
         <script>
             const domain = "http://localhost:8080/OA"; // 声明主机地址
             layui.use(["element", "layer", "form"], function () {
@@ -132,6 +132,7 @@
                         });
                         return false;
                     }
+                    console.log("todo的id", $("input[name='todo_id']").val());
                     var data = `staffId=${sessionStorage.getItem(
                         "staff_id"
                     )}&title=${title}&content=${$(
@@ -139,7 +140,7 @@
                     ).val()}&status=${$("input[name='status']:checked").val()}`;
                     $.ajax({
                         type: "post",
-                        url: domain + "/todo/add",
+                        url: domain + "/todo/change",
                         data: data,
                         dataType: "json",
                         success: function (data) {
@@ -183,5 +184,6 @@
                 });
             });
         </script>
+        <script src="./js/todo_edit.js"></script>
     </body>
 </html>

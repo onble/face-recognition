@@ -15,6 +15,8 @@
         <link rel="stylesheet" href="css/main.css" media="all" />
         <link rel="stylesheet" href="css/bootstrap.css" />
         <script type="text/javascript" src="lib/loading/okLoading.js"></script>
+        <script src="./js/todolist.js"></script>
+        <link rel="stylesheet" href="./css/todlist.css" />
     </head>
     <body>
         <div class="x-nav">
@@ -37,7 +39,7 @@
                 </button>
                 <button
                     class="layui-btn"
-                    onclick="todo_add('添加','todoadd.html','1000','600')"
+                    onclick="todo_add('添加','todoadd.html','1000','450')"
                 >
                     <i class="layui-icon">&#xe608;</i>添加
                 </button>
@@ -183,7 +185,7 @@
                 </tbody>
             </table>
 
-            <div id="page"></div>
+            <nav><ul></ul></nav>
         </div>
         <script src="lib/layui/layui.js" charset="utf-8"></script>
         <script src="js/x-layui.js" charset="utf-8"></script>
@@ -232,7 +234,30 @@
             function delAll() {
                 layer.confirm("确认要删除吗？", function (index) {
                     //捉到所有被选中的，发异步进行删除
-                    layer.msg("删除成功", { icon: 1 });
+                    let ids = [];
+                    $(
+                        "body>div.x-body>table.layui-table>tbody>tr>td>input[name='todo_id']:checked"
+                    ).each(function (index, item) {
+                        let file_id = $(this).val();
+                        ids.push(file_id);
+                    });
+                    // 发送异步请求
+                    $.ajax({
+                        url: domain + "/todo/deletes",
+                        type: "delete",
+                        dataType: "json",
+                        data: "ids=" + ids,
+                        success: function (data) {
+                            if (data.code == 200) {
+                                layer.msg("删除成功", { icon: 1 });
+                                setTimeout(function () {
+                                    window.location.reload();
+                                }, 1000);
+                            } else {
+                                layer.msg("删除失败", { icon: 5 });
+                            }
+                        },
+                    });
                 });
             }
 
@@ -256,13 +281,13 @@
                     { icon: 3, title: "提示信息" },
                     function (index) {
                         $.ajax({
-                            type: "post",
-                            url: "xxx",
+                            type: "delete",
+                            url: domain + "/todo/delete",
                             data: { id: id },
                             dataType: "json",
                             success: function (data) {
-                                //console.log(data);
-                                if (data.status == 1) {
+                                console.log(data);
+                                if (data.code == 200) {
                                     //发异步删除数据
                                     $(obj).parents("tr").remove();
                                     layer.msg(data.info, {

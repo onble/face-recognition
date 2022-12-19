@@ -14,7 +14,7 @@ public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
 
-    @PostMapping("/meeting/getList")
+    @PostMapping("/department/getList")
     public R getListByPage(int page, int items){
         try {
             return departmentService.getDepartmentInfByPage(page, items);

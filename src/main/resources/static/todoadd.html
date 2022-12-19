@@ -37,7 +37,7 @@
                                 <div class="layui-input-block">
                                     <input
                                         type="text"
-                                        name="buildings_name"
+                                        name="title"
                                         autocomplete="off"
                                         placeholder="控制在80个汉字，160个字符以内"
                                         class="layui-input"
@@ -54,7 +54,7 @@
                                 <div class="layui-input-block">
                                     <textarea
                                         placeholder="请输入内容"
-                                        name="desc"
+                                        name="content"
                                         class="layui-textarea"
                                     ></textarea>
                                 </div>
@@ -113,6 +113,7 @@
         <script src="lib/layui/layui.js" charset="utf-8"></script>
         <script src="js/x-layui.js" charset="utf-8"></script>
         <script>
+            const domain = "http://localhost:8080/OA"; // 声明主机地址
             layui.use(["element", "layer", "form"], function () {
                 $ = layui.jquery; //jquery
                 lement = layui.element(); //面包导航
@@ -122,29 +123,26 @@
 
                 //监听提交
                 form.on("submit(add)", function (data) {
-                    var buildings_name = $(
-                        "input[name='buildings_name']"
-                    ).val();
-                    var households = $("input[name='households']").val();
-                    if (buildings_name == "") {
-                        layer.msg("栋数名称不能为空！", {
+                    var title = $("input[name='title']").val();
+                    if (title == "") {
+                        layer.msg("标题不能为空", {
                             icon: 5,
                             time: 2000,
                         });
                         return false;
                     }
-                    if (households == "") {
-                        layer.msg("总户数不能为空！", { icon: 5, time: 2000 });
-                        return false;
-                    }
-                    var data = data.field;
+                    var data = `staffId=${sessionStorage.getItem(
+                        "staff_id"
+                    )}&title=${title}&content=${$(
+                        "textarea[name='content']"
+                    ).val()}&status=${$("input[name='status']:checked").val()}`;
                     $.ajax({
                         type: "post",
-                        url: "xxx",
+                        url: domain + "/todo/add",
                         data: data,
                         dataType: "json",
                         success: function (data) {
-                            if (data.status == 1) {
+                            if (data.code == 200) {
                                 layer.msg(
                                     data.info,
                                     { icon: 6, time: 2000 },
@@ -154,6 +152,24 @@
                                             window.name
                                         );
                                         parent.layer.close(index);
+                                        // 测试使用jQuery实现强制刷新
+                                        // $("iframe[src='todolist.html']").attr(
+                                        //     "src",
+                                        //     "todolist.html"
+                                        // );
+                                        // document
+                                        //     .querySelector(
+                                        //         "iframe[src='todolist.html']"
+                                        //     )
+                                        //     .contentWindow.location.reload(
+                                        //         true
+                                        //     );
+                                        // console.log(
+                                        //     "工作了",
+                                        //     document.querySelector(
+                                        //         "iframe[src='todolist.html']"
+                                        //     )
+                                        // );
                                     }
                                 );
                                 return false;

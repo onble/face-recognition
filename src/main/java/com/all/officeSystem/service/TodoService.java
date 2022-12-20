@@ -24,4 +24,9 @@ public interface TodoService {
 
     // 根据id获取一条待办事项
     Todo selectById(int id) throws Exception;
+
+    // 修改数据
+    void change(int staffId, String title, String content, boolean status, int todoId) throws Exception;
+
+    int  getNum(int staffId) throws Exception;
 }

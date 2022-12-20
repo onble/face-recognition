@@ -4,10 +4,7 @@ import com.all.officeSystem.bean.Todo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -31,4 +28,12 @@ public interface TodoMapper {
     // 根据id获取一条待办事项的信息
     @Select("select * from todo where id=#{id}")
     Todo selectById(int id) throws Exception;
+
+    // 修改数据
+    @Update("update todo set title=#{title},content=#{content},status=#{status} where id=#{todoId}")
+    void change(int staffId, String title, String content, boolean status, int todoId) throws Exception;
+
+    // 获取数据数量
+    @Select("select count(id) from todo where staff_id =#{staffId}")
+    int getNum(int staffId) throws Exception;
 }

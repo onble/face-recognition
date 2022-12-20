@@ -137,7 +137,9 @@
                         "staff_id"
                     )}&title=${title}&content=${$(
                         "textarea[name='content']"
-                    ).val()}&status=${$("input[name='status']:checked").val()}`;
+                    ).val()}&status=${$(
+                        "input[name='status']:checked"
+                    ).val()}&todoId=${$("input[name='todo_id']").val()}`;
                     $.ajax({
                         type: "post",
                         url: domain + "/todo/change",
@@ -147,7 +149,7 @@
                             if (data.code == 200) {
                                 layer.msg(
                                     data.info,
-                                    { icon: 6, time: 2000 },
+                                    { icon: 6, time: 1000 },
                                     function () {
                                         window.parent.location.reload();
                                         var index = parent.layer.getFrameIndex(

@@ -56,4 +56,14 @@ public class TodoServiceImpl implements TodoService {
         return todoMapper.selectById(id);
 
     }
+
+    @Override
+    public void change(int staffId, String title, String content, boolean status, int todoId) throws Exception {
+        todoMapper.change(staffId, title, content, status, todoId);
+    }
+
+    @Override
+    public int getNum(int staffId) throws Exception {
+        return todoMapper.getNum(staffId);
+    }
 }

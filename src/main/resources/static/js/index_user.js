@@ -8,7 +8,7 @@ function auth() {
     // 登录认证
     if (staff_id == null) {
         // 跳转到登录画面
-        location.replace("./login.html");
+        location.replace("./login_staff.html");
     }
     // 动态设置用户名
     console.log($(".account"));
@@ -25,5 +25,5 @@ function logout() {
     sessionStorage.removeItem("staff_account");
     sessionStorage.removeItem("staff_id");
     // 跳转到登录画面
-    location.replace("./login.html");
+    location.replace("./login_staff.html");
 }

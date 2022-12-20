@@ -7,6 +7,7 @@ import com.all.officeSystem.service.TodoService;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -77,5 +78,29 @@ public class TodoController {
             return R.error();
         }
 
+    }
+
+    // 修改数据
+    @PostMapping("/todo/change")
+    public R change(int staffId, String title, String content, boolean status, int todoId) {
+        try {
+            todoService.change(staffId, title, content, status, todoId);
+            return R.ok().setData("info", "修改成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.error().setData("info", "修改失败");
+        }
+    }
+
+    // 获取数据数量
+    @PostMapping("/todo/num")
+    public R getNum(int staffId) {
+        try {
+            int num = todoService.getNum(staffId);
+            return R.ok().setData("todo_inf", num);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.error();
+        }
     }
 }

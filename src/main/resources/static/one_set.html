@@ -13,6 +13,8 @@
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="format-detection" content="telephone=no" />
         <link rel="stylesheet" href="css/main.css" media="all" />
+
+        <script src="./js/one_set.js"></script>
         <style>
             .imgs {
                 display: none;
@@ -32,7 +34,7 @@
         <div class="x-body">
             <form class="layui-form layui-form-pane" action="" id="add">
                 <blockquote class="layui-elem-quote">
-                    <input type="hidden" name="id" value="8" />
+                    <input type="hidden" name="staff_id" />
                     <div>
                         <input
                             class="layui-upload"
@@ -40,28 +42,19 @@
                             accept="undefined"
                             id="previewImg"
                             name="images"
-                            onchange="upload(this,8)"
+                            onchange="upload(this)"
                         />
                         <img
-                            src="./images/tx.jpg"
+                            src="./images/default.jpg"
                             class="layui-circle"
                             style="width: 50px; height: 50px; float: left"
                             id="pimages"
                             name="pimages"
                             alt="个人头像"
                         />
-                        <input
-                            id="avatar"
-                            name="image"
-                            required=""
-                            type="hidden"
-                            value="./images/tx.jpg"
-                        />
                         <dl style="margin-left: 80px; color: #019688">
-                            <dt>
-                                <span class="account">ADMIN</span> <span></span>
-                            </dt>
-                            <dd style="margin-left: 0">--------------</dd>
+                            <dd style="margin-left: 0">点击图片上传头像</dd>
+                            <dd style="margin-left: 0">-----------</dd>
                         </dl>
                     </div>
                 </blockquote>
@@ -133,7 +126,7 @@
                                 <div class="layui-input-block">
                                     <input
                                         type="radio"
-                                        name="status"
+                                        name="gender"
                                         value="1"
                                         title="男"
                                     />
@@ -148,7 +141,7 @@
                                     </div>
                                     <input
                                         type="radio"
-                                        name="status"
+                                        name="gender"
                                         value="0"
                                         title="女"
                                         checked="checked"
@@ -200,32 +193,48 @@
         });*/
 
                 //监听提交
-                form.on("submit(add)", function (data) {
-                    var name = $("input[name='name']").val();
-
-                    if (name == "") {
-                        layer.msg("用户名不能为空", { icon: 5, time: 2000 });
-                        return false;
-                    }
-
-                    var data = data.field;
+                form.on("submit(add)", function (event) {
+                    let data_put = `staffId=${sessionStorage.getItem(
+                        "staff_id"
+                    )}&name=${$("input[name='name']").val()}&gender=${$(
+                        "input[name='gender']:checked"
+                    ).val()}&phone=${$("input[name='phone']").val()}&age=${$(
+                        "input[name='age']"
+                    ).val()}`;
                     $.ajax({
                         type: "post",
-                        url: "xxx",
-                        data: data,
+                        url: domain + "/staff_inf/change",
+                        data: data_put,
                         dataType: "json",
                         success: function (data) {
-                            //alert(1);
-                            if (data.status == 1) {
+                            if (data.code == 200) {
                                 layer.msg(
                                     data.info,
-                                    { icon: 6, time: 2000 },
+                                    { icon: 6, time: 1000 },
                                     function () {
                                         window.parent.location.reload();
                                         var index = parent.layer.getFrameIndex(
                                             window.name
                                         );
                                         parent.layer.close(index);
+                                        // 测试使用jQuery实现强制刷新
+                                        // $("iframe[src='todolist.html']").attr(
+                                        //     "src",
+                                        //     "todolist.html"
+                                        // );
+                                        // document
+                                        //     .querySelector(
+                                        //         "iframe[src='todolist.html']"
+                                        //     )
+                                        //     .contentWindow.location.reload(
+                                        //         true
+                                        //     );
+                                        // console.log(
+                                        //     "工作了",
+                                        //     document.querySelector(
+                                        //         "iframe[src='todolist.html']"
+                                        //     )
+                                        // );
                                     }
                                 );
                                 return false;
@@ -240,24 +249,28 @@
         </script>
         <!--栏目缩略图上传-->
         <script>
-            function upload(obj, id) {
+            function upload(obj) {
                 var formData = new FormData();
-                formData.append("images", $("#previewImg")[0].files[0]);
-                formData.append("id", id);
-                layer.msg("图片上传中", { icon: 16 });
+                formData.append("headerFile", $("#previewImg")[0].files[0]);
+                formData.append("staffId", sessionStorage.getItem("staff_id"));
+                // formData.append("id", id);
+                layer.msg("图片上传中", { icon: 16, time: 1000 });
                 $.ajax({
                     type: "post",
                     processData: false,
                     contentType: false,
-                    url: "xxx",
+                    url: domain + "/staff_inf/headerFile",
                     data: formData,
                     success: function (data) {
-                        if (data.status == 1) {
-                            console.log(data.image_name);
+                        if (data.code == 200) {
+                            console.log(data.image_path);
                             layer.closeAll("loading");
                             //layer.msg(data.info,{icon:1,time:1000});
-                            $("#pimages").attr("src", data.image_name);
-                            $("#avatar").val(data.image_name);
+                            $("#pimages").attr(
+                                "src",
+                                "http://" + data.image_path
+                            );
+                            // TODO:下面这句不知道要做什么
                             $(".imgs").show();
                             return false;
                         } else {

@@ -10,6 +10,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.print.attribute.standard.MediaSize;
 import java.util.List;
 
 /**
@@ -24,12 +25,12 @@ public class StaffInfServiceImpl implements StaffInfService {
     @Override
     public R getStaffInfByPage(int page, int items) throws Exception {
         // 初始化分页信息
-        PageHelper.startPage(page,items);
+        PageHelper.startPage(page, items);
         // 查询全部数据
         List<StaffInf> staffInfs = staffInfMapper.selectAll();
         // 借助分页助手获取分页信息
         PageInfo<StaffInf> pageInfo = new PageInfo<>(staffInfs);
-        return R.ok().setData("meeting_inf",pageInfo.getList()).setData("pages",pageInfo.getPages());
+        return R.ok().setData("meeting_inf", pageInfo.getList()).setData("pages", pageInfo.getPages());
     }
 
     @Override
@@ -47,6 +48,21 @@ public class StaffInfServiceImpl implements StaffInfService {
     @Override
     public void insert(StaffInf th) throws Exception {
         staffInfMapper.insert(th);
+    }
+
+    @Override
+    public StaffInf selectById(int id) throws Exception {
+        return staffInfMapper.selectById(id);
+    }
+
+    @Override
+    public void changeByStaff(int staffId, String name, int age, String phone, boolean gender) throws Exception {
+        staffInfMapper.changeByStaff(staffId, name, age, phone, gender);
+    }
+
+    @Override
+    public void changeHeaderFile(int staffId, String filename) throws Exception {
+        staffInfMapper.changeHeaderFile(staffId, filename);
     }
 
 }

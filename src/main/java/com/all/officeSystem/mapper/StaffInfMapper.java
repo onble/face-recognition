@@ -25,12 +25,21 @@ public interface StaffInfMapper {
 
     //插入信息
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
-    @Insert("insert into staffInf values (default, #{name}, #{age}, #{phone}, #{gender}, #{isLeader}, #{positionId}, #{monthlySalary}, #{departmentId}, #{birthday}, #{folderSize}, #{occupyFileSize} )")
+    @Insert("insert into staff_inf values (default, #{name}, #{age}, #{phone}, #{gender}, #{isLeader}, #{positionId}, #{monthlySalary}, #{departmentId}, #{birthday}, #{folderSize}, #{occupyFileSize} )")
     void insert(StaffInf th) throws Exception;
 
     // 根据id删除数据
-    @Delete("delete from staffinf where id = #{id}")
+    @Delete("delete from staff_inf where staff_id = #{id}")
     void deleteById(int id) throws Exception;
 
+    @Select("select * from staff_inf where staff_id=#{id}")
+    StaffInf selectById(int id) throws Exception;
 
+    // 职员修改个人信息
+    @Update("update staff_inf set name=#{name},age=#{age},phone=#{phone},gender=#{gender} where staff_id=#{staffId}")
+    void changeByStaff(int staffId, String name, int age, String phone, boolean gender) throws Exception;
+
+    // 根据id修改头像文件路径
+    @Update("update staff_inf set header_file=#{filename} where staff_id=#{staffId}")
+    void changeHeaderFile(int staffId, String filename) throws Exception;
 }

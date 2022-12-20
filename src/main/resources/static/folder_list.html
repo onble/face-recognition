@@ -37,9 +37,6 @@
                 <button class="layui-btn layui-btn-danger" onclick="delAll()">
                     <i class="layui-icon">&#xe640;</i>批量删除
                 </button>
-                <button class="layui-btn layui-btn-danger" onclick="delAll()">
-                    <i class="layui-icon">&#xe601;</i>批量下载
-                </button>
                 <button
                     class="layui-btn"
                     onclick="todo_add('添加','todoadd.html','1000','600')"
@@ -273,7 +270,6 @@
                             data: { id: id },
                             dataType: "json",
                             success: function (data) {
-                                console.log(data);
                                 if (data.code == 200) {
                                     //发异步删除数据
                                     $(obj).parents("tr").remove();

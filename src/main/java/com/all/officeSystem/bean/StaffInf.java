@@ -26,4 +26,5 @@ public class StaffInf {
     private Date birthday; // 生日
     private double folderSize; // 文件大小设置
     private double occupyFileSize; // 已使用文件大小
+    private String headerFile; // 头像文件
 }

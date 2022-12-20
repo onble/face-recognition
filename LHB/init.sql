@@ -48,15 +48,16 @@ create table staff_inf
     age              tinyint comment '年龄',
     phone            varchar(50) comment '电话',
     gender           boolean comment '性别，男1女0',
-    is_leader        boolean default false comment '是否为部门领导',
+    is_leader        boolean     default false comment '是否为部门领导',
     position_id      int comment '职务id',
     constraint fk_staffInf_position foreign key (position_id) references post (id),
     monthly_salary   double comment '月工资',
     department_id    int comment '所属部门id',
     constraint fk_staffInf_department foreign key (department_id) references department (id),
     birthday         date comment '生日',
-    folder_size      double  default 500 comment '文件大小设置',
-    occupy_file_size double comment '已使用文件大小'
+    folder_size      double      default 500 comment '文件大小设置',
+    occupy_file_size double comment '已使用文件大小',
+    header_file      varchar(200) default './images/default.jpg' comment '头像文件'
 ) comment '个人信息表';
 
 

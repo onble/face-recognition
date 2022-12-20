@@ -29,13 +29,13 @@ function reder_edit_data(data) {
     // 修改状态
     if (data["status"] == true) {
         // 去选择已完成
-        const over_input = document.querySelector(
-            "input[name='status'][value='1']"
-        );
-        const not_input = document.querySelector(
-            "input[name='status'][value='0']"
-        );
-        const status_box = document.querySelector("#status_box");
+        // const over_input = document.querySelector(
+        //     "input[name='status'][value='1']"
+        // );
+        // const not_input = document.querySelector(
+        //     "input[name='status'][value='0']"
+        // );
+        // const status_box = document.querySelector("#status_box");
         // clearbox(status_box);
         html = `
         <label class="layui-form-label">

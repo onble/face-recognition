@@ -54,8 +54,10 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.2.11</version>
-        </dependency><!-- 七牛sdk -->
+            <!--我的druid依赖在compile的时候报错，查了一下应该是之前的1.2.11版本和jdk1.8不适配，官方的bug -->
+            <version>1.1.20</version>
+        </dependency>
+        <!-- 七牛sdk -->
         <dependency>
             <groupId>com.qiniu</groupId>
             <artifactId>qiniu-java-sdk</artifactId>

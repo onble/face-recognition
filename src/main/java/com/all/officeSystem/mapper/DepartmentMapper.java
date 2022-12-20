@@ -16,6 +16,7 @@ public interface DepartmentMapper {
     // TODO: GJY 写获取全部信息并返回部门信息的列表，最好写上分页功能 参考OnlineResultMapper下面的selectAll
     @Select("select * from department ")
     List<Department> selectAll() throws Exception;
+    //   List<Department> selectAll() throws Exception;
 
     // GJY： 修改部门信息
     @Update("update * set department ")

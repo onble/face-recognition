@@ -1,0 +1,36 @@
+body {
+    --main_green: rgb(0, 199, 88);
+}
+body > div.x-body > nav {
+    text-align: center;
+    /* margin-top: 70px; */
+}
+body > div.x-body > nav > ul {
+    list-style: none;
+    font-size: 0;
+}
+body > div.x-body > nav > ul > li {
+    display: inline-block;
+    color: #999;
+    font-size: 12px;
+}
+body > div.x-body > nav > ul > li:not(.symbol) {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    line-height: 30px;
+    min-width: 30px;
+    margin: 0 2px;
+    padding: 0 1em;
+    box-sizing: border-box;
+    text-align: center;
+    cursor: pointer;
+}
+body > div.x-body > nav > ul > li:not(.symbol):not(.forbid):hover,
+body > div.x-body > nav > ul > li.current {
+    color: #fff;
+    background-color: var(--main_green);
+}
+body > div.x-body > nav > ul > li.forbid {
+    cursor: not-allowed;
+    background-color: #ddd;
+}

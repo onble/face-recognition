@@ -17,6 +17,16 @@ public class PostServiceImpl implements PostService {
     private PostMapper postMapper;
 
     @Override
+    public Post selectById(int id) throws Exception {
+        return null;
+    }
+
+    @Override
+    public List<Post> selectAll() throws Exception {
+        return null;
+    }
+
+    @Override
     public R getPostInfByPage(int page, int items) throws Exception {
         // 初始化分页信息
         PageHelper.startPage(page, items);
@@ -26,5 +36,30 @@ public class PostServiceImpl implements PostService {
         PageInfo<Post> pageInfo = new PageInfo<>(postInfs);
         return R.ok().setData("post_inf", pageInfo.getList()).setData("pages", pageInfo.getPages());
 
+    }
+
+    @Override
+    public R deleteById(int id) throws Exception {
+        return null;
+    }
+
+    @Override
+    public void batchDelete(int[] ids) throws Exception {
+
+    }
+
+    @Override
+    public void insert(String name, String duty) throws Exception {
+
+    }
+
+    @Override
+    public void change(String name, String duty) throws Exception {
+
+    }
+
+    @Override
+    public int getNum(int id) throws Exception {
+        return 0;
     }
 }

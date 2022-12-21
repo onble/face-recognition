@@ -140,7 +140,7 @@ function reder_date(data) {
         let template = `
     <tr>
         <td>
-            <input type="checkbox" value="${value["id"]}" name="id" />
+            <input type="checkbox" value="${value["id"]}" name="id" id="department_id" />
         </td>
         <td>${value["name"]}</td>
         <td>${value["homePage"]}</td>
@@ -149,7 +149,7 @@ function reder_date(data) {
             <a
                 title="编辑"
                 href="javascript:;"
-                onclick="department_edit('编辑','department_edit.html','4','1000','600')"
+                onclick="department_edit('编辑','department_edit.html','${value["id"]}','1000','450')"
                 class="ml-5"
                 style="text-decoration: none"
             >
@@ -179,11 +179,7 @@ function render_inf(page) {
     xhr.open("POST", domain + "/department/getList");
     // 3.发送
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); //这行代码很关键，用来把字符串类型的参数序列化成Form Data
-    xhr.send(
-        `page=${page}&items=${items}&Id=${sessionStorage.getItem(
-            "id"
-        )}`
-    );
+    xhr.send(`page=${page}&items=${items}&Id=${sessionStorage.getItem("id")}`);
     // 后台成功接收到传输的数据
     // 4.事件绑定
     xhr.onreadystatechange = function () {

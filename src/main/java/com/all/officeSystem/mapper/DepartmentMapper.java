@@ -26,15 +26,15 @@ public interface DepartmentMapper {
 
     // 插入数据
     @Insert("insert into department value (default,#{name},#{homePage})")
-    void insert( String name, String homePage);
+    void insert(String name, String homePage);
 
 //    // 根据id获取一条信息
 //    @Select("select * from department where id=#{id}")
 //    Department selectById(int id) throws Exception;
 
     // 修改数据
-    @Update("update department set name=#{name},home_page=#{homePage}")
-    void change(String name, String homePage) throws Exception;
+    @Update("update department set name=#{name},home_page=#{homePage} where id=#{id}")
+    void change(int id, String name, String homePage) throws Exception;
 
     // 获取数据数量
     @Select("select count(id) from department where id =#{id}")

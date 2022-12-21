@@ -17,7 +17,6 @@ public class DepartmentServiceImpl implements DepartmentService {
     private DepartmentMapper departmentMapper;
 
 
-
     @Override
     public R getDepartmentInfByPage(int page, int items) throws Exception {
         // 初始化分页信息
@@ -30,6 +29,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 //        return R.ok().setData("pageInfo", pageInfo);
 
     }
+
     //删除
     @Override
     public R deleteById(int id) {
@@ -53,7 +53,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     //插入
     @Override
     public void insert(String name, String homePage) throws Exception {
-        departmentMapper.insert(name,homePage);
+        departmentMapper.insert(name, homePage);
     }
 
     @Override
@@ -62,10 +62,11 @@ public class DepartmentServiceImpl implements DepartmentService {
         return departmentMapper.selectById(id);
 
     }
+
     //修改
     @Override
-    public void change( String name, String homePage) throws Exception {
-        departmentMapper.change(name,homePage);
+    public void change(int id, String name, String homePage) throws Exception {
+        departmentMapper.change(id, name, homePage);
     }
 
     @Override

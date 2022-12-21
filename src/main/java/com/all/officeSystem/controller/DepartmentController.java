@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 /**
  * 部门的控制器
  */
@@ -18,7 +19,7 @@ public class DepartmentController {
     // 根据分页信息查询数据
 
     @PostMapping("/department/getList")
-    public R getListByPage(int page, int items){
+    public R getListByPage(int page, int items) {
         try {
             return departmentService.getDepartmentInfByPage(page, items);
         } catch (Exception e) {
@@ -53,9 +54,9 @@ public class DepartmentController {
 
     // 添加
     @PostMapping("/department/add")
-    public R add( String name, String homePage) {
+    public R add(String name, String homePage) {
         try {
-            departmentService.insert(name,homePage);
+            departmentService.insert(name, homePage);
             return R.ok().setData("info", "插入成功");
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,9 +80,9 @@ public class DepartmentController {
 
     // 修改数据
     @PostMapping("/department/change")
-    public R change(String name, String homePage) {
+    public R change(int AdminId, int id, String name, String homePage) {
         try {
-            departmentService.change(name,homePage);
+            departmentService.change(id, name, homePage);
             return R.ok().setData("info", "修改成功");
         } catch (Exception e) {
             e.printStackTrace();

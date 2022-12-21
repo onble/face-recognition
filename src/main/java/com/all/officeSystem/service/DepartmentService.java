@@ -17,13 +17,13 @@ public interface DepartmentService {
     void batchDelete(int[] ids) throws Exception;
 
     // 插入数据
-    void insert( String name, String homePage) throws Exception;
+    void insert(String name, String homePage) throws Exception;
 
     // 根据id获取一条数据
     Department selectById(int id) throws Exception;
 
     // 修改数据
-    void change(String name, String homePage) throws Exception;
+    void change(int id, String name, String homePage) throws Exception;
 
-    int  getNum(int id) throws Exception;
+    int getNum(int id) throws Exception;
 }

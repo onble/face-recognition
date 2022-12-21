@@ -78,7 +78,7 @@
         <script src="lib/layui/layui.js" charset="utf-8"></script>
         <script src="js/x-layui.js" charset="utf-8"></script>
         <script>
-			const domain = "http://localhost:8080/OA"; // 声明主机地址
+            const domain = "http://localhost:8080/OA"; // 声明主机地址
             layui.use(["element", "layer", "form"], function () {
                 $ = layui.jquery; //jquery
                 lement = layui.element(); //面包导航
@@ -88,10 +88,7 @@
 
                 //监听提交
                 form.on("submit(add)", function (data) {
-                    var name= $(
-                        "input[name='name']"
-                    ).val();
-                    // var households = $("input[name='households']").val();
+                    var name = $("input[name='name']").val();
                     if (name == "") {
                         layer.msg("部门名称不能为空！", {
                             icon: 5,
@@ -99,16 +96,7 @@
                         });
                         return false;
                     }
-                    // if (households == "") {
-                    //     layer.msg("部门简介不能为空！", {
-                    //         icon: 5,
-                    //         time: 2000,
-                    //     });
-                    //     return false;
-                    // }
-                    var data = `id=${sessionStorage.getItem(
-                        "id"
-                    )}&name=${name}&homePage=${$(
+                    var data = `name=${name}&homePage=${$(
                         "textarea[name='homePage']"
                     ).val()}`;
                     $.ajax({
@@ -122,6 +110,7 @@
                                     data.info,
                                     { icon: 6, time: 2000 },
                                     function () {
+                                        // 刷新页面的代码
                                         window.parent.location.reload();
                                         var index = parent.layer.getFrameIndex(
                                             window.name

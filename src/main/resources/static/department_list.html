@@ -15,7 +15,8 @@
         <link rel="stylesheet" href="css/main.css" media="all" />
         <link rel="stylesheet" href="css/bootstrap.css" />
         <script type="text/javascript" src="lib/loading/okLoading.js"></script>
-		<!-- <script src="./js/folder_list.js"></script> -->
+		<script src="./js/department_list.js"></script>
+		<link rel="stylesheet" href="./css/todlist.css" />
     </head>
     <body>
         <div class="x-nav">
@@ -64,157 +65,45 @@
 
                 <button
                     class="layui-btn"
-                    onclick="todo_add('添加','departmentadd.html','1000','600')"
+                    onclick="department_add('添加','departmentadd.html','1000','600')"
                 >
                     <i class="layui-icon">&#xe608;</i>添加
                 </button>
+				
+				
+				<!-- 显示本页数据个数 -->
+				<span class="x-right" style="line-height: 40px"
+				    >共有数据：<span class="layui-badge">4</span> 条</span
+				>
             </xblock>
 
             <table class="layui-table">
                 <thead>
                     <tr>
+						
                         <th>选择</th>
                         <th>部门名称</th>
                         <th>部门简介</th>
                         <th>操作</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <input type="checkbox" value="1" name="" />
-                        </td>
-                        <td>研发部</td>
-
-                        <td>待编辑</td>
-                        <td class="td-manage">
-                            <a
-                                title="编辑"
-                                href="javascript:;"
-                                onclick="todo_edit('编辑','todoadd.html','4','1000','600')"
-                                class="ml-5"
-                                style="text-decoration: none"
-                            >
-                                <i class="layui-icon">&#xe642;</i>
-                            </a>
-                            <a
-                                title="删除"
-                                href="javascript:;"
-                                onclick="todo_del(this,'4')"
-                                style="text-decoration: none"
-                            >
-                                <i class="layui-icon">&#xe640;</i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="checkbox" value="1" name="" />
-                        </td>
-                        <td>测试部</td>
-                        <td>待编辑</td>
-
-                        <td class="td-manage">
-                            <a
-                                title="编辑"
-                                href="javascript:;"
-                                onclick="todo_edit('编辑','todoadd.html','4','1000','600')"
-                                class="ml-5"
-                                style="text-decoration: none"
-                            >
-                                <i class="layui-icon">&#xe642;</i>
-                            </a>
-                            <a
-                                title="删除"
-                                href="javascript:;"
-                                onclick="todo_del(this,'4')"
-                                style="text-decoration: none"
-                            >
-                                <i class="layui-icon">&#xe640;</i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="checkbox" value="1" name="" />
-                        </td>
-                        <td>回收部</td>
-                        <td>待编辑</td>
-
-                        <td class="td-manage">
-                            <a
-                                title="编辑"
-                                href="javascript:;"
-                                onclick="todo_edit('编辑','todoadd.html','4','1000','600')"
-                                class="ml-5"
-                                style="text-decoration: none"
-                            >
-                                <i class="layui-icon">&#xe642;</i>
-                            </a>
-                            <a
-                                title="删除"
-                                href="javascript:;"
-                                onclick="todo_del(this,'4')"
-                                style="text-decoration: none"
-                            >
-                                <i class="layui-icon">&#xe640;</i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="checkbox" value="1" name="" />
-                        </td>
-                        <td>运营部</td>
-                        <td>待编辑</td>
-
-                        <td class="td-manage">
-                            <a
-                                title="编辑"
-                                href="javascript:;"
-                                onclick="todo_edit('编辑','todoadd.html','4','1000','600')"
-                                class="ml-5"
-                                style="text-decoration: none"
-                            >
-                                <i class="layui-icon">&#xe642;</i>
-                            </a>
-                            <a
-                                title="删除"
-                                href="javascript:;"
-                                onclick="todo_del(this,'4')"
-                                style="text-decoration: none"
-                            >
-                                <i class="layui-icon">&#xe640;</i>
-                            </a>
-                        </td>
-                    </tr>
+                <tbody id="tbody-department">
+                    
                 </tbody>
             </table>
+			<nav><ul></ul></nav>
 			
-			<!-- 分页 -->
-			<nav aria-label="Page navigation example" class="page-main">
-			  <ul class="pagination">
-			    <li class="page-item disabled">
-			      <a class="page-link" href="#" aria-label="Previous">
-			        <span aria-hidden="true">&laquo;</span>
-			      </a>
-			    </li>
-			    <li class="page-item  active"><a class="page-link" href="#">1</a></li>
-			    <li class="page-item"><a class="page-link" href="#">2</a></li>
-			    <li class="page-item"><a class="page-link" href="#">3</a></li>
-			    <li class="page-item">
-			      <a class="page-link" href="#" aria-label="Next">
-			        <span aria-hidden="true">&raquo;</span>
-			      </a>
-			    </li>
-			  </ul>
-			</nav>
 
-            <div id="page"></div>
+            <!-- <div id="page"></div> -->
         </div>
         <script src="lib/layui/layui.js" charset="utf-8"></script>
         <script src="js/x-layui.js" charset="utf-8"></script>
+		
+		
         <script>
+			
+			
+			
             layui.use(["laydate", "element", "laypage", "layer"], function () {
                 $ = layui.jquery; //jquery
                 laydate = layui.laydate; //日期插件
@@ -259,7 +148,30 @@
             function delAll() {
                 layer.confirm("确认要删除吗？", function (index) {
                     //捉到所有被选中的，发异步进行删除
-                    layer.msg("删除成功", { icon: 1 });
+                    let ids = [];
+                    $(
+                        "body>div.x-body>table.layui-table>tbody>tr>td>input[name='id']:checked"
+                    ).each(function (index, item) {
+                        let id = $(this).val();
+                        ids.push(id);
+                    });
+                    // 发送异步请求
+                    $.ajax({
+                        url: domain + "/department/deletes",
+                        type: "delete",
+                        dataType: "json",
+                        data: "ids=" + ids,
+                        success: function (data) {
+                            if (data.code == 200) {
+                                layer.msg("删除成功", { icon: 1 });
+                                setTimeout(function () {
+                                    window.location.reload();
+                                }, 1000);
+                            } else {
+                                layer.msg("删除失败", { icon: 5 });
+                            }
+                        },
+                    });
                 });
             }
 
@@ -267,28 +179,28 @@
                 layer.msg("可以跳到前台具体问题页面", { icon: 1, time: 1000 });
             }
             /*添加*/
-            function todo_add(title, url, w, h) {
+            function department_add(title, url, w, h) {
                 x_admin_show(title, url, w, h);
             }
             //编辑
-            function todo_edit(title, url, id, w, h) {
+            function department_edit(title, url, id, w, h) {
                 url = url + "?id=" + id;
                 x_admin_show(title, url, w, h);
             }
 
             /*删除*/
-            function todo_del(obj, id) {
+            function department_del(obj, id) {
                 layer.confirm(
                     "确认要删除吗？",
                     { icon: 3, title: "提示信息" },
                     function (index) {
                         $.ajax({
-                            type: "post",
-                            url: "xxx",
+                            type: "delete",
+                            url: domain + "/department/delete",
                             data: { id: id },
                             dataType: "json",
                             success: function (data) {
-                                //console.log(data);
+                               
                                 if (data.status == 1) {
                                     //发异步删除数据
                                     $(obj).parents("tr").remove();
@@ -315,6 +227,9 @@
                     }
                 );
             }
+			
+			
+		
         </script>
     </body>
 </html>

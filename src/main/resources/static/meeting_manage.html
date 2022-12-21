@@ -244,14 +244,14 @@
                     //捉到所有被选中的，发异步进行删除
                     let ids = [];
                     $(
-                        "body>div.x-body>table.layui-table>tbody>tr>td>input[name='todo_id']:checked"
+                        "body>div.x-body>table.layui-table>tbody>tr>td>input[name='meeting_id']:checked"
                     ).each(function (index, item) {
                         let file_id = $(this).val();
                         ids.push(file_id);
                     });
                     // 发送异步请求
                     $.ajax({
-                        url: domain + "/todo/deletes",
+                        url: domain + "/meeting/deletes",
                         type: "delete",
                         dataType: "json",
                         data: "ids=" + ids,
@@ -290,7 +290,7 @@
                     function (index) {
                         $.ajax({
                             type: "delete",
-                            url: domain + "/todo/delete",
+                            url: domain + "/meeting/delete",
                             data: { id: id },
                             dataType: "json",
                             success: function (data) {

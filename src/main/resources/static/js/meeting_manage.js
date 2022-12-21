@@ -140,15 +140,24 @@ function reder_date(data) {
         let status = `
     <td class="td-status">
         <span class="layui-btn layui-btn-normal">
-            未完成
+            未开始
         </span>
     </td>
         `;
-        if (value["status"] == true) {
+        if (value["status"] == 1) {
             status = `
         <td class="td-status">
             <span class="layui-btn layui-btn-danger">
-                已完成
+                正在进行
+            </span>
+        </td>
+            `;
+        }
+        if (value["status"] == 2) {
+            status = `
+        <td class="td-status">
+            <span class="layui-btn layui-btn-danger">
+                已结束
             </span>
         </td>
             `;
@@ -156,16 +165,19 @@ function reder_date(data) {
         let template = `
     <tr>
         <td>
-            <input type="checkbox" value="${value["id"]}" name="todo_id" />
+            <input type="checkbox" value="${value["meetingId"]}" name="meeting_id" />
         </td>
         <td>${value["title"]}</td>
+        <td>${value["address"]}</td>
         <td>${value["content"]}</td>
+        <td>${value["startTime"]}</td>
+        <td>${value["stopTime"]}</td>
         ${status}
         <td class="td-manage">
             <a
-                title="编辑"
+                title="编辑会议信息"
                 href="javascript:;"
-                onclick="todo_edit('编辑','todo_edit.html','${value["id"]}','1000','450')"
+                onclick="todo_edit('编辑','meeting_edit.html','${value["meetingId"]}','1000','450')"
                 class="ml-5"
                 style="text-decoration: none"
             >
@@ -174,10 +186,19 @@ function reder_date(data) {
             <a
                 title="删除"
                 href="javascript:;"
-                onclick="todo_del(this,'${value["id"]}')"
+                onclick="todo_del(this,'${value["meetingId"]}')"
                 style="text-decoration: none"
             >
                 <i class="layui-icon">&#xe640;</i>
+            </a>
+            <a
+                title="编辑参会人员"
+                href="javascript:;"
+                onclick="todo_edit('编辑','people_edit.html','4','1000','450')"
+                class="ml-5"
+                style="text-decoration: none"
+            >
+                <i class="layui-icon">&#xe770;</i>
             </a>
         </td>
     </tr>`;
@@ -207,7 +228,7 @@ function render_inf(page) {
             if (xhr.status >= 200 && xhr.status < 300) {
                 const result = JSON.parse(xhr.responseText);
                 // 重新渲染页面数据
-                reder_date(result["todo_inf"]);
+                reder_date(result["meeting_inf"]);
                 render_page_num(page - 1, result["pages"]);
             }
         }

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PostController {
 
-    //TODO: GJY 参考 MeetingController
     @Autowired
     private PostService postService;
 

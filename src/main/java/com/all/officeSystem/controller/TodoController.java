@@ -1,13 +1,9 @@
 package com.all.officeSystem.controller;
 
-import com.all.officeSystem.bean.StaffInf;
 import com.all.officeSystem.bean.Todo;
 import com.all.officeSystem.common.R;
 import com.all.officeSystem.service.TodoService;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 待办事项的控制器
  */
 @RestController
-public class TodoController {
+public class  TodoController {
     @Autowired
     private TodoService todoService;
 

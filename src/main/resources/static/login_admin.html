@@ -24,22 +24,99 @@
                 <div class="container">
                     <div class="form">
                         <h2>管理员登录</h2>
+                        <div
+                            class="inf"
+                            id="wrong_login"
+                            style="color: rgba(0, 0, 0, 0)"
+                        >
+                            用户名或密码有误
+                        </div>
                         <form id="login_form">
                             <div class="inputBox">
-                                <input name="account" type="text" placeholder="账号" />
+                                <input
+                                    name="username"
+                                    type="text"
+                                    placeholder="账号"
+                                />
                             </div>
                             <div class="inputBox">
-                                <input type="password" placeholder="密码" />
+                                <input
+                                    type="password"
+                                    placeholder="密码"
+                                    name="password"
+                                />
                             </div>
                             <div class="inputBox">
-                                <input onclick="login(event)" type="submit" value="登录" />
+                                <input type="submit" value="登录" />
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </section>
-		
-		
+
+        <script>
+            const domain = "http://localhost:8080/OA"; // 声明主机地址
+            const loginForm = document.getElementById("login_form");
+            const signInAccount = document.querySelector(
+                'input[name="username"]'
+            );
+            const signInPassword = document.querySelector(
+                'input[name="password"]'
+            );
+
+            loginForm.addEventListener("submit", (e) => {
+                // 这个是登录表单的提交
+                e.preventDefault();
+                const wrong_login = document.getElementById("wrong_login");
+                wrong_login.style.color = "rgba(0, 0, 0, 0)";
+                // 创建ajax进行传递数据
+                // 1.创建对象
+                const xhr = new XMLHttpRequest();
+                // 2.初始化 设置类型与URL
+                xhr.open("POST", domain + "/login_admin");
+                // 获取formDate
+                const loginFormData = new FormData(loginForm);
+                // 3.发送
+                xhr.send(loginFormData);
+                // 后台成功接收到传输的数据
+                // 4.事件绑定
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status >= 200 && xhr.status < 300) {
+                            const result = JSON.parse(xhr.responseText);
+                            if (result["code"] != 200) {
+                                wrong_login.style.color = "#666";
+                            }
+                            if (result["code"] === 200) {
+                                // 将账号保存
+                                sessionStorage.setItem(
+                                    "admin_id",
+                                    result["admin"]["id"]
+                                );
+                                sessionStorage.setItem(
+                                    "admin_account",
+                                    result["admin"]["account"]
+                                );
+                                location.replace("./index_admin.html");
+                            }
+                        }
+                    }
+                };
+            });
+            // 给登录的输入框绑定监听事件
+            signInAccount.addEventListener("input", function () {
+                wrong_login.style.display = "none";
+            });
+            signInAccount.addEventListener("propertychange", function () {
+                wrong_login.style.display = "none";
+            });
+            signInPassword.addEventListener("input", function () {
+                wrong_login.style.display = "none";
+            });
+            signInPassword.addEventListener("propertychange", function () {
+                wrong_login.style.display = "none";
+            });
+        </script>
     </body>
 </html>

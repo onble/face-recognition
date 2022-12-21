@@ -128,7 +128,7 @@ section .color:nth-child(3) {
     font-size: 24px;
     font-weight: 600px;
     letter-spacing: 5px;
-    margin-bottom: 30px;
+    margin-bottom: 0px;
     cursor: pointer;
 }
 /* 登录标题下划线样式 */

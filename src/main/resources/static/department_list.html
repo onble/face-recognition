@@ -15,8 +15,8 @@
         <link rel="stylesheet" href="css/main.css" media="all" />
         <link rel="stylesheet" href="css/bootstrap.css" />
         <script type="text/javascript" src="lib/loading/okLoading.js"></script>
-		<script src="./js/department_list.js"></script>
-		<link rel="stylesheet" href="./css/departmentlist.css" />
+        <script src="./js/department_list.js"></script>
+        <link rel="stylesheet" href="./css/departmentlist.css" />
     </head>
     <body>
         <div class="x-nav">
@@ -65,45 +65,36 @@
 
                 <button
                     class="layui-btn"
-                    onclick="department_add('添加','departmentadd.html','1000','600')"
+                    onclick="department_add('添加','departmentadd.html','1000','450')"
                 >
                     <i class="layui-icon">&#xe608;</i>添加
                 </button>
-				
-				
-				<!-- 显示本页数据个数 -->
-				<span class="x-right" style="line-height: 40px"
-				    >共有数据：<span class="layui-badge">4</span> 条</span
-				>
+
+                <!-- 显示本页数据个数 -->
+                <span class="x-right" style="line-height: 40px"
+                    >共有数据：<span class="layui-badge">4</span> 条</span
+                >
             </xblock>
 
             <table class="layui-table">
                 <thead>
                     <tr>
-						
                         <th>选择</th>
                         <th>部门名称</th>
                         <th>部门简介</th>
                         <th>操作</th>
                     </tr>
                 </thead>
-                <tbody id="tbody-department">
-                    
-                </tbody>
+                <tbody id="tbody-department"></tbody>
             </table>
-			<nav><ul></ul></nav>
-			
+            <nav><ul></ul></nav>
 
             <!-- <div id="page"></div> -->
         </div>
         <script src="lib/layui/layui.js" charset="utf-8"></script>
         <script src="js/x-layui.js" charset="utf-8"></script>
-		
-		
+
         <script>
-			
-			
-			
             layui.use(["laydate", "element", "laypage", "layer"], function () {
                 $ = layui.jquery; //jquery
                 laydate = layui.laydate; //日期插件
@@ -200,7 +191,6 @@
                             data: { id: id },
                             dataType: "json",
                             success: function (data) {
-                               
                                 if (data.status == 1) {
                                     //发异步删除数据
                                     $(obj).parents("tr").remove();
@@ -227,9 +217,6 @@
                     }
                 );
             }
-			
-			
-		
         </script>
     </body>
 </html>

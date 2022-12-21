@@ -21,15 +21,16 @@ public class AdminServiceImpl implements AdminService {
     public Admin login(String username, String password) throws Exception {
 
         Admin admin = adminMapper.selectByUsername(username);
-        if(admin == null){
+        if (admin == null) {
             //用户名不存在
             throw new Exception("用户名不存在！");
         }
-        if (!password.equals(admin.getPassword())){
+        if (!password.equals(admin.getPassword())) {
             //密码错误
-            throw  new Exception("密码错误！");
+            throw new Exception("密码错误！");
         }
-        return null;
+
+        return admin;
     }
 
 

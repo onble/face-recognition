@@ -37,7 +37,7 @@
                                 <div class="layui-input-block">
                                     <input
                                         type="text"
-                                        name="buildings_name"
+                                        name="name"
                                         autocomplete="off"
                                         placeholder="控制在80个汉字，160个字符以内"
                                         class="layui-input"
@@ -54,7 +54,7 @@
                                 <div class="layui-input-block">
                                     <textarea
                                         placeholder="请输入内容"
-                                        name="desc"
+                                        name="homePage"
                                         class="layui-textarea"
                                     ></textarea>
                                 </div>
@@ -78,6 +78,7 @@
         <script src="lib/layui/layui.js" charset="utf-8"></script>
         <script src="js/x-layui.js" charset="utf-8"></script>
         <script>
+			const domain = "http://localhost:8080/OA"; // 声明主机地址
             layui.use(["element", "layer", "form"], function () {
                 $ = layui.jquery; //jquery
                 lement = layui.element(); //面包导航
@@ -87,32 +88,36 @@
 
                 //监听提交
                 form.on("submit(add)", function (data) {
-                    var buildings_name = $(
-                        "input[name='buildings_name']"
+                    var name= $(
+                        "input[name='name']"
                     ).val();
-                    var households = $("input[name='households']").val();
-                    if (buildings_name == "") {
+                    // var households = $("input[name='households']").val();
+                    if (name == "") {
                         layer.msg("部门名称不能为空！", {
                             icon: 5,
                             time: 2000,
                         });
                         return false;
                     }
-                    if (households == "") {
-                        layer.msg("部门简介不能为空！", {
-                            icon: 5,
-                            time: 2000,
-                        });
-                        return false;
-                    }
-                    var data = data.field;
+                    // if (households == "") {
+                    //     layer.msg("部门简介不能为空！", {
+                    //         icon: 5,
+                    //         time: 2000,
+                    //     });
+                    //     return false;
+                    // }
+                    var data = `id=${sessionStorage.getItem(
+                        "id"
+                    )}&name=${name}&homePage=${$(
+                        "textarea[name='homePage']"
+                    ).val()}`;
                     $.ajax({
                         type: "post",
-                        url: "xxx",
+                        url: domain + "/department/add",
                         data: data,
                         dataType: "json",
                         success: function (data) {
-                            if (data.status == 1) {
+                            if (data.code == 200) {
                                 layer.msg(
                                     data.info,
                                     { icon: 6, time: 2000 },

@@ -79,16 +79,16 @@ public class DepartmentController {
     }
 
     // 修改数据
-//    @PostMapping("/department/change")
-//    public R change(int staffId, String title, String content, boolean status, int todoId) {
-//        try {
-//            departmentService.change(staffId, title, content, status, todoId);
-//            return R.ok().setData("info", "修改成功");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return R.error().setData("info", "修改失败");
-//        }
-//    }
+    @PostMapping("/department/change")
+    public R change(String name, String homePage) {
+        try {
+            departmentService.change(name,homePage);
+            return R.ok().setData("info", "修改成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.error().setData("info", "修改失败");
+        }
+    }
 
     // 获取数据数量
 //    @PostMapping("/department/num")

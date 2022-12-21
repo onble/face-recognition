@@ -63,7 +63,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         return departmentMapper.selectById(id);
 
     }
-
+    //修改
     @Override
     public void change( String name, String homePage) throws Exception {
         departmentMapper.change(name,homePage);

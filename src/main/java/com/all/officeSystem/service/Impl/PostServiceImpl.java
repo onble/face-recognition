@@ -16,10 +16,21 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private PostMapper postMapper;
 
+    // 根据id获取一条数据
     @Override
     public Post selectById(int id) throws Exception {
-        return null;
+       return postMapper.selectById(id);
     }
+//    //获取全部信息
+//    @Override
+//    public List<Post> selectAll() throws Exception {
+//        return postMapper.selectAll();
+//    }
+
+//    @Override
+//    public Post selectById(int id) throws Exception {
+//        return null;
+//    }
 
     @Override
     public List<Post> selectAll() throws Exception {
@@ -35,31 +46,43 @@ public class PostServiceImpl implements PostService {
         // 借助分页助手获取分页信息
         PageInfo<Post> pageInfo = new PageInfo<>(postInfs);
         return R.ok().setData("post_inf", pageInfo.getList()).setData("pages", pageInfo.getPages());
-
     }
 
     @Override
-    public R deleteById(int id) throws Exception {
-        return null;
+    public R deleteById(int id) {
+        try {
+            postMapper.deleteById(id);
+            return R.ok();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.error();
+        }
     }
 
-    @Override
-    public void batchDelete(int[] ids) throws Exception {
 
+    @Override
+    public int batchDelete(int[] ids) throws Exception {
+        for (int id : ids) {
+            postMapper.deleteById(id);
+        }
+        return 0;
     }
 
     @Override
     public void insert(String name, String duty) throws Exception {
+        postMapper.insert(name, duty);
 
     }
 
     @Override
     public void change(String name, String duty) throws Exception {
 
+        postMapper.change(name, duty);
     }
 
     @Override
     public int getNum(int id) throws Exception {
-        return 0;
+
+        return postMapper.getNum(id);
     }
 }

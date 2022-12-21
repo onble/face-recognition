@@ -24,7 +24,7 @@ public interface PostService {
     R deleteById(int id) throws Exception;
 
     // 根据id批量删除数据
-    void batchDelete(int[] ids) throws Exception;
+    int batchDelete(int[] ids) throws Exception;
 
     // 插入数据
     void insert( String name, String duty) throws Exception;

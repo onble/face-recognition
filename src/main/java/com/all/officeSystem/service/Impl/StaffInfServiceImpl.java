@@ -3,6 +3,7 @@ package com.all.officeSystem.service.Impl;
 
 import com.all.officeSystem.bean.StaffInf;
 import com.all.officeSystem.common.R;
+import com.all.officeSystem.mapper.DepartmentMapper;
 import com.all.officeSystem.mapper.StaffInfMapper;
 import com.all.officeSystem.service.StaffInfService;
 import com.github.pagehelper.PageHelper;
@@ -21,6 +22,8 @@ public class StaffInfServiceImpl implements StaffInfService {
 
     @Autowired
     private StaffInfMapper staffInfMapper;
+    @Autowired
+    private DepartmentMapper departmentMapper;
 
     @Override
     public R getStaffInfByPage(int page, int items) throws Exception {
@@ -30,7 +33,9 @@ public class StaffInfServiceImpl implements StaffInfService {
         List<StaffInf> staffInfs = staffInfMapper.selectAll();
         // 借助分页助手获取分页信息
         PageInfo<StaffInf> pageInfo = new PageInfo<>(staffInfs);
-        return R.ok().setData("meeting_inf", pageInfo.getList()).setData("pages", pageInfo.getPages());
+        // 根据部门id查询部门名称
+//        departmentMapper.selectById()
+        return R.ok().setData("staffInf_inf", pageInfo.getList()).setData("pages", pageInfo.getPages());
     }
 
     @Override

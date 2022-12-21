@@ -191,7 +191,7 @@
                             data: { id: id },
                             dataType: "json",
                             success: function (data) {
-                                if (data.status == 1) {
+                                if (data.code == 200) {
                                     //发异步删除数据
                                     $(obj).parents("tr").remove();
                                     layer.msg(data.info, {

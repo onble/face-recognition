@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class PostController {
 
     //TODO: GJY 参考 MeetingController
-        @Autowired
-        private PostService postService;
+    @Autowired
+    private PostService postService;
 
-        @PostMapping("/post/getList")
-        public R getListByPage(int page, int items){
-            try {
-                return postService.getPostInfByPage(page,items);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return R.error();
-            }
+    @PostMapping("/post/getList")
+    public R getListByPage(int page, int items, int adminId) {
+        try {
+            return postService.getPostInfByPage(page, items);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.error();
         }
     }
+}

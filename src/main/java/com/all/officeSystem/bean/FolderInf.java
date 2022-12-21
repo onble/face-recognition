@@ -18,4 +18,5 @@ public class FolderInf {
     private int staffId; // 所属职工id
     private Date uploadTime; //上传时间
     private double size; //文件大小
+    private String path; // 文件路径s
 }

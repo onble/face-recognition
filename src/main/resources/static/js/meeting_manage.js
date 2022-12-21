@@ -1,5 +1,5 @@
 const domain = "http://localhost:8080/OA"; // 声明主机地址
-const items = 9;
+const items = 7;
 // 工具函数
 function clearbox(box) {
     // 清除一个盒子中的所有子节点
@@ -137,19 +137,35 @@ function reder_date(data) {
     let result = ``;
     // 遍历数据，逐条渲染
     data.forEach(function (value, index) {
+        let status = `
+    <td class="td-status">
+        <span class="layui-btn layui-btn-normal">
+            未完成
+        </span>
+    </td>
+        `;
+        if (value["status"] == true) {
+            status = `
+        <td class="td-status">
+            <span class="layui-btn layui-btn-danger">
+                已完成
+            </span>
+        </td>
+            `;
+        }
         let template = `
     <tr>
         <td>
-            <input type="checkbox" value="${value["id"]}" name="file_id" />
+            <input type="checkbox" value="${value["id"]}" name="todo_id" />
         </td>
-        <td>${value["name"]}</td>
-        <td>${value["uploadTime"]}</td>
-        <td>${value["size"]}Byte</td>
+        <td>${value["title"]}</td>
+        <td>${value["content"]}</td>
+        ${status}
         <td class="td-manage">
             <a
                 title="编辑"
                 href="javascript:;"
-                onclick="todo_edit('编辑','todoadd.html','4','1000','450')"
+                onclick="todo_edit('编辑','todo_edit.html','${value["id"]}','1000','450')"
                 class="ml-5"
                 style="text-decoration: none"
             >
@@ -163,30 +179,20 @@ function reder_date(data) {
             >
                 <i class="layui-icon">&#xe640;</i>
             </a>
-            <a
-                title="下载"
-                href="${value["path"]}"
-                class="ml-5"
-                style="text-decoration: none"
-                target="_blank"
-                download="${value["name"]}"
-            >
-                <i class="layui-icon">&#xe601;</i>
-            </a>
         </td>
     </tr>`;
         result = result + template;
     });
-    // TODO:日期可以使用Layui但没使用
     // 将结果添加到页面
     box.innerHTML = result;
 }
 function render_inf(page) {
+    // 获取职员id
     // 创建ajax进行传递数据
     // 1.创建对象
     const xhr = new XMLHttpRequest();
     // 2.初始化 设置类型与URL
-    xhr.open("POST", domain + "/folder/getList");
+    xhr.open("POST", domain + "/meeting/getList");
     // 3.发送
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); //这行代码很关键，用来把字符串类型的参数序列化成Form Data
     xhr.send(
@@ -201,14 +207,44 @@ function render_inf(page) {
             if (xhr.status >= 200 && xhr.status < 300) {
                 const result = JSON.parse(xhr.responseText);
                 // 重新渲染页面数据
-                reder_date(result["folder_inf"]);
+                reder_date(result["todo_inf"]);
                 render_page_num(page - 1, result["pages"]);
+            }
+        }
+    };
+}
+function reder_num() {
+    // 获取数据数量并渲染到页面上
+    // 获取职员id
+    // 创建ajax进行传递数据
+    // 1.创建对象
+    const xhr = new XMLHttpRequest();
+    // 2.初始化 设置类型与URL
+    xhr.open("POST", domain + "/todo/num");
+    // 3.发送
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); //这行代码很关键，用来把字符串类型的参数序列化成Form Data
+    xhr.send(`staffId=${sessionStorage.getItem("staff_id")}`);
+    // 后台成功接收到传输的数据
+    // 4.事件绑定
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                const result = JSON.parse(xhr.responseText);
+                // 重新渲染页面数据
+                if (result["code"] == 200) {
+                    // 获取盒子
+                    const num_box = document.querySelector(
+                        "body>div.x-body>xblock>span>span"
+                    );
+                    num_box.innerHTML = result["todo_inf"];
+                }
             }
         }
     };
 }
 function init() {
     render_inf(1);
+    reder_num();
 }
 
 window.addEventListener("load", function () {

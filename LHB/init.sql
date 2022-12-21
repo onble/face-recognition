@@ -48,14 +48,14 @@ create table staff_inf
     age              tinyint comment '年龄',
     phone            varchar(50) comment '电话',
     gender           boolean comment '性别，男1女0',
-    is_leader        boolean     default false comment '是否为部门领导',
+    is_leader        boolean      default false comment '是否为部门领导',
     position_id      int comment '职务id',
     constraint fk_staffInf_position foreign key (position_id) references post (id),
     monthly_salary   double comment '月工资',
     department_id    int comment '所属部门id',
     constraint fk_staffInf_department foreign key (department_id) references department (id),
     birthday         date comment '生日',
-    folder_size      double      default 500 comment '文件大小设置',
+    folder_size      double       default 500 comment '文件大小设置',
     occupy_file_size double comment '已使用文件大小',
     header_file      varchar(200) default './images/default.jpg' comment '头像文件'
 ) comment '个人信息表';
@@ -102,12 +102,12 @@ create table schedule
 create table folder
 (
     id          int primary key auto_increment comment '文件id',
-    path        varchar(50) not null comment '文件存放路径',
-    staff_id    int         not null comment '所属职工id',
+    path        varchar(200) not null comment '文件存放路径',
+    staff_id    int          not null comment '所属职工id',
     constraint fk_folder_staff foreign key (staff_id) references staff (id),
     upload_time datetime comment '上传时间',
-    name        varchar(50) not null comment '文件名',
-    size        double      not null default 0 comment '文件大小'
+    name        varchar(50)  not null comment '文件名',
+    size        bigint       not null default 0 comment '文件大小'
 ) comment '文件夹信息表';
 # TODO:应该有文件大小字段
 
@@ -219,29 +219,29 @@ values (1, '统计分数', '2022-12-1', '做excel', 1),
 
 -- 增加文件夹信息
 insert into folder(id, path, staff_id, upload_time, name, size)
-values (1, 'folder/1.txt', 1, '2022-12-1', '1.txt', 1),
-       (2, 'folder/note.md', 2, '2022-12-1', 'note.md', 1),
-       (3, 'test.py', 3, '2022-12-2', 'test.py', 1),
-       (4, 'folder/2.txt', 1, '2022-12-1', '2.txt', 1),
-       (5, 'folder/3.txt', 1, '2022-12-1', '3.txt', 1),
-       (6, 'folder/4.txt', 1, '2022-12-1', '4.txt', 1),
-       (7, 'folder/5.txt', 1, '2022-12-1', '5.txt', 1),
-       (8, 'folder/6.txt', 1, '2022-12-1', '6.txt', 1),
-       (9, 'folder/7.txt', 1, '2022-12-1', '7.txt', 1),
-       (10, 'folder/8.txt', 1, '2022-12-1', '8.txt', 1),
-       (11, 'folder/9.txt', 1, '2022-12-1', '9.txt', 1),
-       (12, 'folder/10.txt', 1, '2022-12-1', '10.txt', 1),
-       (13, 'folder/11.txt', 1, '2022-12-1', '11.txt', 1),
-       (14, 'folder/12.txt', 1, '2022-12-1', '12.txt', 1),
-       (15, 'folder/13.txt', 1, '2022-12-1', '13.txt', 1),
-       (16, 'folder/14.txt', 1, '2022-12-1', '14.txt', 1),
-       (17, 'folder/15.txt', 1, '2022-12-1', '15.txt', 1),
-       (18, 'folder/16.txt', 1, '2022-12-1', '16.txt', 1),
-       (19, 'folder/17.txt', 1, '2022-12-1', '17.txt', 1),
-       (20, 'folder/18.txt', 1, '2022-12-1', '18.txt', 1),
-       (21, 'folder/19.txt', 1, '2022-12-1', '19.txt', 1),
-       (22, 'folder/20.txt', 1, '2022-12-1', '20.txt', 1),
-       (23, 'folder/21.txt', 1, '2022-12-1', '21.txt', 1);
+values (1, './folder/default.txt', 1, '2022-12-1', '1.txt', 1),
+       (2, './folder/default.txt', 2, '2022-12-1', 'note.md', 1),
+       (3, './folder/default.txt', 3, '2022-12-2', 'test.py', 1),
+       (4, './folder/default.txt', 1, '2022-12-1', '2.txt', 1),
+       (5, './folder/default.txt', 1, '2022-12-1', '3.txt', 1),
+       (6, './folder/default.txt', 1, '2022-12-1', '4.txt', 1),
+       (7, './folder/default.txt', 1, '2022-12-1', '5.txt', 1),
+       (8, './folder/default.txt', 1, '2022-12-1', '6.txt', 1),
+       (9, './folder/default.txt', 1, '2022-12-1', '7.txt', 1),
+       (10, './folder/default.txt', 1, '2022-12-1', '8.txt', 1),
+       (11, './folder/default.txt', 1, '2022-12-1', '9.txt', 1),
+       (12, './folder/default.txt', 1, '2022-12-1', '10.txt', 1),
+       (13, './folder/default.txt', 1, '2022-12-1', '11.txt', 1),
+       (14, './folder/default.txt', 1, '2022-12-1', '12.txt', 1),
+       (15, './folder/default.txt', 1, '2022-12-1', '13.txt', 1),
+       (16, './folder/default.txt', 1, '2022-12-1', '14.txt', 1),
+       (17, './folder/default.txt', 1, '2022-12-1', '15.txt', 1),
+       (18, './folder/default.txt', 1, '2022-12-1', '16.txt', 1),
+       (19, './folder/default.txt', 1, '2022-12-1', '17.txt', 1),
+       (20, './folder/default.txt', 1, '2022-12-1', '18.txt', 1),
+       (21, './folder/default.txt', 1, '2022-12-1', '19.txt', 1),
+       (22, './folder/default.txt', 1, '2022-12-1', '20.txt', 1),
+       (23, './folder/default.txt', 1, '2022-12-1', '21.txt', 1);
 
 -- 增加会议信息
 insert into meeting(meeting_id, title, address, content, staff_id, start_time, stop_time)

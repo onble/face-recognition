@@ -13,6 +13,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -58,5 +59,10 @@ public class FolderServiceImpl implements FolderService {
             // TODO:很奇怪,不存在时候居然不报错
             folderMapper.deleteById(id);
         }
+    }
+
+    @Override
+    public void insert(String path, int staffId, Date uploadTime, String name, long size) throws Exception {
+        folderMapper.insert(path, staffId, uploadTime, name, size);
     }
 }

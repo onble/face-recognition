@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>编辑待办事项</title>
+        <meta name="renderer" content="webkit" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1"
+        />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="format-detection" content="telephone=no" />
+        <link rel="stylesheet" href="css/main.css" media="all" />
+        <script type="text/javascript" src="lib/loading/okLoading.js"></script>
+        <style>
+            .imgs {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="x-body">
+            <form class="layui-form layui-form-pane" action="" id="add">
+                <input type="text" name="todo_id" style="display: none" />
+                <div
+                    class="layui-tab layui-tab-brief"
+                    lay-filter="docDemoTabBrief"
+                >
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show">
+                            <input type="hidden" name="id" value="" />
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    <span class="x-red">*</span>文件名称
+                                </label>
+                                <div class="layui-input-block">
+                                    <input
+                                        type="text"
+                                        name="title"
+                                        autocomplete="off"
+                                        placeholder="控制在80个汉字，160个字符以内"
+                                        class="layui-input"
+                                        required=""
+                                        lay-verify="required"
+                                        value=""
+                                    />
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <button
+                                    class="layui-btn"
+                                    type="button"
+                                    lay-filter="add"
+                                    lay-submit=""
+                                >
+                                    保存更改
+                                </button>
+                            </div>
+                            <div style="height: 100px"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script src="lib/layui/layui.js" charset="utf-8"></script>
+        <script src="js/x-layui.js" charset="utf-8"></script>
+        <script>
+            const domain = "http://localhost:8080/OA"; // 声明主机地址
+            layui.use(["element", "layer", "form"], function () {
+                $ = layui.jquery; //jquery
+                lement = layui.element(); //面包导航
+                layer = layui.layer; //弹出层
+                form = layui.form();
+                okLoading.close($);
+
+                //监听提交
+                form.on("submit(add)", function (data) {
+                    var title = $("input[name='title']").val();
+                    if (title == "") {
+                        layer.msg("标题不能为空", {
+                            icon: 5,
+                            time: 2000,
+                        });
+                        return false;
+                    }
+                    console.log("todo的id", $("input[name='todo_id']").val());
+                    var data = `staffId=${sessionStorage.getItem(
+                        "staff_id"
+                    )}&title=${title}&content=${$(
+                        "textarea[name='content']"
+                    ).val()}&status=${$(
+                        "input[name='status']:checked"
+                    ).val()}&todoId=${$("input[name='todo_id']").val()}`;
+                    $.ajax({
+                        type: "post",
+                        url: domain + "/todo/change",
+                        data: data,
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.code == 200) {
+                                layer.msg(
+                                    data.info,
+                                    { icon: 6, time: 1000 },
+                                    function () {
+                                        window.parent.location.reload();
+                                        var index = parent.layer.getFrameIndex(
+                                            window.name
+                                        );
+                                        parent.layer.close(index);
+                                        // 测试使用jQuery实现强制刷新
+                                        // $("iframe[src='todolist.html']").attr(
+                                        //     "src",
+                                        //     "todolist.html"
+                                        // );
+                                        // document
+                                        //     .querySelector(
+                                        //         "iframe[src='todolist.html']"
+                                        //     )
+                                        //     .contentWindow.location.reload(
+                                        //         true
+                                        //     );
+                                        // console.log(
+                                        //     "工作了",
+                                        //     document.querySelector(
+                                        //         "iframe[src='todolist.html']"
+                                        //     )
+                                        // );
+                                    }
+                                );
+                                return false;
+                            } else {
+                                layer.msg(data.info, { icon: 5, time: 2000 });
+                                return false;
+                            }
+                        },
+                    });
+                });
+            });
+        </script>
+        <script src="./js/todo_edit.js"></script>
+    </body>
+</html>

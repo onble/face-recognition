@@ -100,6 +100,7 @@ public class StaffInfController {
         try {
             String filename = QiniuUtils.upload(headerFile);
             // 将文件名字存入数据库
+            filename = "http://" + filename;
             log.debug("上传后的文件名:filename = " + filename);
             staffInfService.changeHeaderFile(staffId, filename);
             return R.ok().setData("image_path", filename);

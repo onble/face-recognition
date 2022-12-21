@@ -35,9 +35,7 @@ function reder_edit_data(data) {
     //                             "src",
     //                             "http://" + data.image_path
     //                         );
-    document
-        .querySelector("#pimages")
-        .setAttribute("src", "http://" + data["headerFile"]);
+    document.querySelector("#pimages").setAttribute("src", data["headerFile"]);
     // 修改状态
     if (data["gender"] == true) {
         // 去选择已完成

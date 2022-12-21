@@ -263,7 +263,6 @@
                     data: formData,
                     success: function (data) {
                         if (data.code == 200) {
-                            console.log(data.image_path);
                             layer.closeAll("loading");
                             //layer.msg(data.info,{icon:1,time:1000});
                             $("#pimages").attr(

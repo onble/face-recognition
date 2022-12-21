@@ -50,6 +50,6 @@ function logout() {
 function render_index_data(data) {
     // 获取头像并进行更新
     document.querySelectorAll(".userAvatar").forEach(function (value, index) {
-        value.setAttribute("src", "http://" + data["headerFile"]);
+        value.setAttribute("src", data["headerFile"]);
     });
 }

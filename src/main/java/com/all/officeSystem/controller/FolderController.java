@@ -2,15 +2,24 @@ package com.all.officeSystem.controller;
 
 import com.all.officeSystem.common.R;
 import com.all.officeSystem.service.FolderService;
+import com.all.officeSystem.service.TodoService;
+import com.all.officeSystem.util.QiniuUtils;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.Date;
 
 /**
  * 文件的控制器
  */
+@Slf4j
 @RestController
 public class FolderController {
     @Autowired
@@ -47,6 +56,26 @@ public class FolderController {
         } catch (Exception e) {
             e.printStackTrace();
             return R.error();
+        }
+    }
+
+    // 上传文件
+    @PostMapping("/folder/add")
+    public R uploadFile(int staffId, MultipartFile file) {
+        try {
+            long size = file.getSize();
+            String originalFilename = file.getOriginalFilename();
+            log.debug("上传的文件大小 size = " + size);
+            String filename = QiniuUtils.upload(file);
+            filename = "http://" + filename;
+            log.debug("上传的文件 filename = " + filename);
+            // 获取当前时间
+            Date date = new Date();
+            folderService.insert(filename, staffId, date, originalFilename, size);
+            return R.ok().setData("info", "插入成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.error().setData("info", "插入失败");
         }
     }
 }

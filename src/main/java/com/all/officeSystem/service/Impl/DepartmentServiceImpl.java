@@ -13,7 +13,6 @@ import java.util.List;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
-    // TODO: GJY 参考MeetingService
     @Autowired
     private DepartmentMapper departmentMapper;
 

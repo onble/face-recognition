@@ -18,7 +18,7 @@ public class MeetingInf {
     private String address; // 会议地址
     private String content; // 会议内容
     private int staffId; // 创建人id
-    private String name; // 创建人名称
+//    private String name; // 创建人名称
     private Date startTime; // 开始时间
     private Date stopTime; // 结束时间
     private int status; // 会议状态

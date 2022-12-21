@@ -11,7 +11,6 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.print.attribute.standard.MediaSize;
 import java.util.List;
 
 /**
@@ -38,18 +37,20 @@ public class StaffInfServiceImpl implements StaffInfService {
         return R.ok().setData("staffInf_inf", pageInfo.getList()).setData("pages", pageInfo.getPages());
     }
 
+    //根据id删除一条数据
     @Override
     public void deleteById(int id) throws Exception {
         staffInfMapper.deleteById(id);
     }
 
+    //批量删除
     @Override
     public void batchDelete(int[] ids) throws Exception {
         for (int id : ids) {
             staffInfMapper.deleteById(id);
         }
     }
-
+    //插入
     @Override
     public void insert(StaffInf th) throws Exception {
         staffInfMapper.insert(th);

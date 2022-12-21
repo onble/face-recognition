@@ -27,14 +27,15 @@ function reder_edit_data(data) {
     const homePage_input = document.querySelector("textarea[name='homePage']");
     homePage_input.value = data["homePage"];
 	}
-}
+	
+
 function init() {
     // 异步请求获取数据
     // 创建ajax进行传递数据
     // 1.创建对象
     const xhr = new XMLHttpRequest();
     // 2.初始化 设置类型与URL
-    xhr.open("POST", domain + "/Todo/get");
+    xhr.open("POST", domain + "/department/get");
     // 3.发送
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); //这行代码很关键，用来把字符串类型的参数序列化成Form Data
     xhr.send(`id=${getQueryVariable("id")}`);
@@ -48,7 +49,7 @@ function init() {
             if (xhr.status >= 200 && xhr.status < 300) {
                 const result = JSON.parse(xhr.responseText);
                 // 重新渲染页面数据
-                reder_edit_data(result["Todo_inf"]);
+                reder_edit_data(result["department_inf"]);
             }
         }
     };

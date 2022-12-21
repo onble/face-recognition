@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>添加部门信息</title>
+        <title>编辑待办事项</title>
         <meta name="renderer" content="webkit" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta
@@ -23,6 +23,7 @@
     <body>
         <div class="x-body">
             <form class="layui-form layui-form-pane" action="" id="add">
+                <input type="text" name="id" style="display: none" />
                 <div
                     class="layui-tab layui-tab-brief"
                     lay-filter="docDemoTabBrief"
@@ -49,7 +50,7 @@
                             </div>
                             <div class="layui-form-item layui-form-text">
                                 <label class="layui-form-label">
-                                    <span class="x-red">*</span>部门简介
+                                    <span class="x-red">*</span>事项内容
                                 </label>
                                 <div class="layui-input-block">
                                     <textarea
@@ -59,7 +60,7 @@
                                     ></textarea>
                                 </div>
                             </div>
-                            <!-- <div class="layui-form-item">
+                            <!-- <div class="layui-form-item" id="status_box">
                                 <label class="layui-form-label">
                                     <span class="x-red">*</span>状态
                                 </label>
@@ -101,7 +102,7 @@
                                     lay-filter="add"
                                     lay-submit=""
                                 >
-                                    保存
+                                    保存更改
                                 </button>
                             </div>
                             <div style="height: 100px"></div>
@@ -131,6 +132,7 @@
                         });
                         return false;
                     }
+                    console.log("department的id", $("input[name='id']").val());
                     var data = `id=${sessionStorage.getItem(
                         "id"
                     )}&name=${name}&homePage=${$(
@@ -138,14 +140,14 @@
                     ).val()}`;
                     $.ajax({
                         type: "post",
-                        url: domain + "/Todo/add",
+                        url: domain + "/department/change",
                         data: data,
                         dataType: "json",
                         success: function (data) {
                             if (data.code == 200) {
                                 layer.msg(
                                     data.info,
-                                    { icon: 6, time: 2000 },
+                                    { icon: 6, time: 1000 },
                                     function () {
                                         window.parent.location.reload();
                                         var index = parent.layer.getFrameIndex(
@@ -153,13 +155,13 @@
                                         );
                                         parent.layer.close(index);
                                         // 测试使用jQuery实现强制刷新
-                                        // $("iframe[src='Todolist.html']").attr(
+                                        // $("iframe[src='departmentlist.html']").attr(
                                         //     "src",
-                                        //     "Todolist.html"
+                                        //     "departmentlist.html"
                                         // );
                                         // document
                                         //     .querySelector(
-                                        //         "iframe[src='Todolist.html']"
+                                        //         "iframe[src='departmentlist.html']"
                                         //     )
                                         //     .contentWindow.location.reload(
                                         //         true
@@ -167,7 +169,7 @@
                                         // console.log(
                                         //     "工作了",
                                         //     document.querySelector(
-                                        //         "iframe[src='Todolist.html']"
+                                        //         "iframe[src='departmentlist.html']"
                                         //     )
                                         // );
                                     }
@@ -182,5 +184,6 @@
                 });
             });
         </script>
+        <script src="./js/department_edit.js"></script>
     </body>
 </html>

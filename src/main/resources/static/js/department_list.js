@@ -13,7 +13,7 @@ function render_page_num(page, all_pages) {
     // 绘制页码导航
     // page变量从0开始计数
     // all_pages变量为总页码,真正的总数，用30除出来的
-    // Todo:这个函数可以进行柯里化
+    // department:这个函数可以进行柯里化
 
     function click_page_num(element) {
         innerHTML = element.innerHTML;
@@ -149,7 +149,7 @@ function reder_date(data) {
             <a
                 title="编辑"
                 href="javascript:;"
-                onclick="Todo_edit('编辑','Todoadd.html','4','1000','600')"
+                onclick="department_edit('编辑','department_edit.html','4','1000','600')"
                 class="ml-5"
                 style="text-decoration: none"
             >
@@ -158,7 +158,7 @@ function reder_date(data) {
             <a
                 title="删除"
                 href="javascript:;"
-                onclick="Todo_del(this,'${value["id"]}')"
+                onclick="department_del(this,'${value["id"]}')"
                 style="text-decoration: none"
             >
                 <i class="layui-icon">&#xe640;</i>
@@ -167,7 +167,7 @@ function reder_date(data) {
     </tr>`;
         result = result + template;
     });
-    // Todo:日期可以使用Layui但没使用
+    // department:日期可以使用Layui但没使用
     // 将结果添加到页面
     box.innerHTML = result;
 }
@@ -176,7 +176,7 @@ function render_inf(page) {
     // 1.创建对象
     const xhr = new XMLHttpRequest();
     // 2.初始化 设置类型与URL
-    xhr.open("POST", domain + "/Todo/getList");
+    xhr.open("POST", domain + "/department/getList");
     // 3.发送
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); //这行代码很关键，用来把字符串类型的参数序列化成Form Data
     xhr.send(
@@ -191,7 +191,7 @@ function render_inf(page) {
             if (xhr.status >= 200 && xhr.status < 300) {
                 const result = JSON.parse(xhr.responseText);
                 // 重新渲染页面数据
-                reder_date(result["Todo_inf"]);
+                reder_date(result["department_inf"]);
                 render_page_num(page - 1, result["pages"]);
             }
         }
@@ -204,7 +204,7 @@ function render_inf(page) {
 //     // 1.创建对象
 //     const xhr = new XMLHttpRequest();
 //     // 2.初始化 设置类型与URL
-//     xhr.open("POST", domain + "/Todo/num");
+//     xhr.open("POST", domain + "/department/num");
 //     // 3.发送
 //     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); //这行代码很关键，用来把字符串类型的参数序列化成Form Data
 //     xhr.send(`id=${sessionStorage.getItem("id")}`);
@@ -220,7 +220,7 @@ function render_inf(page) {
 //                     const num_box = document.querySelector(
 //                         "body>div.x-body>xblock>span>span"
 //                     );
-//                     num_box.innerHTML = result["Todo_inf"];
+//                     num_box.innerHTML = result["department_inf"];
 //                 }
 //             }
 //         }

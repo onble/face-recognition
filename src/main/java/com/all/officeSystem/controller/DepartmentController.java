@@ -90,6 +90,24 @@ public class DepartmentController {
         }
     }
 
+    /**
+     * 根据页码和名字模糊查询
+     * @param page 页码
+     * @param items 数量
+     * @param name 名字
+     * @return R
+     */
+    @PostMapping("/department_list/getListWithName")
+    public R getDepartmentListWithName(int page, int items,String name) {
+        try {
+            return departmentService.getDepartmentListByPageByName(page, items,name);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.error();
+        }
+    }
+
+
     // 获取数据数量
 //    @PostMapping("/department/num")
 //    public R getNum(int id) {

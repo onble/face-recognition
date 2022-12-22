@@ -165,7 +165,7 @@ function reder_date(data) {
             <a
                 title="编辑"
                 href="javascript:;"
-                onclick="todo_edit('编辑','position_edit.html','${value["id"]}','1000','450')"
+                onclick="post_edit('编辑','position_edit.html','${value["id"]}','1000','450')"
                 class="ml-5"
                 style="text-decoration: none"
             >
@@ -174,7 +174,7 @@ function reder_date(data) {
             <a
                 title="删除"
                 href="javascript:;"
-                onclick="todo_del(this,'${value["id"]}')"
+                onclick="post_del(this,'${value["id"]}')"
                 style="text-decoration: none"
             >
                 <i class="layui-icon">&#xe640;</i>
@@ -213,38 +213,38 @@ function render_inf(page) {
         }
     };
 }
-function reder_num() {
-    // 获取数据数量并渲染到页面上
-    // 获取职员id
-    // 创建ajax进行传递数据
-    // 1.创建对象
-    const xhr = new XMLHttpRequest();
-    // 2.初始化 设置类型与URL
-    xhr.open("POST", domain + "/todo/num");
-    // 3.发送
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); //这行代码很关键，用来把字符串类型的参数序列化成Form Data
-    xhr.send(`staffId=${sessionStorage.getItem("staff_id")}`);
-    // 后台成功接收到传输的数据
-    // 4.事件绑定
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                const result = JSON.parse(xhr.responseText);
-                // 重新渲染页面数据
-                if (result["code"] == 200) {
-                    // 获取盒子
-                    const num_box = document.querySelector(
-                        "body>div.x-body>xblock>span>span"
-                    );
-                    num_box.innerHTML = result["todo_inf"];
-                }
-            }
-        }
-    };
-}
+// function reder_num() {
+//     // 获取数据数量并渲染到页面上
+//     // 获取职员id
+//     // 创建ajax进行传递数据
+//     // 1.创建对象
+//     const xhr = new XMLHttpRequest();
+//     // 2.初始化 设置类型与URL
+//     xhr.open("POST", domain + "/todo/num");
+//     // 3.发送
+//     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); //这行代码很关键，用来把字符串类型的参数序列化成Form Data
+//     xhr.send(`staffId=${sessionStorage.getItem("staff_id")}`);
+//     // 后台成功接收到传输的数据
+//     // 4.事件绑定
+//     xhr.onreadystatechange = function () {
+//         if (xhr.readyState === 4) {
+//             if (xhr.status >= 200 && xhr.status < 300) {
+//                 const result = JSON.parse(xhr.responseText);
+//                 // 重新渲染页面数据
+//                 if (result["code"] == 200) {
+//                     // 获取盒子
+//                     const num_box = document.querySelector(
+//                         "body>div.x-body>xblock>span>span"
+//                     );
+//                     num_box.innerHTML = result["todo_inf"];
+//                 }
+//             }
+//         }
+//     };
+// }
 function init() {
     render_inf(1);
-    reder_num();
+    // reder_num();
 }
 
 window.addEventListener("load", function () {

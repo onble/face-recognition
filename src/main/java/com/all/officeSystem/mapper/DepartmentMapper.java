@@ -7,6 +7,20 @@ import java.util.List;
 
 @Mapper
 public interface DepartmentMapper {
+
+    // 根据名字模糊查询全部数据
+    @Select("select * from department where name like '%${name}%'")
+    List<Department> selectByName(String name) throws Exception;
+
+//    // 职员修改个人信息
+//    @Update("update staff_inf set name=#{name},age=#{age},phone=#{phone},gender=#{gender} where staff_id=#{staffId}")
+//    void changeByStaff(int staffId, String name, int age, String phone, boolean gender) throws Exception;
+//
+//    // 根据id修改头像文件路径
+//    @Update("update staff_inf set header_file=#{filename} where staff_id=#{staffId}")
+//    void changeHeaderFile(int staffId, String filename) throws Exception;
+
+
     // 根据部门id获取部门信息
     @Select("select * from department where id=#{id}")
     Department selectById(int id) throws Exception;

@@ -16,7 +16,18 @@
         <link rel="stylesheet" href="css/bootstrap.css" />
         <script type="text/javascript" src="lib/loading/okLoading.js"></script>
         <script src="./js/department_list.js"></script>
+		<script src="./js/jquery.min.js"></script>
+		<script src="lib/layui/layui.js" charset="utf-8"></script>
+		<script src="js/x-layui.js" charset="utf-8"></script>		
         <link rel="stylesheet" href="./css/departmentlist.css" />
+		
+		<script>
+		    layui.use(
+		        ["laydate", "element", "laypage", "layer"],
+		        function () {}
+		    );
+		</script>
+		
     </head>
     <body>
         <div class="x-nav">
@@ -33,18 +44,22 @@
             >
         </div>
         <div class="x-body">
-            <form class="layui-form x-center" action="" style="width: 800px">
+            <form class="layui-form x-center" 
+				  id="searchName" 
+				  style="width: 800px"
+			>
                 <div class="layui-form-pane" style="margin-top: 15px">
                     <div class="layui-form-item">
                         <div class="layui-input-inline">
                             <input
                                 type="text"
-                                name="username"
+                                name="name"
                                 placeholder="部门名称"
                                 autocomplete="off"
                                 class="layui-input"
                             />
                         </div>
+						<!-- 查找按钮 -->
                         <div class="layui-input-inline" style="width: 80px">
                             <button
                                 class="layui-btn"
@@ -71,9 +86,9 @@
                 </button>
 
                 <!-- 显示本页数据个数 -->
-                <span class="x-right" style="line-height: 40px"
+                <!-- <span class="x-right" style="line-height: 40px"
                     >共有数据：<span class="layui-badge">4</span> 条</span
-                >
+                > -->
             </xblock>
 
             <table class="layui-table">

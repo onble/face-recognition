@@ -16,7 +16,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Autowired
     private DepartmentMapper departmentMapper;
 
-
+    //分页
     @Override
     public R getDepartmentInfByPage(int page, int items) throws Exception {
         // 初始化分页信息
@@ -73,4 +73,15 @@ public class DepartmentServiceImpl implements DepartmentService {
     public int getNum(int staffId) throws Exception {
         return departmentMapper.getNum(staffId);
     }
+
+    //按照姓名查询
+    public R getDepartmentListByPageByName(int page, int items, String name) throws Exception {
+        // 新建部门列表
+        List<Department> department =  departmentMapper.selectByName(name);
+//        PageInfo<Department> departmentListByPageByName = getDepartmentListByPageByName(page, items, name);
+//        return R.ok().setData("department_list", department).setData("pages", departmentListByPageByName.getPages());
+        PageInfo<Department> pageInfo = new PageInfo<>(department);
+        return R.ok().setData("department_list", pageInfo.getList()).setData("pages", pageInfo.getPages());
+    }
+    
 }

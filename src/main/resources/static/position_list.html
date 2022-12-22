@@ -65,7 +65,7 @@
 
                 <button
                     class="layui-btn"
-                    onclick="todo_add('添加','position_add.html','1000','450')"
+                    onclick="post_add('添加','position_add.html','1000','450')"
                 >
                     <i class="layui-icon">&#xe608;</i>添加
                 </button>
@@ -214,7 +214,7 @@
                     </li>
                 </ul>
             </nav>
-
+			  <nav><ul></ul></nav>
             <div id="page"></div>
         </div>
         <script src="lib/layui/layui.js" charset="utf-8"></script>
@@ -295,17 +295,17 @@
                 layer.msg("可以跳到前台具体问题页面", { icon: 1, time: 1000 });
             }
             /*添加*/
-            function todo_add(title, url, w, h) {
+            function post_add(title, url, w, h) {
                 x_admin_show(title, url, w, h);
             }
             //编辑
-            function todo_edit(title, url, id, w, h) {
+            function post_edit(title, url, id, w, h) {
                 url = url + "?id=" + id;
                 x_admin_show(title, url, w, h);
             }
 
             /*删除*/
-            function todo_del(obj, id) {
+            function post_del(obj, id) {
                 layer.confirm(
                     "确认要删除吗？",
                     { icon: 3, title: "提示信息" },

@@ -26,4 +26,13 @@ public interface DepartmentService {
     void change(int id, String name, String homePage) throws Exception;
 
     int getNum(int id) throws Exception;
+
+//    // 职员修改个人信息
+//    void changeByStaff(int staffId, String name, int age, String phone, boolean gender) throws Exception;
+
+//    // 根据职员id修改头像文件
+//    void changeHeaderFile(int staffId, String filename) throws Exception;
+
+    // 根据名字获取部门信息
+    R getDepartmentListByPageByName(int page, int items, String name) throws Exception;
 }

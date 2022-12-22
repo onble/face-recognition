@@ -6,10 +6,10 @@ function auth() {
     const admin_id = sessionStorage.getItem("admin_id");
     const admin_account = sessionStorage.getItem("admin_account");
     // 登录认证
-    // if (admin_id == null) {
-    //     // 跳转到登录画面
-    //     location.replace("./login_admin.html");
-    // }
+    if (admin_id == null) {
+        // 跳转到登录画面
+        location.replace("./login_admin.html");
+    }
     // 动态设置用户名
     console.log($(".account"));
     $(".account").each(function (index, accountText) {

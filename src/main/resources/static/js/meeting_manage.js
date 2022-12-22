@@ -257,7 +257,7 @@ function reder_num() {
                     const num_box = document.querySelector(
                         "body>div.x-body>xblock>span>span"
                     );
-                    num_box.innerHTML = result["todo_inf"];
+                    num_box.innerHTML = result["meeting_inf"];
                 }
             }
         }
@@ -265,7 +265,7 @@ function reder_num() {
 }
 function init() {
     render_inf(1);
-    reder_num();
+    // reder_num();
 }
 
 window.addEventListener("load", function () {

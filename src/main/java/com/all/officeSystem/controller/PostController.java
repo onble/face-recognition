@@ -101,6 +101,8 @@ public class PostController {
         }
     }
 
+    // temp
+
     @PostMapping("/post/getListWithName")
     public R getPostByPageWithName(int page, int items, String name, int adminId) {
         try {

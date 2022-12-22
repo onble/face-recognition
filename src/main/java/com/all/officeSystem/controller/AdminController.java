@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class AdminController {
-
+//重置
 
     @Autowired
     private AdminService adminService;

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface PostService {
-//    //获取全部信息
+  //获取全部信息
 //    List<Post> selectAll() throws Exception;
 
     // 根据页码获取职务列表

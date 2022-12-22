@@ -1,37 +1,40 @@
-# OfficeSystem
+# OA移动互联网办公系统 
+### 1.简介
+    OA系统的英文全称是：Office Automation System ，意为办公自动化系统。OA系统软件是专门为企业用户量身定做的协同OA办公系统，
+    它设有专门的企业管理标准， 企业文化建设，知识管理栏目，再配合自定义表单和自定义流程功能，让企业能在完全自我控制的范围内完成
+    信息化建设。本系统是运用于企业办公的自动办公系统。随着全球信息化的迅猛发展，传统的办公方式已经落后于信息化发展的要求，必将被
+    全新的办公方式取代。构建内部企业信息网(Internet)，实现办公自动化(OA)已经成为一种迫切的要求。本系统借助计算机网络实现了协同
+    办公，共享资源，信息高效传输等功能。 OA带给我们的不仅仅是办公事务上的轻松应对，实现办公流程的全程计算机化.更是一种全新的办公
+    理念，是信息化社会发展的必然要求，是我们思维触角的无限延申；时间和距离不再是我们获取信息的障碍，将会成为我们生活中的一个重要
+    组成部分。 因此，开发一套高效率，无差错的OA移动互联网办公系统十分必要。本系统的主要目的是提高办公效率和办公体验，让公司管理工
+    作更加高效轻松。
+### 2.产品介绍
+#### 2.1功能
+控制台
+部门管理
+职务管理
+员工管理
+#### 2.2具体功能
+    用户登陆成功，进入主界面。在菜单栏中会列出主菜单，用于选择菜单框显示的上级菜单，点击每一项进入该主菜单的子菜单。系统默认的主菜
+    单主要由 12 大部分组成，分别是待办事务、个人信息管理、日程安排、个人文件夹、名片夹管理、会议管理、项目管理、系统管理。不同角色
+    的用户进入系统后可使用的功能是不同的，用户的角色权限均由系统管理员登录系统后设置。
 
-#### Description
+#### 2.3产品角色
+     系统管理员	对系统所有功能模块进行相关操作
+     普通职员	对个人信息，日程安排，名片夹，公司通讯录，待办事项，在线信息，个人文件夹的添加，修改，删除（批量删除），查询搜索，编辑进行管理。
+     部门领导	对会议室的添加，对参会人员列表信息的添加，修改，删除（批量删除），查询搜索，编辑进行管理。
+     人力资源部员工	对部门列表进行添加，修改，查询。对部门人员列表进行添加，修改，查询，删除(批量删除)，查询搜素，编辑进行管理。
+     部门管理员	对部门列表的添加，修改，删除，查询，修改进行管理。
+     职务管理员	对职务信息的添加，修改，删除，查询，编辑进行管理。
+     员工管理员	对员工列表的添加，修改，删除(批量删除)，查询搜索，编辑进行管理。
+#### 2.4软件环境
+      软硬件环境需求
+      开发工具	IntelliJ IDEA 2019.1.3 x64，HBuilder X，Navicat Premium 15
+      Web服务器	Tomcat9
+      数据库	MySqL 5.0
+      配置管理工具	Git, maven
+      测试工具	JUnit4
+   
+#### 3.Git仓库地址
+https://gitee.com/Li_HaoBo/office-system
 
-OA移动互联网办公系统
-
-#### Software Architecture
-
-Software architecture description
-
-#### Installation
-
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### Instructions
-
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### Contribution
-
-1. Fork the repository
-2. Create Feat_xxx branch
-3. Commit your code
-4. Create Pull Request
-
-#### Gitee Feature
-
-1. You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2. Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3. Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4. The most valuable open source project [GVP](https://gitee.com/gvp)
-5. The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6. The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)

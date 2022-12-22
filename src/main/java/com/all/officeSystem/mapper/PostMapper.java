@@ -12,12 +12,12 @@ public interface PostMapper {
     Post selectById(int id) throws Exception;
 
      //获取全部职务信息
-    @Select("select * from Post ")
+    @Select("select * from post ")
     List<Post> selectAll() throws Exception;
 
-    // 修改职务信息
-    @Update("update * set Post ")
-    void updateMoneyById(int id) throws Exception;
+//    // 修改职务信息
+//    @Update("update * set post ")
+//    void updateMoneyById(int id) throws Exception;
 
     //根据id删除数据
     @Delete("delete from post where id=#{id}")

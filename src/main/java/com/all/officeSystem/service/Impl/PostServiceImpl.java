@@ -32,11 +32,12 @@ public class PostServiceImpl implements PostService {
 //        return null;
 //    }
 
-    @Override
-    public List<Post> selectAll() throws Exception {
-        return null;
-    }
+//    @Override
+//    public List<Post> selectAll() throws Exception {
+//        return null;
+//    }
 
+//分页
     @Override
     public R getPostInfByPage(int page, int items) throws Exception {
         // 初始化分页信息
@@ -59,7 +60,7 @@ public class PostServiceImpl implements PostService {
         }
     }
 
-
+//批量删除
     @Override
     public int batchDelete(int[] ids) throws Exception {
         for (int id : ids) {
@@ -68,12 +69,15 @@ public class PostServiceImpl implements PostService {
         return 0;
     }
 
+
+//插入
     @Override
     public void insert(String name, String duty) throws Exception {
         postMapper.insert(name, duty);
 
     }
 
+    //修改
     @Override
     public void change(String name, String duty) throws Exception {
 

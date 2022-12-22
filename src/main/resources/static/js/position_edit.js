@@ -21,11 +21,11 @@ function getQueryVariable(variable) {
 }
 function reder_edit_data(data) {
     // 修改标题
-    const title_input = document.querySelector("input[name='title']");
-    title_input.value = data["title"];
+    const title_input = document.querySelector("input[name='name']");
+    title_input.value = data["name"];
     // 修改内容
-    const content_input = document.querySelector("textarea[name='content']");
-    content_input.value = data["content"];
+    const content_input = document.querySelector("textarea[name='duty']");
+    content_input.value = data["duty"];
     // 修改状态
     if (data["status"] == true) {
         // 去选择已完成
@@ -106,7 +106,7 @@ function init() {
             if (xhr.status >= 200 && xhr.status < 300) {
                 const result = JSON.parse(xhr.responseText);
                 // 重新渲染页面数据
-                reder_edit_data(result["staff_inf"]);
+                reder_edit_data(result["post_inf"]);
             }
         }
     };

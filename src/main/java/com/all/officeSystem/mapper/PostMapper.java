@@ -34,4 +34,7 @@ public interface PostMapper {
     // 获取数据数量
     @Select("select count(id) from post")
     int getNum() throws Exception;
+
+    @Select("select * from post where name like '%${name}%'")
+    List<Post> selectByName(String name) throws Exception;
 }

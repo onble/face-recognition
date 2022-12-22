@@ -242,9 +242,54 @@ function render_inf(page) {
 //         }
 //     };
 // }
+
+function getNamePage(page) {
+    // 下面编写前端对注册信息的验证
+    // 获取输入框里面的数据
+    const name = document.querySelector('#searchName input[name="name"]').value;
+    if (name == "") {
+        render_inf(1);
+        return;
+    }
+    // 根据页码获取模糊名字查询
+    // 创建ajax进行传递数据
+    // 1.创建对象
+    const xhr = new XMLHttpRequest();
+    // 2.初始化 设置类型与URL
+    xhr.open("POST", domain + "/post/getListWithName");
+    // 获取formDate
+    const date = `name=${name}&page=${page}&items=${items}&adminId=1`;
+    // 3.发送
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); //这行代码很关键，用来把字符串类型的参数序列化成Form Data
+
+    xhr.send(date);
+    // 后台成功接收到传输的数据
+    // 4.事件绑定
+    xhr.onreadystatechange = function () {
+        // 判断
+        if (xhr.readyState === 4) {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // 处理服务器返回的结果
+                // 成功接收服务器的返回数据
+                const result = JSON.parse(xhr.responseText);
+                // 重新渲染页面数据
+                reder_date(result["post_inf"]);
+                render_page_num_with_name(page - 1, result["pages"]);
+            }
+        }
+    };
+}
 function init() {
     render_inf(1);
     // reder_num();
+    // 获取表单对象
+    const SearchNameForm = document.getElementById("searchName");
+    SearchNameForm.addEventListener("submit", (e) => {
+        // 这个是注册表单的提交
+        // 阻止默认的传递方式
+        e.preventDefault();
+        getNamePage(1);
+    });
 }
 
 window.addEventListener("load", function () {

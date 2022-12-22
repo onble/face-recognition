@@ -2,6 +2,7 @@ package com.all.officeSystem.service;
 
 import com.all.officeSystem.bean.Post;
 import com.all.officeSystem.common.R;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 /**
@@ -34,6 +35,7 @@ public interface PostService {
     //获取数据
     int getNum() throws Exception;
 
+    PageInfo<Post> getPostByPageWithName(int page, int items, String name) throws Exception;
 }
 
 

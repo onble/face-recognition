@@ -32,7 +32,7 @@ public class PostServiceImpl implements PostService {
 //        return null;
 //    }
 
-//分页
+    //分页
     @Override
     public R getPostInfByPage(int page, int items) throws Exception {
         // 初始化分页信息
@@ -55,7 +55,7 @@ public class PostServiceImpl implements PostService {
         }
     }
 
-//批量删除
+    //批量删除
     @Override
     public int batchDelete(int[] ids) throws Exception {
         for (int id : ids) {
@@ -65,7 +65,7 @@ public class PostServiceImpl implements PostService {
     }
 
 
-//插入
+    //插入
     @Override
     public void insert(String name, String duty) throws Exception {
         postMapper.insert(name, duty);
@@ -76,12 +76,23 @@ public class PostServiceImpl implements PostService {
     @Override
     public void change(String name, String duty, int postId) throws Exception {
 
-        postMapper.change(name, duty,postId);
+        postMapper.change(name, duty, postId);
     }
 
     @Override
     public int getNum() throws Exception {
 
         return postMapper.getNum();
+    }
+
+    @Override
+    public PageInfo<Post> getPostByPageWithName(int page, int items, String name) throws Exception {
+        // 初始化分页信息
+        PageHelper.startPage(page, items);
+        // 查询全部数据
+        List<Post> posts = postMapper.selectByName(name);
+        // 借助分页助手获取分页信息
+        PageInfo<Post> pageInfo = new PageInfo<>(posts);
+        return pageInfo;
     }
 }

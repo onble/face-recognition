@@ -99,11 +99,11 @@
                         return false;
                     }
 
-                    var data = `AdminId=${sessionStorage.getItem(
+                    var data = `adminId=${sessionStorage.getItem(
                         "admin_id"
                     )}&name=${name}&duty=${$(
                         "textarea[name='duty']"
-                    ).val()}&id=${$("input[name='id']").val()}`;
+                    ).val()}&postId=${$("input[name='id']").val()}`;
                     $.ajax({
                         type: "post",
                         url: domain + "/post/change",
@@ -132,6 +132,6 @@
                 });
             });
         </script>
-        <script src="./js/department_edit.js"></script>
+        <script src="./js/position_edit.js"></script>
     </body>
 </html>

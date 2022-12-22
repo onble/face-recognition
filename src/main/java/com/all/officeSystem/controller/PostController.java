@@ -3,6 +3,7 @@ package com.all.officeSystem.controller;
 import com.all.officeSystem.bean.Post;
 import com.all.officeSystem.common.R;
 import com.all.officeSystem.service.PostService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -94,6 +95,17 @@ public class PostController {
         try {
             int num = postService.getNum();
             return R.ok().setData("post_inf", num);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.error();
+        }
+    }
+
+    @PostMapping("/post/getListWithName")
+    public R getPostByPageWithName(int page, int items, String name, int adminId) {
+        try {
+            PageInfo<Post> postByPageWithName = postService.getPostByPageWithName(page, items, name);
+            return R.ok().setData("post_inf", postByPageWithName.getList()).setData("pages", postByPageWithName.getPages());
         } catch (Exception e) {
             e.printStackTrace();
             return R.error();

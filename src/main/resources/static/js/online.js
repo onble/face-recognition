@@ -305,7 +305,7 @@ function getNamePage(page) {
     // 1.创建对象
     const xhr = new XMLHttpRequest();
     // 2.初始化 设置类型与URL
-    xhr.open("POST", domain + "/online/getListWithName");
+    xhr.open("POST", domain + "/post/getListWithName");
     // 获取formDate
     const date = `name=${name}&page=${page}&items=${items}`;
     // 3.发送
@@ -322,7 +322,7 @@ function getNamePage(page) {
                 // 成功接收服务器的返回数据
                 const result = JSON.parse(xhr.responseText);
                 // 重新渲染页面数据
-                reder_date(result["online_inf"]);
+                reder_date(result["post_inf"]);
                 render_page_num_with_name(page - 1, result["pages"]);
             }
         }

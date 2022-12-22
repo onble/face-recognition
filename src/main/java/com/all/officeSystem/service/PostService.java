@@ -5,7 +5,7 @@ import com.all.officeSystem.common.R;
 import org.springframework.stereotype.Service;
 
 /**
- *职务的业务层
+ * 职务的业务层
  */
 @Service
 public interface PostService {
@@ -23,16 +23,16 @@ public interface PostService {
     int batchDelete(int[] ids) throws Exception;
 
     // 插入数据
-    void insert( String name, String duty) throws Exception;
+    void insert(String name, String duty) throws Exception;
 
     // 根据id获取一条数据
     Post selectById(int id) throws Exception;
 
     // 修改数据
-    void change(String name, String duty) throws Exception;
+    void change(String name, String duty, int postId) throws Exception;
 
     //获取数据
-    int  getNum(int id) throws Exception;
+    int getNum() throws Exception;
 
 }
 

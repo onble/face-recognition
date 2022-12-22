@@ -25,7 +25,7 @@ public interface StaffInfMapper {
 
     //插入信息
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
-    @Insert("insert into staff_inf values (default, #{name}, #{age}, #{phone}, #{gender}, #{isLeader}, #{positionId}, #{monthlySalary}, #{departmentId}, #{birthday}, #{folderSize}, #{occupyFileSize},default) )")
+    @Insert("insert into staff_inf values (default, #{name}, #{age}, #{phone}, #{gender}, #{isLeader}, #{positionId}, #{monthlySalary}, #{departmentId}, #{birthday}, #{folderSize}, #{occupyFileSize},default )")
     void insert(StaffInf th) throws Exception;
 
     // 根据id删除数据

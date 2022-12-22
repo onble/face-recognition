@@ -23,7 +23,7 @@
     <body>
         <div class="x-body">
             <form class="layui-form layui-form-pane" action="" id="add">
-                <input type="text" name="schedule_id" style="display: none" />
+                <input type="text" name="meeting_id" style="display: none" />
                 <div
                     class="layui-tab layui-tab-brief"
                     lay-filter="docDemoTabBrief"
@@ -33,12 +33,29 @@
                             <input type="hidden" name="id" value="" />
                             <div class="layui-form-item">
                                 <label class="layui-form-label">
-                                    <span class="x-red">*</span>事项标题
+                                    <span class="x-red">*</span>会议标题
                                 </label>
                                 <div class="layui-input-block">
                                     <input
                                         type="text"
                                         name="title"
+                                        autocomplete="off"
+                                        placeholder="控制在80个汉字，160个字符以内"
+                                        class="layui-input"
+                                        required=""
+                                        lay-verify="required"
+                                        value=""
+                                    />
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    <span class="x-red">*</span>会议地址
+                                </label>
+                                <div class="layui-input-block">
+                                    <input
+                                        type="text"
+                                        name="address"
                                         autocomplete="off"
                                         placeholder="控制在80个汉字，160个字符以内"
                                         class="layui-input"
@@ -62,19 +79,61 @@
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">
-                                    <span class="x-red">*</span>日程时间
+                                    <span class="x-red">*</span>会议开始时间
                                 </label>
                                 <div class="layui-input-block">
                                     <input
                                         type="datetime-local"
                                         class="layui-input"
-                                        name="date"
+                                        name="startTime"
                                     />
-                                    <!-- <input
-                                        type="text"
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    <span class="x-red">*</span>会议结束时间
+                                </label>
+                                <div class="layui-input-block">
+                                    <input
+                                        type="datetime-local"
                                         class="layui-input"
-                                        id="time"
-                                    /> -->
+                                        name="stopTime"
+                                    />
+                                </div>
+                            </div>
+                            <div class="layui-form-item" id="status_box">
+                                <label class="layui-form-label">
+                                    <span class="x-red">*</span>状态
+                                </label>
+                                <div class="layui-input-block">
+                                    <input
+                                        type="radio"
+                                        name="status"
+                                        value="1"
+                                        title="已开始"
+                                    />
+                                    <div
+                                        class="layui-unselect layui-form-radio layui-form-radioed"
+                                    >
+                                        <i
+                                            class="layui-anim layui-icon layui-anim-scaleSpring"
+                                            ></i
+                                        >
+                                        <div>已开始</div>
+                                    </div>
+                                    <input
+                                        type="radio"
+                                        name="status"
+                                        value="0"
+                                        title="未开始"
+                                        checked="checked"
+                                    />
+                                    <div
+                                        class="layui-unselect layui-form-radio"
+                                    >
+                                        <i class="layui-anim layui-icon"></i>
+                                        <div>未开始</div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -242,6 +301,6 @@
                 });
             });
         </script>
-        <script src="./js/schedule_edit.js"></script>
+        <script src="./js/meeting_edit.js"></script>
     </body>
 </html>

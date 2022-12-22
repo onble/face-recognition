@@ -11,7 +11,7 @@ public interface PostMapper {
     @Select("select * from post where id=#{id}")
     Post selectById(int id) throws Exception;
 
-     //获取全部职务信息
+    //获取全部职务信息
     @Select("select * from post ")
     List<Post> selectAll() throws Exception;
 
@@ -25,13 +25,13 @@ public interface PostMapper {
 
     // 插入数据
     @Insert("insert into post value (default,#{name},#{duty})")
-    void insert( String name,String duty)throws Exception;
+    void insert(String name, String duty) throws Exception;
 
     // 修改数据
-    @Update("update post set name=#{name},duty=#{duty}")
-    void change(String name, String duty) throws Exception;
+    @Update("update post set name=#{name},duty=#{duty} where id=#{postId}")
+    void change(String name, String duty, int postId) throws Exception;
 
     // 获取数据数量
-    @Select("select count(id) from post where id =#{id}")
-    int getNum(int id) throws Exception;
+    @Select("select count(id) from post")
+    int getNum() throws Exception;
 }

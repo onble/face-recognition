@@ -265,10 +265,7 @@
                         if (data.code == 200) {
                             layer.closeAll("loading");
                             //layer.msg(data.info,{icon:1,time:1000});
-                            $("#pimages").attr(
-                                "src",
-                                "http://" + data.image_path
-                            );
+                            $("#pimages").attr("src", data.image_path);
                             // TODO:下面这句不知道要做什么
                             $(".imgs").show();
                             return false;

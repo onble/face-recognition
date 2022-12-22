@@ -19,13 +19,8 @@ public class PostServiceImpl implements PostService {
     // 根据id获取一条数据
     @Override
     public Post selectById(int id) throws Exception {
-       return postMapper.selectById(id);
+        return postMapper.selectById(id);
     }
-//    //获取全部信息
-//    @Override
-//    public List<Post> selectAll() throws Exception {
-//        return postMapper.selectAll();
-//    }
 
 //    @Override
 //    public Post selectById(int id) throws Exception {
@@ -79,14 +74,14 @@ public class PostServiceImpl implements PostService {
 
     //修改
     @Override
-    public void change(String name, String duty) throws Exception {
+    public void change(String name, String duty, int postId) throws Exception {
 
-        postMapper.change(name, duty);
+        postMapper.change(name, duty,postId);
     }
 
     @Override
-    public int getNum(int id) throws Exception {
+    public int getNum() throws Exception {
 
-        return postMapper.getNum(id);
+        return postMapper.getNum();
     }
 }

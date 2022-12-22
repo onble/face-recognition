@@ -32,7 +32,7 @@
                             <input type="hidden" name="id" value="" />
                             <div class="layui-form-item">
                                 <label class="layui-form-label">
-                                    <span class="x-red">*</span>部门名称
+                                    <span class="x-red">*</span>职务名称
                                 </label>
                                 <div class="layui-input-block">
                                     <input
@@ -49,12 +49,12 @@
                             </div>
                             <div class="layui-form-item layui-form-text">
                                 <label class="layui-form-label">
-                                    <span class="x-red">*</span>部门简介
+                                    职务职责
                                 </label>
                                 <div class="layui-input-block">
                                     <textarea
                                         placeholder="请输入内容"
-                                        name="homePage"
+                                        name="duty"
                                         class="layui-textarea"
                                     ></textarea>
                                 </div>
@@ -90,18 +90,18 @@
                 form.on("submit(add)", function (data) {
                     var name = $("input[name='name']").val();
                     if (name == "") {
-                        layer.msg("部门名称不能为空！", {
+                        layer.msg("职务名称不能为空！", {
                             icon: 5,
                             time: 2000,
                         });
                         return false;
                     }
-                    var data = `name=${name}&homePage=${$(
-                        "textarea[name='homePage']"
-                    ).val()}`;
+                    var data = `name=${name}&duty=${$(
+                        "textarea[name='duty']"
+                    ).val()}&adminId=1`;
                     $.ajax({
                         type: "post",
-                        url: domain + "/department/add",
+                        url: domain + "/post/add",
                         data: data,
                         dataType: "json",
                         success: function (data) {

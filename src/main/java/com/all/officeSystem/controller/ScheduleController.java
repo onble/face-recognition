@@ -81,9 +81,9 @@ public class ScheduleController {
 
     // 修改数据
     @PostMapping("/schedule/change")
-    public R change(int staffId, String title, String content, Date date, int scheduleId) {
+    public R change(Schedule schedule) {
         try {
-            scheduleService.change(staffId, title, content, date, scheduleId);
+            scheduleService.change(schedule.getStaffId(), schedule.getTitle(), schedule.getContent(), schedule.getDate(), schedule.getScheduleId());
             return R.ok().setData("info", "修改成功");
         } catch (Exception e) {
             e.printStackTrace();

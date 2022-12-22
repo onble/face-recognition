@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>编辑待办事项</title>
+        <title>添加待办事项</title>
         <meta name="renderer" content="webkit" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta
@@ -23,7 +23,6 @@
     <body>
         <div class="x-body">
             <form class="layui-form layui-form-pane" action="" id="add">
-                <input type="text" name="schedule_id" style="display: none" />
                 <div
                     class="layui-tab layui-tab-brief"
                     lay-filter="docDemoTabBrief"
@@ -33,7 +32,7 @@
                             <input type="hidden" name="id" value="" />
                             <div class="layui-form-item">
                                 <label class="layui-form-label">
-                                    <span class="x-red">*</span>事项标题
+                                    <span class="x-red">*</span>会议标题
                                 </label>
                                 <div class="layui-input-block">
                                     <input
@@ -48,9 +47,26 @@
                                     />
                                 </div>
                             </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    <span class="x-red">*</span>会议地址
+                                </label>
+                                <div class="layui-input-block">
+                                    <input
+                                        type="text"
+                                        name="address"
+                                        autocomplete="off"
+                                        placeholder="控制在80个汉字，160个字符以内"
+                                        class="layui-input"
+                                        required=""
+                                        lay-verify="required"
+                                        value=""
+                                    />
+                                </div>
+                            </div>
                             <div class="layui-form-item layui-form-text">
                                 <label class="layui-form-label">
-                                    <span class="x-red">*</span>事项内容
+                                    <span class="x-red">*</span>会议内容
                                 </label>
                                 <div class="layui-input-block">
                                     <textarea
@@ -62,7 +78,7 @@
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">
-                                    <span class="x-red">*</span>日程时间
+                                    <span class="x-red">*</span>会议开始时间
                                 </label>
                                 <div class="layui-input-block">
                                     <input
@@ -70,11 +86,53 @@
                                         class="layui-input"
                                         name="date"
                                     />
-                                    <!-- <input
-                                        type="text"
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    <span class="x-red">*</span>会议结束时间
+                                </label>
+                                <div class="layui-input-block">
+                                    <input
+                                        type="datetime-local"
                                         class="layui-input"
-                                        id="time"
-                                    /> -->
+                                        name="date"
+                                    />
+                                </div>
+                            </div>
+                            <div class="layui-form-item" id="status_box">
+                                <label class="layui-form-label">
+                                    <span class="x-red">*</span>状态
+                                </label>
+                                <div class="layui-input-block">
+                                    <input
+                                        type="radio"
+                                        name="status"
+                                        value="1"
+                                        title="已完成"
+                                    />
+                                    <div
+                                        class="layui-unselect layui-form-radio layui-form-radioed"
+                                    >
+                                        <i
+                                            class="layui-anim layui-icon layui-anim-scaleSpring"
+                                            ></i
+                                        >
+                                        <div>已完成</div>
+                                    </div>
+                                    <input
+                                        type="radio"
+                                        name="status"
+                                        value="0"
+                                        title="未完成"
+                                        checked="checked"
+                                    />
+                                    <div
+                                        class="layui-unselect layui-form-radio"
+                                    >
+                                        <i class="layui-anim layui-icon"></i>
+                                        <div>未完成</div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -96,76 +154,6 @@
         <script src="lib/layui/layui.js" charset="utf-8"></script>
         <script src="js/x-layui.js" charset="utf-8"></script>
         <script>
-            function date_format(date, fmt = "yyyy年MM月dd日 hh:mm:ss") {
-                function getWeek(self) {
-                    const week_num = self.getDay();
-                    let answer = null;
-                    switch (week_num) {
-                        case 0:
-                            answer = "星期日";
-                            break;
-                        case 1:
-                            answer = "星期一";
-                            break;
-                        case 2:
-                            answer = "星期二";
-                            break;
-                        case 3:
-                            answer = "星期三";
-                            break;
-                        case 4:
-                            answer = "星期四";
-                            break;
-                        case 5:
-                            answer = "星期五";
-                            break;
-                        case 6:
-                            answer = "星期六";
-                            break;
-                        default:
-                            answer = "世界末日";
-                    }
-                    return answer;
-                }
-                let o = {
-                    MM: date.getMonth() + 1, //月份
-                    dd: date.getDate(), //日
-                    hh: date.getHours(), //小时
-                    mm: date.getMinutes(), //分
-                    ss: date.getSeconds(), //秒
-                    SS: date.getMilliseconds(), //毫秒
-                    qq: Math.floor((date.getMonth() + 3) / 3), //季度
-                };
-                // 下面是匹配年
-                if (/(y+)/.test(fmt)) {
-                    fmt = fmt.replace(
-                        /(y+)/.exec(fmt)[0],
-                        (date.getFullYear() + "").substring(
-                            4 - /(y+)/.exec(fmt)[0].length
-                        )
-                    );
-                }
-                // 下面匹配星期
-                if (/(www)/.test(fmt)) {
-                    fmt = fmt.replace(
-                        /(w+)/.exec(fmt)[0],
-                        getWeek(date).substring(3 - /(w+)/.exec(fmt)[0].length)
-                    );
-                }
-                for (let k in o) {
-                    if (new RegExp("(" + k + ")").test(fmt)) {
-                        const reg = new RegExp(k);
-                        fmt = fmt.replace(
-                            reg.exec(fmt)[0],
-                            reg.exec(fmt)[0].length == 1
-                                ? o[k]
-                                : ("00" + o[k]).substring(("" + o[k]).length)
-                        );
-                    }
-                }
-                return fmt;
-            }
-
             const domain = "http://localhost:8080/OA"; // 声明主机地址
             layui.use(["element", "layer", "form"], function () {
                 $ = layui.jquery; //jquery
@@ -184,52 +172,27 @@
                         });
                         return false;
                     }
-                    // console.log("todo的id", $("input[name='todo_id']").val());
-                    const date_time = date_format(
-                        new Date($("input[name='date']").val()),
-                        "yyyy-MM-dd hh:mm:ss"
-                    );
                     var data = `staffId=${sessionStorage.getItem(
                         "staff_id"
                     )}&title=${title}&content=${$(
                         "textarea[name='content']"
-                    ).val()}&date=${date_time}&scheduleId=${$(
-                        "input[name='schedule_id']"
-                    ).val()}`;
+                    ).val()}&status=${$("input[name='status']:checked").val()}`;
                     $.ajax({
                         type: "post",
-                        url: domain + "/schedule/change",
+                        url: domain + "/todo/add",
                         data: data,
                         dataType: "json",
                         success: function (data) {
                             if (data.code == 200) {
                                 layer.msg(
                                     data.info,
-                                    { icon: 6, time: 1000 },
+                                    { icon: 6, time: 2000 },
                                     function () {
                                         window.parent.location.reload();
                                         var index = parent.layer.getFrameIndex(
                                             window.name
                                         );
                                         parent.layer.close(index);
-                                        // 测试使用jQuery实现强制刷新
-                                        // $("iframe[src='todolist.html']").attr(
-                                        //     "src",
-                                        //     "todolist.html"
-                                        // );
-                                        // document
-                                        //     .querySelector(
-                                        //         "iframe[src='todolist.html']"
-                                        //     )
-                                        //     .contentWindow.location.reload(
-                                        //         true
-                                        //     );
-                                        // console.log(
-                                        //     "工作了",
-                                        //     document.querySelector(
-                                        //         "iframe[src='todolist.html']"
-                                        //     )
-                                        // );
                                     }
                                 );
                                 return false;
@@ -242,6 +205,5 @@
                 });
             });
         </script>
-        <script src="./js/schedule_edit.js"></script>
     </body>
 </html>

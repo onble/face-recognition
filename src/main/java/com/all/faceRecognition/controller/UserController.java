@@ -30,5 +30,16 @@ public class UserController {
         }
     }
 
+    // 注册
+    @PostMapping("/user/register")
+    public R register(String account, String password, String repassword, String invitation_code) {
+        try {
+            userService.register(account, password, repassword);
+            return R.ok();
+        } catch (Exception e) {
+            return R.error().setMessage(e.getMessage());
+        }
+    }
+
 
 }

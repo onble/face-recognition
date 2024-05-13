@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.all</groupId>
-    <artifactId>office-system</artifactId>
+    <artifactId>face-recognition</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>office-system</name>
-    <description>office-system</description>
+    <name>face-recognition</name>
+    <description>face-recognition</description>
 
     <properties>
         <java.version>1.8</java.version>

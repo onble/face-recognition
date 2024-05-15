@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +24,7 @@ public class FourTestController {
     @PostMapping("/four_test/get_tests")
     public R get_test() {
         try {
-            List<List<Map<String, Object>>> data = fourTestService.get_test(30);
+            List<HashMap<String, Object>> data = fourTestService.get_test(30);
             return R.ok().setData("test_list", data);
         } catch (Exception e) {
             e.printStackTrace();

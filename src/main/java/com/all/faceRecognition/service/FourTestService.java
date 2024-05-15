@@ -1,5 +1,6 @@
 package com.all.faceRecognition.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import java.util.Map;
  * */
 public interface FourTestService {
     // 获取数据
-    List<List<Map<String, Object>>> get_test(int num) throws Exception;
-    List<Map<String, Object>> getData() throws Exception;
+    List<HashMap<String, Object>> get_test(int num) throws Exception;
+
+    HashMap<String, Object> getData() throws Exception;
 }

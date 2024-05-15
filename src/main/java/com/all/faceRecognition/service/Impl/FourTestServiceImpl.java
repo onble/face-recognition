@@ -1,6 +1,8 @@
 package com.all.faceRecognition.service.Impl;
 
 import com.all.faceRecognition.bean.FourTest;
+import com.all.faceRecognition.bean.FourTestInfo;
+import com.all.faceRecognition.mapper.FourTestInfoMapper;
 import com.all.faceRecognition.mapper.FourTestMapper;
 import com.all.faceRecognition.mapper.PeopleBaseInfoMapper;
 import com.all.faceRecognition.service.FourTestService;
@@ -20,6 +22,8 @@ public class FourTestServiceImpl implements FourTestService {
     private FourTestMapper fourTestMapper;
     @Autowired
     private PeopleBaseInfoMapper peopleBaseInfoMapper;
+    @Autowired
+    private FourTestInfoMapper fourTestInfoMapper;
 
     private static int ID = 0;
 
@@ -50,7 +54,8 @@ public class FourTestServiceImpl implements FourTestService {
         return testBaseInfo.getId();
     }
 
-    public List<Map<String, Object>> getData() throws Exception {
+    public HashMap<String, Object> getData() throws Exception {
+        HashMap<String, Object> data_wrap = new HashMap<>();
         HashMap<String, Integer> characters = Math.random() < 0.5 ? femaleCharacters : maleCharacters;
 
         List<String> personList = new ArrayList<>(characters.keySet());
@@ -71,6 +76,8 @@ public class FourTestServiceImpl implements FourTestService {
             imagesIndex.add(i);
         }
         Collections.shuffle(imagesIndex);
+        // 定义一个题组对象记录生成的题组
+        FourTestInfo fourTestInfo = new FourTestInfo();
         for (int i = 0; i < 3; i++) {
             String imagePath = "public/face/" + person1 + "/" + imagesIndex.get(i) + ".jpg";
             HashMap<String, Object> entry = new HashMap<>();
@@ -81,6 +88,7 @@ public class FourTestServiceImpl implements FourTestService {
                 testId = insertNewTest(person1Id, imagePath);
             }
             entry.put("id", testId);
+            fourTestInfo.save_id(testId);
             entry.put("image", imagePath);
             entry.put("name", person1);
             entry.put("answer", false);
@@ -98,18 +106,29 @@ public class FourTestServiceImpl implements FourTestService {
             testId = insertNewTest(person2Id, imagePath);
         }
         entry.put("id", testId);
+        fourTestInfo.save_id(testId);
         entry.put("image", imagePath);
         entry.put("name", person2);
         entry.put("answer", true);
         data.add(entry);
 
-        Collections.shuffle(data);
 
-        return data;
+        // 存储题组数据
+        // 判断是否存在该题组
+        Integer test_group_id = fourTestInfoMapper.selectFourTestGroupIdByFourTestInfo(fourTestInfo);
+        if (test_group_id == null) {
+            // 新增一个题组
+            fourTestInfoMapper.insertNewTestGroup(fourTestInfo);
+            test_group_id = fourTestInfo.getId();
+        }
+        Collections.shuffle(data);
+        data_wrap.put("tests", data);
+        data_wrap.put("test_group_id", test_group_id);
+        return data_wrap;
     }
 
-    public List<List<Map<String, Object>>> generateDatas(int num) throws Exception {
-        List<List<Map<String, Object>>> datas = new ArrayList<>();
+    public List<HashMap<String, Object>> generateDatas(int num) throws Exception {
+        List<HashMap<String, Object>> datas = new ArrayList<>();
         for (int i = 0; i < num; i++) {
             datas.add(getData());
         }
@@ -125,9 +144,8 @@ public class FourTestServiceImpl implements FourTestService {
     }*/
 
     // 获取题组数据
-    public List<List<Map<String, Object>>> get_test(int num) throws Exception {
-        List<List<Map<String, Object>>> data = generateDatas(num);
-        System.out.println("data"+data);
+    public List<HashMap<String, Object>> get_test(int num) throws Exception {
+        List<HashMap<String, Object>> data = generateDatas(num);
         return data;
     }
 

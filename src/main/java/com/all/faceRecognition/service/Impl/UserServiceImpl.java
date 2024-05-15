@@ -50,4 +50,12 @@ public class UserServiceImpl implements UserService {
         createStaffCheck = true;
         return R.ok().setData("account_check", accountCheck).setData("repassword_check", repasswordCheck).setData("create_account", createStaffCheck);
     }
+
+    @Override
+    public User selectById(int id) throws Exception {
+        User user = userMapper.selectById(id);
+        return user;
+    }
+
+
 }

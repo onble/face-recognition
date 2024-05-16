@@ -1,10 +1,7 @@
 package com.all.faceRecognition.mapper;
 
 import com.all.faceRecognition.bean.FourTest;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 /*
  * 四选一测试的持久层
@@ -19,4 +16,12 @@ public interface FourTestMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     @Insert("insert into test_base_info(people_id, imageIndex) VALUE (#{people_id},#{imageIndex})")
     void insertNewTest(FourTest fourTest) throws Exception;
+
+    // 一个题目的错误次数加一
+    @Update("update test_base_info set wrong_times = wrong_times + 1 where id = #{test_id}")
+    void addWrongTimes(int test_id) throws Exception;
+
+    // 一个题目的正确次数加一
+    @Update("update test_base_info set right_times = right_times + 1 where id = #{test_id}")
+    void addRightTimes(int test_id) throws Exception;
 }

@@ -2,6 +2,8 @@ package com.all.faceRecognition.service.Impl;
 
 import com.all.faceRecognition.bean.FourTest;
 import com.all.faceRecognition.bean.FourTestInfo;
+import com.all.faceRecognition.bean.FourTestRecord;
+import com.all.faceRecognition.common.R;
 import com.all.faceRecognition.mapper.FourTestInfoMapper;
 import com.all.faceRecognition.mapper.FourTestMapper;
 import com.all.faceRecognition.mapper.PeopleBaseInfoMapper;
@@ -135,14 +137,6 @@ public class FourTestServiceImpl implements FourTestService {
         return datas;
     }
 
-    /*public static void main(String[] args) {
-        List<List<Map<String, Object>>> data = generateDatas(30);
-
-        Gson gson = new Gson();
-        String jsonData = gson.toJson(data);
-        System.out.println(jsonData);
-    }*/
-
     // 获取题组数据
     public List<HashMap<String, Object>> get_test(int num) throws Exception {
         List<HashMap<String, Object>> data = generateDatas(num);
@@ -158,5 +152,18 @@ public class FourTestServiceImpl implements FourTestService {
         }
     }
 
+    // 存储做题记录
+    public void saveRecords(FourTestRecord testRequest) throws Exception {
+        List<Integer> action = testRequest.getAction();
+        //  遍历action增加做题记录
+        for (Integer testId : action) {
+            if (testId > 0) {
+                // 做对记录增加
+                fourTestMapper.addRightTimes(testId);
+            } else {
+                fourTestMapper.addWrongTimes(Math.abs(testId));
+            }
+        }
+    }
 
 }

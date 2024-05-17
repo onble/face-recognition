@@ -13,6 +13,7 @@ public class FourTestRecord {
     private List<Integer> action;
     private int testGroupId;
     private List<Test> tests;
+    private int answerSeconds;
 
     // Inner class for Test
     @Data

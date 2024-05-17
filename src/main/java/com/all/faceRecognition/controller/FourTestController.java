@@ -44,14 +44,15 @@ public class FourTestController {
             e.printStackTrace();
             return R.error().setMessage(e.getMessage());
         }
-        System.out.println(testRequest.getAction());
-        System.out.println(testRequest.getTestGroupId());
-        for (FourTestRecord.Test test : testRequest.getTests()) {
-            System.out.println(test.getImage());
-            System.out.println(test.isAnswer());
-            System.out.println(test.getName());
-            System.out.println(test.getId());
-        }
+//        System.out.println(testRequest.getAnswerSeconds());
+//        System.out.println(testRequest.getAction());
+//        System.out.println(testRequest.getTestGroupId());
+//        for (FourTestRecord.Test test : testRequest.getTests()) {
+//            System.out.println(test.getImage());
+//            System.out.println(test.isAnswer());
+//            System.out.println(test.getName());
+//            System.out.println(test.getId());
+//        }
         return R.ok();
     }
 }

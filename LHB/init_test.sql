@@ -1,7 +1,7 @@
 -- 生成用户信息表
 create table user
 (
-    id       int primary key auto_increment comment '管理员id',
+    id       int primary key auto_increment comment '用户id',
     account  varchar(50)  not null unique comment '账号',
     password varchar(200) not null comment '密码',
     status   tinyint      not null default 0 comment '账号状态，0：正常使用 1:禁止使用 2:刚注册',
@@ -119,14 +119,13 @@ create table four_test_action
 -- 生成用户做题表
 create table user_test
 (
-    id                  int primary key auto_increment comment '用户测试id',
-    test_group_id       int comment '题组信息id',
-    done_time           TIMESTAMP comment '做题结束时间',
-    group_kind          tinyint not null default 0 comment '状态，1：四选一题 2:分类测试 3:寻找测试 0:未分类',
-    time_spent_seconds  INT comment '做题所耗时间s',
-    user_id             int comment '用户id',
-    four_test_action_id int comment '操作id',
-    foreign key (test_group_id) references test_base_info (id),
-    foreign key (user_id) references user (id),
-    foreign key (four_test_action_id) references four_test_action (id)
+    id                 int primary key auto_increment comment '用户测试id',
+    test_group_id      int comment '题组信息id',
+    done_time          TIMESTAMP comment '做题结束时间',
+    group_kind         tinyint not null default 0 comment '状态，1：四选一题 2:分类测试 3:寻找测试 0:未分类',
+    time_spend_seconds INT comment '做题所耗时间s',
+    user_id            int comment '用户id',
+    test_action_id     int comment '操作id',
+    foreign key (test_group_id) references four_test_info (id),
+    foreign key (user_id) references user (id)
 ) comment '用户做题表';

@@ -36,10 +36,11 @@ public class FourTestController {
 
     // 记录做题信息
     @PostMapping("/four_test/record")
-    public R receiveTest(@RequestBody FourTestRecord testRequest) {
+    public R receiveTest(@RequestBody FourTestRecord testRequest, @RequestHeader("token") String token) {
+        int user_id = Integer.parseInt(token);
         // 处理接收到的 testRequest 对象
         try {
-            fourTestService.saveRecords(testRequest);
+            fourTestService.saveRecords(testRequest,user_id);
         } catch (Exception e) {
             e.printStackTrace();
             return R.error().setMessage(e.getMessage());

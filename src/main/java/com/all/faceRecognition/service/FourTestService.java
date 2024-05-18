@@ -17,5 +17,5 @@ public interface FourTestService {
     HashMap<String, Object> getData() throws Exception;
 
     // 存储做题记录
-    void saveRecords(FourTestRecord testRequest) throws Exception;
+    void saveRecords(FourTestRecord testRequest,int user_id) throws Exception;
 }

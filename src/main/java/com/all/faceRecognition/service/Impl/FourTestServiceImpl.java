@@ -5,16 +5,15 @@ import com.all.faceRecognition.bean.FourTestActions;
 import com.all.faceRecognition.bean.FourTestInfo;
 import com.all.faceRecognition.bean.FourTestRecord;
 import com.all.faceRecognition.common.R;
-import com.all.faceRecognition.mapper.FourTestActionMapper;
-import com.all.faceRecognition.mapper.FourTestInfoMapper;
-import com.all.faceRecognition.mapper.FourTestMapper;
-import com.all.faceRecognition.mapper.PeopleBaseInfoMapper;
+import com.all.faceRecognition.mapper.*;
 import com.all.faceRecognition.service.FourTestService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+
+import static com.all.faceRecognition.util.TimeUtils.getCurrentChinaTime;
 
 
 /*
@@ -30,6 +29,8 @@ public class FourTestServiceImpl implements FourTestService {
     private FourTestInfoMapper fourTestInfoMapper;
     @Autowired
     private FourTestActionMapper fourTestActionMapper;
+    @Autowired
+    private UserTestMapper userTestMapper;
 
     private static int ID = 0;
 
@@ -157,7 +158,7 @@ public class FourTestServiceImpl implements FourTestService {
     }
 
     // 存储做题记录
-    public void saveRecords(FourTestRecord testRequest) throws Exception {
+    public void saveRecords(FourTestRecord testRequest, int user_id) throws Exception {
         List<Integer> action = testRequest.getAction();
         // 存储 action_to_save 的结果
         List<Integer> actionToSave = new ArrayList<>();
@@ -213,9 +214,10 @@ public class FourTestServiceImpl implements FourTestService {
             fourTestActionMapper.insertNewTestGroup(fourTestActions);
             actions_id = fourTestActions.getId();
         }
+        // 现在有了操作的id
+        // 接下来往数据库中存储
+        userTestMapper.insert(testRequest.getTestGroupId(), getCurrentChinaTime(), 1, testRequest.getAnswerSeconds(), user_id, actions_id);
 
-        System.out.println(fourTestActions);
-        System.out.println("actions_id" + actions_id);
     }
 
 }

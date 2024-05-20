@@ -1,38 +1,40 @@
 package com.all.faceRecognition.controller;
 
-import com.all.faceRecognition.bean.FourTestRecord;
-import com.all.faceRecognition.bean.save.SaveClassificationTestInfo;
+import com.all.faceRecognition.bean.save.SaveFindTestInfo;
 import com.all.faceRecognition.common.R;
-import com.all.faceRecognition.service.ClassificationTestService;
+
+
+import com.all.faceRecognition.service.FindTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 
 @RestController
-public class ClassificationTestController {
+public class FindTestController {
     @Autowired
-    ClassificationTestService classificationTestService;
+    private FindTestService findTestService;
 
     // 获取题组
-    @GetMapping("/classification_test/get_tests")
+    @GetMapping("/find_test/get_tests")
     public R get_test() {
         try {
-            HashMap<String, Object> data = classificationTestService.get_test();
+            HashMap<String, Object> data = findTestService.get_test();
             return R.ok().setData("test", data);
         } catch (Exception e) {
             e.printStackTrace();
             return R.error().setMessage(e.getMessage());
         }
     }
+
     // 记录做题信息
-    @PostMapping("/classification_test/record")
-    public R receiveTest(@RequestBody SaveClassificationTestInfo saveClassificationTestInfo, @RequestHeader("token") String token) {
+    @PostMapping("/find_test/record")
+    public R receiveTest(@RequestBody SaveFindTestInfo saveFindTestInfo, @RequestHeader("token") String token) {
         int user_id = Integer.parseInt(token);
+        System.out.println(saveFindTestInfo);
         // 处理接收到的 testRequest 对象
         try {
-            classificationTestService.saveRecords(saveClassificationTestInfo,user_id);
+            findTestService.saveRecords(saveFindTestInfo, user_id);
         } catch (Exception e) {
             e.printStackTrace();
             return R.error().setMessage(e.getMessage());

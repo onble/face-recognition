@@ -1,18 +1,18 @@
 package com.all.faceRecognition.service.Impl;
 
-import com.all.faceRecognition.bean.FourTest;
+import com.all.faceRecognition.bean.TestBaseInfo;
 import com.all.faceRecognition.bean.FourTestActions;
 import com.all.faceRecognition.bean.FourTestInfo;
 import com.all.faceRecognition.bean.FourTestRecord;
-import com.all.faceRecognition.common.R;
 import com.all.faceRecognition.mapper.*;
 import com.all.faceRecognition.service.FourTestService;
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+import static com.all.faceRecognition.util.GenerateDataHelper.femaleCharacters;
+import static com.all.faceRecognition.util.GenerateDataHelper.maleCharacters;
 import static com.all.faceRecognition.util.TimeUtils.getCurrentChinaTime;
 
 
@@ -22,7 +22,7 @@ import static com.all.faceRecognition.util.TimeUtils.getCurrentChinaTime;
 @Service
 public class FourTestServiceImpl implements FourTestService {
     @Autowired
-    private FourTestMapper fourTestMapper;
+    private TestBaseInfoMapper testBaseInfoMapper;
     @Autowired
     private PeopleBaseInfoMapper peopleBaseInfoMapper;
     @Autowired
@@ -32,32 +32,14 @@ public class FourTestServiceImpl implements FourTestService {
     @Autowired
     private UserTestMapper userTestMapper;
 
-    private static int ID = 0;
 
-    private static final HashMap<String, Integer> femaleCharacters = new HashMap<String, Integer>() {{
-        put("Angelagbaby", 8);
-        put("迪丽热巴", 36);
-        put("范冰冰", 9);
-        put("杨幂", 46);
-        put("赵丽颖", 9);
-    }};
 
-    private static final HashMap<String, Integer> maleCharacters = new HashMap<String, Integer>() {{
-        put("李晨", 12);
-        put("鹿晗", 16);
-        put("郑恺", 20);
-    }};
-
-    private static int generateId() {
-        ID++;
-        return ID;
-    }
 
     public int insertNewTest(int peopleId, String imageIndex) throws Exception {
-        FourTest testBaseInfo = new FourTest();
+        TestBaseInfo testBaseInfo = new TestBaseInfo();
         testBaseInfo.setPeople_id(peopleId);
         testBaseInfo.setImageIndex(imageIndex);
-        fourTestMapper.insertNewTest(testBaseInfo);
+        testBaseInfoMapper.insertNewTest(testBaseInfo);
         return testBaseInfo.getId();
     }
 
@@ -69,12 +51,12 @@ public class FourTestServiceImpl implements FourTestService {
         Random random = new Random();
         String person1 = personList.get(random.nextInt(personList.size()));
         String person2 = personList.get(random.nextInt(personList.size()));
-        // 获取person1的id
-        Integer person1Id = peopleBaseInfoMapper.selectIdByPeopleName(person1);
-        Integer person2Id = peopleBaseInfoMapper.selectIdByPeopleName(person2);
         while (person2.equals(person1)) {
             person2 = personList.get(random.nextInt(personList.size()));
         }
+        // 获取person1的id
+        Integer person1Id = peopleBaseInfoMapper.selectIdByPeopleName(person1);
+        Integer person2Id = peopleBaseInfoMapper.selectIdByPeopleName(person2);
 
         List<Map<String, Object>> data = new ArrayList<>();
         int imagesNumber = characters.get(person1);
@@ -89,7 +71,7 @@ public class FourTestServiceImpl implements FourTestService {
             String imagePath = "public/face/" + person1 + "/" + imagesIndex.get(i) + ".jpg";
             HashMap<String, Object> entry = new HashMap<>();
             // 根据图片去获取题目id
-            Integer testId = fourTestMapper.selectTestIdByImageIndex(imagePath);
+            Integer testId = testBaseInfoMapper.selectTestIdByImageIndex(imagePath);
             if (testId == null) {
                 // 去增加一个题目
                 testId = insertNewTest(person1Id, imagePath);
@@ -107,7 +89,7 @@ public class FourTestServiceImpl implements FourTestService {
         String imagePath = "public/face/" + person2 + "/" + imageIndex + ".jpg";
         HashMap<String, Object> entry = new HashMap<>();
         // 根据图片去获取题目id
-        Integer testId = fourTestMapper.selectTestIdByImageIndex(imagePath);
+        Integer testId = testBaseInfoMapper.selectTestIdByImageIndex(imagePath);
         if (testId == null) {
             // 去增加一个题目
             testId = insertNewTest(person2Id, imagePath);
@@ -148,14 +130,7 @@ public class FourTestServiceImpl implements FourTestService {
         return data;
     }
 
-    public static HashMap<String, Integer> getRandomCharacters(HashMap<String, Integer> femaleCharacters, HashMap<String, Integer> maleCharacters) {
-        Random random = new Random();
-        if (random.nextBoolean()) {
-            return femaleCharacters;
-        } else {
-            return maleCharacters;
-        }
-    }
+
 
     // 存储做题记录
     public void saveRecords(FourTestRecord testRequest, int user_id) throws Exception {
@@ -168,9 +143,9 @@ public class FourTestServiceImpl implements FourTestService {
         for (Integer testId : action) {
             if (testId > 0) {
                 // 做对记录增加
-                fourTestMapper.addRightTimes(testId);
+                testBaseInfoMapper.addRightTimes(testId);
             } else {
-                fourTestMapper.addWrongTimes(Math.abs(testId));
+                testBaseInfoMapper.addWrongTimes(Math.abs(testId));
             }
         }
         // 遍历 action 列表

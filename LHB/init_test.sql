@@ -110,10 +110,10 @@ values (1, 2, 3, 4),
 create table four_test_action
 (
     id      int primary key auto_increment comment '四选一题目操作id',
-    action1 tinyint not null default 0 comment '操作1',
-    action2 tinyint not null default 0 comment '操作2',
-    action3 tinyint not null default 0 comment '操作3',
-    action4 tinyint not null default 0 comment '操作4'
+    action1 int not null default 0 comment '操作1',
+    action2 int not null default 0 comment '操作2',
+    action3 int not null default 0 comment '操作3',
+    action4 int not null default 0 comment '操作4'
 
 ) comment '四选一题目操作表';
 -- 生成用户做题表
@@ -129,3 +129,48 @@ create table user_test
     foreign key (test_group_id) references four_test_info (id),
     foreign key (user_id) references user (id)
 ) comment '用户做题表';
+-- 生成分类测试题组信息表
+create table classification_test_info
+(
+    id       int primary key auto_increment comment '分类题组id',
+    A_id int comment '人物A',
+    B_id int comment '人物B',
+    test1_id int comment '测试题1',
+    test2_id int comment '测试题2',
+    test3_id int comment '测试题3',
+    test4_id int comment '测试题4',
+    test5_id int comment '测试题5',
+    test6_id int comment '测试题6',
+    test7_id int comment '测试题7',
+    test8_id int comment '测试题8',
+    test9_id int comment '测试题9',
+    test10_id int comment '测试题10',
+    status   tinyint not null default 0 comment '状态，0：正常使用 1:禁止使用',
+    foreign key (A_id) references test_base_info (id),
+    foreign key (B_id) references test_base_info (id),
+    foreign key (test1_id) references test_base_info (id),
+    foreign key (test2_id) references test_base_info (id),
+    foreign key (test3_id) references test_base_info (id),
+    foreign key (test4_id) references test_base_info (id),
+    foreign key (test5_id) references test_base_info (id),
+    foreign key (test6_id) references test_base_info (id),
+    foreign key (test7_id) references test_base_info (id),
+    foreign key (test8_id) references test_base_info (id),
+    foreign key (test9_id) references test_base_info (id),
+    foreign key (test10_id) references test_base_info (id)
+) comment '分类测试题组信息表';
+-- 生成分类测试题目操作表
+create table classification_test_action
+(
+    id      int primary key auto_increment comment '分类题目操作id',
+    action1 int not null default 0 comment '操作1',
+    action2 int not null default 0 comment '操作2',
+    action3 int not null default 0 comment '操作3',
+    action4 int not null default 0 comment '操作4',
+    action5 int not null default 0 comment '操作5',
+    action6 int not null default 0 comment '操作6',
+    action7 int not null default 0 comment '操作7',
+    action8 int not null default 0 comment '操作8',
+    action9 int not null default 0 comment '操作9',
+    action10 int not null default 0 comment '操作10'
+) comment '分类测试题目操作表';

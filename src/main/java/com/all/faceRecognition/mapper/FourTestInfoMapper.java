@@ -1,6 +1,5 @@
 package com.all.faceRecognition.mapper;
 
-import com.all.faceRecognition.bean.FourTest;
 import com.all.faceRecognition.bean.FourTestInfo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;

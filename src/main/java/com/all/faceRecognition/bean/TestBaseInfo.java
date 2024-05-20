@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FourTest {
+public class TestBaseInfo {
     private int id; // 题目id
     private int people_id;// 人物id
     private String imageIndex;// 图片存储路径

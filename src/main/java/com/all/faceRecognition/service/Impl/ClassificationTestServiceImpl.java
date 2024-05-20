@@ -2,9 +2,9 @@ package com.all.faceRecognition.service.Impl;
 
 import com.all.faceRecognition.bean.ClassificationTestInfo;
 import com.all.faceRecognition.bean.TestBaseInfo;
-import com.all.faceRecognition.mapper.ClassificationTestInfoMapper;
-import com.all.faceRecognition.mapper.PeopleBaseInfoMapper;
-import com.all.faceRecognition.mapper.TestBaseInfoMapper;
+import com.all.faceRecognition.bean.save.ClassificationTestAction;
+import com.all.faceRecognition.bean.save.SaveClassificationTestInfo;
+import com.all.faceRecognition.mapper.*;
 import com.all.faceRecognition.service.ClassificationTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +13,7 @@ import java.util.*;
 
 import static com.all.faceRecognition.util.GenerateDataHelper.femaleCharacters;
 import static com.all.faceRecognition.util.GenerateDataHelper.maleCharacters;
+import static com.all.faceRecognition.util.TimeUtils.getCurrentChinaTime;
 
 @Service
 public class ClassificationTestServiceImpl implements ClassificationTestService {
@@ -22,6 +23,10 @@ public class ClassificationTestServiceImpl implements ClassificationTestService 
     private TestBaseInfoMapper testBaseInfoMapper;
     @Autowired
     private ClassificationTestInfoMapper classificationTestInfoMapper;
+    @Autowired
+    private ClassificationTestActionMapper classificationTestActionMapper;
+    @Autowired
+    private UserTestMapper userTestMapper;
 
     public int insertNewTest(int peopleId, String imageIndex) throws Exception {
         TestBaseInfo testBaseInfo = new TestBaseInfo();
@@ -141,5 +146,27 @@ public class ClassificationTestServiceImpl implements ClassificationTestService 
         data.put("group_id", test_group_id);
 
         return data;
+    }
+
+    @Override
+    public void saveRecords(SaveClassificationTestInfo saveClassificationTestInfo, int user_id) throws Exception {
+        // 将发来的数据中提取出来操作
+        ClassificationTestAction classificationTestAction = new ClassificationTestAction();
+        List<SaveClassificationTestInfo.TestWithAnswerChoose> tests = saveClassificationTestInfo.getTests();
+        for (SaveClassificationTestInfo.TestWithAnswerChoose test : tests) {
+            if (test.isChoose()) {
+                classificationTestAction.save_action(test.getId());
+            } else {
+                classificationTestAction.save_action(-test.getId());
+            }
+        }
+        Integer actionId = classificationTestActionMapper.selectActionIdByActionClass(classificationTestAction);
+        if (actionId == null) {
+            classificationTestActionMapper.insertNewTestGroup(classificationTestAction);
+            actionId = classificationTestAction.getId();
+        }
+        // 存储整体的进度
+        userTestMapper.insert(saveClassificationTestInfo.getGroup_id(), getCurrentChinaTime(), 2, saveClassificationTestInfo.getAnswerSeconds(), user_id, actionId);
+
     }
 }

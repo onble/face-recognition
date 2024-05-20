@@ -17,6 +17,7 @@ public class SaveClassificationTestInfo {
     @JsonProperty("B")
     private Test B;
     private List<TestWithAnswerChoose> tests;
+    private int answerSeconds;
 
     @Data
     @AllArgsConstructor

@@ -1,6 +1,7 @@
 package com.all.faceRecognition.mapper;
 
 import com.all.faceRecognition.bean.TestBaseInfo;
+import com.all.faceRecognition.bean.get.TestBaseInfoUserGet;
 import org.apache.ibatis.annotations.*;
 
 /*
@@ -24,4 +25,8 @@ public interface TestBaseInfoMapper {
     // 一个题目的正确次数加一
     @Update("update test_base_info set right_times = right_times + 1 where id = #{test_id}")
     void addRightTimes(int test_id) throws Exception;
+
+    // 根据id获取数据
+    @Select("select * from test_base_info where id = #{id}")
+    TestBaseInfoUserGet selectById(int id);
 }

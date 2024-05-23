@@ -23,4 +23,14 @@ public class UserTestController {
             return R.error().setMessage(e.getMessage());
         }
     }
+    @GetMapping("/trainRecords/fourTest/pages")
+    public R FourTestHistory(@RequestHeader("token") String token, int page, int items) {
+        try {
+            int user_id = Integer.parseInt(token);
+            R result = userTestService.getFourTestInfByPage(page, items, user_id);
+            return result;
+        } catch (Exception e) {
+            return R.error().setMessage(e.getMessage());
+        }
+    }
 }

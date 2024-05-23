@@ -15,11 +15,15 @@ public interface FourTestInfoMapper {
     @Select("select id from four_test_info where test1_id = #{test1_id} and test2_id =#{test2_id} and test3_id = #{test3_id} and test4_id = #{test4_id}")
     Integer selectFourTestGroupIdByTestsIds(int test1_id, int test2_id, int test3_id, int test4_id) throws Exception;
 
-    @Select("select id from four_test_info where test1_id = #{test1_id} and test2_id =#{test2_id} and test3_id = #{test3_id} and test4_id = #{test4_id}")
+    @Select("select id from four_test_info where test1_id = #{test1Id} and test2_id =#{test2Id} and test3_id = #{test3Id} and test4_id = #{test4Id}")
     Integer selectFourTestGroupIdByFourTestInfo(FourTestInfo fourTestInfo) throws Exception;
 
     // 插入一个新的题组
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
-    @Insert("insert into four_test_info( test1_id, test2_id, test3_id, test4_id) value (#{test1_id},#{test2_id},#{test3_id},#{test4_id})")
+    @Insert("insert into four_test_info( test1_id, test2_id, test3_id, test4_id) value (#{test1Id},#{test2Id},#{test3Id},#{test4Id})")
     void insertNewTestGroup(FourTestInfo fourTestInfo) throws Exception;
+
+    // 根据id获取数据
+    @Select("select * from four_test_info where id=#{id}")
+    FourTestInfo selectById(int id);
 }

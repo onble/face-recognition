@@ -122,7 +122,7 @@ create table user_test
     id                 int primary key auto_increment comment '用户测试id',
     test_group_id      int comment '题组信息id',
     done_time          TIMESTAMP comment '做题结束时间',
-    group_kind         tinyint not null default 0 comment '状态，1：四选一题 2:分类测试 3:寻找测试 0:未分类',
+    group_kind         tinyint not null default 0 comment '题组分类，1：四选一题 2:分类测试 3:寻找测试 0:未分类',
     time_spend_seconds INT comment '做题所耗时间s',
     user_id            int comment '用户id',
     test_action_id     int comment '操作id',
@@ -199,7 +199,7 @@ create table find_test_info
 ) comment '寻找测试题组信息表';
 create table find_test_action
 (
-    id      int primary key auto_increment comment '分类题目操作id',
+    id      int primary key auto_increment comment '搜寻题目操作id',
     action1 int not null default 0 comment '操作1',
     action2 int not null default 0 comment '操作2',
     action3 int not null default 0 comment '操作3',

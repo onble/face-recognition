@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class UserTest {
     Integer id;
-    Integer testGroupId;
+    Integer testGroupId;// 题组信息id
     LocalDateTime doneTime;
     int groupKind;
     int timeSpendSeconds;

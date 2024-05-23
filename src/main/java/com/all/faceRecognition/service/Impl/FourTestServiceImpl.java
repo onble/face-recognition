@@ -33,8 +33,6 @@ public class FourTestServiceImpl implements FourTestService {
     private UserTestMapper userTestMapper;
 
 
-
-
     public int insertNewTest(int peopleId, String imageIndex) throws Exception {
         TestBaseInfo testBaseInfo = new TestBaseInfo();
         testBaseInfo.setPeople_id(peopleId);
@@ -131,7 +129,6 @@ public class FourTestServiceImpl implements FourTestService {
     }
 
 
-
     // 存储做题记录
     public void saveRecords(FourTestRecord testRequest, int user_id) throws Exception {
         List<Integer> action = testRequest.getAction();
@@ -158,7 +155,7 @@ public class FourTestServiceImpl implements FourTestService {
             for (int i = 0; i < tests.size(); i++) {
                 int testId = tests.get(i).getId();
                 if (testId == idToFind) {
-                    indexToSave = i;
+                    indexToSave = i + 1;
                     break;
                 }
             }
@@ -173,12 +170,16 @@ public class FourTestServiceImpl implements FourTestService {
             // 如果 action 列表中正数项表示正确选择，停止
             if (act > 0) {
                 // 将剩下的值置为0
-                while (actionToSave.size() <= 4) {
+                if(actionToSave.size() == 0){
+                    System.out.println("++"+testRequest);
+                }
+                while (actionToSave.size() <= 3) {
                     actionToSave.add(0);
                 }
                 break;
             }
         }
+        System.out.println("actionToSave" + actionToSave);
         Integer actions_id = fourTestActionMapper.selectActionIdByActions(actionToSave.get(0), actionToSave.get(1), actionToSave.get(2), actionToSave.get(3));
         FourTestActions fourTestActions = new FourTestActions();
         if (actions_id == null) {

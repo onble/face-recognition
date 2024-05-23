@@ -59,6 +59,7 @@ public class FindTestServiceImpl implements FindTestService {
         entry = new HashMap<>();
         List<HashMap<String, Object>> tests = new ArrayList<>();
         List<String> images = new ArrayList<>();
+        // TODO:没有groupId
         for (int i = 0; i < 7; i++) {
             // 随机抽取一个新的人物
             String new_person = personList.get(random.nextInt(personList.size()));

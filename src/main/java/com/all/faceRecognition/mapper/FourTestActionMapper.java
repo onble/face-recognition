@@ -17,4 +17,8 @@ public interface FourTestActionMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     @Insert("insert into four_test_action( action1, action2, action3, action4) value (#{action1},#{action2},#{action3},#{action4})")
     void insertNewTestGroup(FourTestActions fourTestActions) throws Exception;
+
+    // 根据id获取一组操作
+    @Select("select * from four_test_action where id=#{id}")
+    FourTestActions selectById(int id) throws Exception;
 }

@@ -20,4 +20,9 @@ public interface ClassificationTestInfoMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     @Insert("insert into classification_test_info( A_id, B_id, test1_id, test2_id, test3_id, test4_id, test5_id, test6_id, test7_id, test8_id, test9_id, test10_id) value (#{AId},#{BId},#{test1Id},#{test2Id},#{test3Id},#{test4Id},#{test5Id},#{test6Id},#{test7Id},#{test8Id},#{test9Id},#{test10Id})")
     void insertNewTestGroup(ClassificationTestInfo classificationTestInfo) throws Exception;
+
+    // 根据id获取数据
+    @Select("select * from classification_test_info where id=#{id}")
+    ClassificationTestInfo selectById(int id);
+
 }

@@ -1,5 +1,6 @@
 package com.all.faceRecognition.mapper;
 
+import com.all.faceRecognition.bean.FourTestActions;
 import com.all.faceRecognition.bean.save.ClassificationTestAction;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -20,4 +21,8 @@ public interface ClassificationTestActionMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     @Insert("insert into classification_test_action( action1, action2, action3, action4,action5, action6, action7, action8,action9, action10) value (#{action1},#{action2},#{action3},#{action4},#{action5},#{action6},#{action7},#{action8},#{action9},#{action10})")
     void insertNewTestGroup(ClassificationTestAction classificationTestAction) throws Exception;
+
+    // 根据id获取一组操作
+    @Select("select * from classification_test_action where id=#{id}")
+    ClassificationTestAction selectById(int id) throws Exception;
 }

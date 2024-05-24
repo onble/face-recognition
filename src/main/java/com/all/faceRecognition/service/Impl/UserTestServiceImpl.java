@@ -1,14 +1,14 @@
 package com.all.faceRecognition.service.Impl;
 
+import com.all.faceRecognition.bean.ClassificationTestInfo;
 import com.all.faceRecognition.bean.FourTestActions;
 import com.all.faceRecognition.bean.FourTestInfo;
 import com.all.faceRecognition.bean.UserTest;
+import com.all.faceRecognition.bean.get.classification.ClassificationTestHistory;
 import com.all.faceRecognition.bean.get.fourTest.fourTestHistory;
+import com.all.faceRecognition.bean.save.ClassificationTestAction;
 import com.all.faceRecognition.common.R;
-import com.all.faceRecognition.mapper.FourTestActionMapper;
-import com.all.faceRecognition.mapper.FourTestInfoMapper;
-import com.all.faceRecognition.mapper.TestBaseInfoMapper;
-import com.all.faceRecognition.mapper.UserTestMapper;
+import com.all.faceRecognition.mapper.*;
 import com.all.faceRecognition.service.UserTestService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -28,6 +28,10 @@ public class UserTestServiceImpl implements UserTestService {
     private TestBaseInfoMapper testBaseInfoMapper;
     @Autowired
     private FourTestInfoMapper fourTestInfoMapper;
+    @Autowired
+    private ClassificationTestActionMapper classificationTestActionMapper;
+    @Autowired
+    private ClassificationTestInfoMapper classificationTestInfoMapper;
 
     @Override
     public R getUserTestInfByPage(int page, int items, int user_id) throws Exception {
@@ -70,6 +74,49 @@ public class UserTestServiceImpl implements UserTestService {
             inf.setTest2_baseInfo(testBaseInfoMapper.selectById(fourTestInfo.getTest2Id()));
             inf.setTest3_baseInfo(testBaseInfoMapper.selectById(fourTestInfo.getTest3Id()));
             inf.setTest4_baseInfo(testBaseInfoMapper.selectById(fourTestInfo.getTest4Id()));
+            inf_list.add(inf);
+        }
+        return R.ok().setData("inf_list", inf_list).setData("pages", pageInfo.getPages()).setData("total", pageInfo.getTotal());
+
+    }
+
+    @Override
+    public R getClassificationTestInfByPage(int page, int items, int user_id) throws Exception {
+        // 初始化分页信息
+        PageHelper.startPage(page, items);
+        // 查询全部数据
+        List<UserTest> userTests = userTestMapper.selectClassificationTestByUserId(user_id);
+        // 借助分页助手获取分页信息
+        PageInfo<UserTest> pageInfo = new PageInfo<>(userTests);
+        userTests = pageInfo.getList();
+        List<ClassificationTestHistory> inf_list = new ArrayList<>();
+        for (UserTest userTest : userTests) {
+            ClassificationTestHistory inf = new ClassificationTestHistory();
+            // 保存信息
+            inf.setDoneTime(userTest.getDoneTime());
+            inf.setGroupKind(userTest.getGroupKind());
+            inf.setTimeSpendSeconds(userTest.getTimeSpendSeconds());
+            inf.setUserId(userTest.getUserId());
+            Integer testInfoId = userTest.getTestGroupId();
+            inf.setClassificationInfoId(testInfoId);
+            // 根据userTest的actionId去获取action
+            ClassificationTestAction classificationTestAction = classificationTestActionMapper.selectById(userTest.getTestActionId());
+            // 根据userTest的testGroupId去获取题组的信息
+            ClassificationTestInfo classificationTestInfo = classificationTestInfoMapper.selectById(testInfoId);
+            inf.setUserTestId(userTest.getId());
+            inf.setClassificationTestAction(classificationTestAction);
+            inf.setTest1_baseInfo(testBaseInfoMapper.selectById(classificationTestInfo.getTest1Id()));
+            inf.setTest2_baseInfo(testBaseInfoMapper.selectById(classificationTestInfo.getTest2Id()));
+            inf.setTest3_baseInfo(testBaseInfoMapper.selectById(classificationTestInfo.getTest3Id()));
+            inf.setTest4_baseInfo(testBaseInfoMapper.selectById(classificationTestInfo.getTest4Id()));
+            inf.setTest5_baseInfo(testBaseInfoMapper.selectById(classificationTestInfo.getTest5Id()));
+            inf.setTest6_baseInfo(testBaseInfoMapper.selectById(classificationTestInfo.getTest6Id()));
+            inf.setTest7_baseInfo(testBaseInfoMapper.selectById(classificationTestInfo.getTest7Id()));
+            inf.setTest8_baseInfo(testBaseInfoMapper.selectById(classificationTestInfo.getTest8Id()));
+            inf.setTest9_baseInfo(testBaseInfoMapper.selectById(classificationTestInfo.getTest9Id()));
+            inf.setTest10_baseInfo(testBaseInfoMapper.selectById(classificationTestInfo.getTest10Id()));
+            inf.setTestA_baseInfo(testBaseInfoMapper.selectById(classificationTestInfo.getAId()));
+            inf.setTestB_baseInfo(testBaseInfoMapper.selectById(classificationTestInfo.getBId()));
             inf_list.add(inf);
         }
         return R.ok().setData("inf_list", inf_list).setData("pages", pageInfo.getPages()).setData("total", pageInfo.getTotal());

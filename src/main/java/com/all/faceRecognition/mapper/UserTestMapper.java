@@ -21,4 +21,7 @@ public interface UserTestMapper {
     // 搜索对应题目的数据
     @Select("select * from user_test where user_id=#{user_id} and group_kind=1")
     List<UserTest> selectFourTestByUserId(Integer user_id) throws Exception;
+    // 搜索对应题目的数据
+    @Select("select * from user_test where user_id=#{user_id} and group_kind=2")
+    List<UserTest> selectClassificationTestByUserId(Integer user_id) throws Exception;
 }

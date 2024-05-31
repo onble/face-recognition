@@ -12,4 +12,6 @@ public interface UserTestService {
     R getFourTestInfByPage(int page, int items, int user_id) throws Exception;
 
     R getClassificationTestInfByPage(int page, int items, int user_id) throws Exception;
+
+    R getFindTestInfByPage(int page, int items, int user_id) throws Exception;
 }

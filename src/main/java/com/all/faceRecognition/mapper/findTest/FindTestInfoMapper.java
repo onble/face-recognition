@@ -1,6 +1,5 @@
 package com.all.faceRecognition.mapper.findTest;
 
-import com.all.faceRecognition.bean.ClassificationTestInfo;
 import com.all.faceRecognition.bean.get.findTest.FindTestInfo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -16,4 +15,8 @@ public interface FindTestInfoMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     @Insert("insert into find_test_info(target_id, test1_id, test2_id, test3_id, test4_id, test5_id, test6_id, test7_id, test8_id) value (#{targetId},#{test1Id},#{test2Id},#{test3Id},#{test4Id},#{test5Id},#{test6Id},#{test7Id},#{test8Id})")
     void insertNewTestGroup(FindTestInfo findTestInfo) throws Exception;
+
+    // 根据id获取数据
+    @Select("select * from find_test_info where id=#{id}")
+    FindTestInfo selectById(int id);
 }

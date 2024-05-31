@@ -1,6 +1,8 @@
 package com.all.faceRecognition.service.Impl;
 
+import com.all.faceRecognition.bean.ClassificationTestInfo;
 import com.all.faceRecognition.bean.TestBaseInfo;
+import com.all.faceRecognition.bean.get.findTest.FindTestInfo;
 import com.all.faceRecognition.bean.save.FindTestAction;
 import com.all.faceRecognition.bean.save.SaveFindTestInfo;
 import com.all.faceRecognition.mapper.PeopleBaseInfoMapper;
@@ -28,6 +30,8 @@ public class FindTestServiceImpl implements FindTestService {
     private FindTestActionMapper findTestActionMapper;
     @Autowired
     private UserTestMapper userTestMapper;
+    @Autowired
+    private FindTestInfoMapper findTestInfoMapper;
 
     public int insertNewTest(int peopleId, String imageIndex) throws Exception {
         TestBaseInfo testBaseInfo = new TestBaseInfo();
@@ -39,6 +43,8 @@ public class FindTestServiceImpl implements FindTestService {
 
     @Override
     public HashMap<String, Object> get_test() throws Exception {
+        // 定义一个题组对象记录生成的题组
+        FindTestInfo findTestInfo = new FindTestInfo();
         HashMap<String, Integer> characters = Math.random() < 0.5 ? femaleCharacters : maleCharacters;
         List<String> personList = new ArrayList<>(characters.keySet());
         Random random = new Random();
@@ -53,45 +59,73 @@ public class FindTestServiceImpl implements FindTestService {
         HashMap<String, Object> data = new HashMap<>();
         HashMap<String, Object> entry = new HashMap<>();
         entry.put("id", person1Id);
-        entry.put("image", "public/face/" + person1 + "/" + imagesIndex1.get(0) + ".jpg");
+        String image_index = "public/face/" + person1 + "/" + imagesIndex1.get(0) + ".jpg";
+        entry.put("image", image_index);
         entry.put("name", person1);
         data.put("target", entry);
+        // 根据图片去获取题目id
+        Integer testId = testBaseInfoMapper.selectTestIdByImageIndex(image_index);
+        if (testId == null) {
+            // 去增加一个题目
+            testId = insertNewTest(person1Id, image_index);
+        }
+        findTestInfo.setTargetId(testId);
         entry = new HashMap<>();
         List<HashMap<String, Object>> tests = new ArrayList<>();
         List<String> images = new ArrayList<>();
-        // TODO:没有groupId
-        for (int i = 0; i < 7; i++) {
+        // 随机抽取一个位置
+        int answer_index = random.nextInt(8);
+        for (int i = 0; i < 8; i++) {
+            entry = new HashMap<>();
+            if (answer_index == i) {
+                image_index = "public/face/" + person1 + "/" + imagesIndex1.get(1) + ".jpg";
+                entry.put("id", person1Id);
+                entry.put("image", image_index);
+                entry.put("name", person1);
+                entry.put("answer", true);
+                tests.add(entry);
+                // 根据图片去获取题目id
+                testId = testBaseInfoMapper.selectTestIdByImageIndex(image_index);
+                if (testId == null) {
+                    // 去增加一个题目
+                    testId = insertNewTest(person1Id, image_index);
+                }
+                findTestInfo.save_id(testId);
+                continue;
+            }
             // 随机抽取一个新的人物
             String new_person = personList.get(random.nextInt(personList.size()));
             while (Objects.equals(new_person, person1)) {
                 new_person = personList.get(random.nextInt(personList.size()));
             }
             // 生成图片地址
-            String image_index = "public/face/" + new_person + "/" + (random.nextInt(characters.get(new_person)) + 1) + ".jpg";
+            image_index = "public/face/" + new_person + "/" + (random.nextInt(characters.get(new_person)) + 1) + ".jpg";
             while (images.contains(image_index)) {
                 image_index = "public/face/" + new_person + "/" + (random.nextInt(characters.get(new_person)) + 1) + ".jpg";
             }
             images.add(image_index);
             // 根据图片去获取题目id
-            Integer testId = testBaseInfoMapper.selectTestIdByImageIndex(image_index);
+            testId = testBaseInfoMapper.selectTestIdByImageIndex(image_index);
             if (testId == null) {
                 // 去增加一个题目
                 testId = insertNewTest(person1Id, image_index);
             }
             entry.put("id", testId);
+            findTestInfo.save_id(testId);
             entry.put("image", image_index);
             entry.put("name", new_person);
             entry.put("answer", false);
             tests.add(entry);
-            entry = new HashMap<>();
         }
-        tests.add(new HashMap<String, Object>() {{
-            put("id", person1Id);
-            put("image", "public/face/" + person1 + "/" + imagesIndex1.get(1) + ".jpg");
-            put("name", person1);
-            put("answer", true);
-        }});
-        Collections.shuffle(tests);
+        // 去数据库中找是否存在这个题型
+        Integer test_group_id = findTestInfoMapper.selectFindTestGroupIdByFindTestInfo(findTestInfo);
+        if (test_group_id == null) {
+            // 新增一个题组
+            findTestInfoMapper.insertNewTestGroup(findTestInfo);
+            test_group_id = findTestInfo.getId();
+        }
+        data.put("group_id", test_group_id);
+
         data.put("tests", tests);
 
         return data;
@@ -99,11 +133,15 @@ public class FindTestServiceImpl implements FindTestService {
 
     @Override
     public void saveRecords(SaveFindTestInfo saveFindTestInfo, int user_id) throws Exception {
+        System.out.println("saveFindTestInfo = " + saveFindTestInfo);
         // 将发来的数据中提取出来操作
         FindTestAction findTestAction = new FindTestAction();
         List<SaveFindTestInfo.TestWithAnswerChoose> tests = saveFindTestInfo.getTests();
+        System.out.println("tests = " + tests);
         for (SaveFindTestInfo.TestWithAnswerChoose test : tests) {
-            if (test.getChoose() == null || test.getChoose() <= 0) {
+            if (test.getChoose() == null) {
+                findTestAction.save_action(0);
+            } else if (test.getChoose() <= 0) {
                 findTestAction.save_action(-test.getId());
             } else if (test.getChoose() > 0) {
                 findTestAction.save_action(test.getId());

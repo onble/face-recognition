@@ -45,4 +45,16 @@ public class UserTestController {
             return R.error().setMessage(e.getMessage());
         }
     }
+    @GetMapping("/trainRecords/findTest/pages")
+    public R FindTestHistory(@RequestHeader("token") String token, int page, int items) {
+        try {
+            int user_id = Integer.parseInt(token);
+            R result = userTestService.getFindTestInfByPage(page, items, user_id);
+            System.out.println(result);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.error().setMessage(e.getMessage());
+        }
+    }
 }
